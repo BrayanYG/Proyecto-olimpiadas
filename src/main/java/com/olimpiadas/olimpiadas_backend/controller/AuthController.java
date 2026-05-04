@@ -3,7 +3,7 @@ package com.olimpiadas.olimpiadas_backend.controller;
 import com.olimpiadas.olimpiadas_backend.model.Usuario;
 import com.olimpiadas.olimpiadas_backend.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,5 +38,10 @@ public class AuthController {
         }
 
         return respuesta;
+    }
+
+    @GetMapping("/usuarios")
+    public List<Usuario> listarUsuarios() {
+       return usuarioService.listar();
     }
 }

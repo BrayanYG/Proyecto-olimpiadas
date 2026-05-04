@@ -4,6 +4,7 @@ import com.olimpiadas.olimpiadas_backend.model.Usuario;
 import com.olimpiadas.olimpiadas_backend.repository.UsuarioRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class UsuarioService {
@@ -28,5 +29,9 @@ public class UsuarioService {
         }
 
         return passwordEncoder.matches(password, usuario.getPassword());
+    }
+
+    public List<Usuario> listar() {
+    return usuarioRepository.findAll();
     }
 }
