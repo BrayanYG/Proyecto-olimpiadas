@@ -14,7 +14,10 @@ public class Participante {
     private String apellidos;
     private String dni;
     private Integer edad;
-    private String equipo;
+
+    @ManyToOne
+    @JoinColumn(name = "equipo_id")
+    private Equipo equipo;
 
     public Participante() {
     }
@@ -39,7 +42,7 @@ public class Participante {
         return edad;
     }
 
-    public String getEquipo() {
+    public Equipo getEquipo() {
         return equipo;
     }
 
@@ -63,7 +66,7 @@ public class Participante {
         this.edad = edad;
     }
 
-    public void setEquipo(String equipo) {
+    public void setEquipo(Equipo equipo) {
         this.equipo = equipo;
     }
 }

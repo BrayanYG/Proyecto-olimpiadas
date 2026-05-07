@@ -14,6 +14,10 @@ public class Equipo {
     private String categoria;
     private String deporte;
 
+    @ManyToOne
+    @JoinColumn(name = "institucion_id")
+    private Institucion institucion;
+
     public Equipo() {
     }
 
@@ -33,6 +37,10 @@ public class Equipo {
         return deporte;
     }
 
+    public Institucion getInstitucion() {
+        return institucion;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -47,5 +55,9 @@ public class Equipo {
 
     public void setDeporte(String deporte) {
         this.deporte = deporte;
+    }
+
+    public void setInstitucion(Institucion institucion) {
+        this.institucion = institucion;
     }
 }

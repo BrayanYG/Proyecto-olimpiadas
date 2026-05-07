@@ -11,35 +11,66 @@ public class Inscripcion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String institucion;
-    private String equipo;
+    @ManyToOne
+    @JoinColumn(name = "institucion_id")
+    private Institucion institucion;
+
+    @ManyToOne
+    @JoinColumn(name = "equipo_id")
+    private Equipo equipo;
+
     private String deporte;
     private String estado;
     private LocalDate fecha;
 
-    public Inscripcion() {}
+    public Inscripcion() {
+    }
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getInstitucion() { return institucion; }
+    public Institucion getInstitucion() {
+        return institucion;
+    }
 
-    public String getEquipo() { return equipo; }
+    public Equipo getEquipo() {
+        return equipo;
+    }
 
-    public String getDeporte() { return deporte; }
+    public String getDeporte() {
+        return deporte;
+    }
 
-    public String getEstado() { return estado; }
+    public String getEstado() {
+        return estado;
+    }
 
-    public LocalDate getFecha() { return fecha; }
+    public LocalDate getFecha() {
+        return fecha;
+    }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public void setInstitucion(String institucion) { this.institucion = institucion; }
+    public void setInstitucion(Institucion institucion) {
+        this.institucion = institucion;
+    }
 
-    public void setEquipo(String equipo) { this.equipo = equipo; }
+    public void setEquipo(Equipo equipo) {
+        this.equipo = equipo;
+    }
 
-    public void setDeporte(String deporte) { this.deporte = deporte; }
+    public void setDeporte(String deporte) {
+        this.deporte = deporte;
+    }
 
-    public void setEstado(String estado) { this.estado = estado; }
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
-    public void setFecha(LocalDate fecha) { this.fecha = fecha; }
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
 }
