@@ -2,6 +2,7 @@ package com.olimpiadas.olimpiadas_backend.service;
 
 import com.olimpiadas.olimpiadas_backend.model.Participante;
 import com.olimpiadas.olimpiadas_backend.repository.ParticipanteRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,8 @@ public class ParticipanteService {
         return participanteRepository.findAll();
     }
 
-    public Participante guardar(Participante participante) {
+    @NonNull
+    public Participante guardar(@NonNull Participante participante) {
         return participanteRepository.save(participante);
     }
 
@@ -27,11 +29,12 @@ public class ParticipanteService {
         return participanteRepository.findById(id).orElse(null);
     }
 
-    public Participante actualizar(Long id, Participante datos) {
+    @NonNull
+    public Participante actualizar(Long id, @NonNull Participante datos) {
         Participante participante = buscarPorId(id);
 
         if (participante == null) {
-            return null;
+            throw new RuntimeException("Participante no encontrado");
         }
 
         participante.setNombres(datos.getNombres());

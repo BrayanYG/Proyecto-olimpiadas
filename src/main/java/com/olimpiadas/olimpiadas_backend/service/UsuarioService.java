@@ -2,6 +2,7 @@ package com.olimpiadas.olimpiadas_backend.service;
 
 import com.olimpiadas.olimpiadas_backend.model.Usuario;
 import com.olimpiadas.olimpiadas_backend.repository.UsuarioRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -16,7 +17,8 @@ public class UsuarioService {
     this.usuarioRepository = usuarioRepository;
     }
     
-    public Usuario registrar(Usuario usuario) {
+    @NonNull
+    public Usuario registrar(@NonNull Usuario usuario) {
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return usuarioRepository.save(usuario);
     }

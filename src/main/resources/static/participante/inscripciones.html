@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="h-full" lang="es">
+
+<head>
+    <style>
+        .page-background {
+            background-image: linear-gradient(rgba(41, 0, 4, 0.9), rgba(18, 18, 18, 0.95)), url(https://lh3.googleusercontent.com/aida-public/AB6AXuBH7Yr98KcgkqAiM6B4fVTEZzzKlGiBQwdfWBHKwGQn6eFAs5yHZzSMWp9ZL-YuHMKY4eTtt4F4Wur-7M1L8FXkAQYoDMea0hUgQW77i_k374iFzNXMKuNwjq4Ko1RRy-ocNobmWncnXm4mpOqsfdRBdE-kINRmr_XSFrUkWuytydYO9P0yE2guviAEaTfBU5xBQdkc-MkvFAwx8XbIlhXuIHNaqPN9nvH2nTUeZAKLEBRX-Jez62mQoSlivS4TG-PNYT7RxFlXpwQ);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Inscripciones - Olimpiadas Perúú</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#ad0017",
+                        "olympic-red": "#D91023",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1c1b1b",
+                        "on-surface-variant": "#5d3f3c",
+                        "secondary": "#5d5f5f",
+                        "background": "#fcf9f8",
+                        "surface-container-low": "#f6f3f2"
+                    },
+                    "borderRadius": {
+                        "lg": "0.5rem",
+                        "xl": "0.75rem"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "sm": "12px",
+                        "md": "24px",
+                        "lg": "40px",
+                        "xl": "64px",
+                        "margin": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "title-lg": ["Lexend"],
+                        "label-md": ["Lexend"]
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="../js/sidebar-participante.js?v=4"></script>
+    <script src="../js/header-participante.js?v=4"></script>
+    <link rel="stylesheet" href="../css/style.css?v=4" />
+</head>
+
+<body
+    class="bg-background font-body-md text-on-surface min-h-screen flex flex-col h-full page-background overflow-x-hidden participante-theme">
+    <div class="fixed inset-0 bg-black/70 z-40 md:hidden" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
+    <aside id="sidebar"></aside>
+    <div class="flex flex-col min-h-screen relative transition-sidebar flex-1" id="main-canvas">
+        <header id="header-participante"
+            style="height:64px!important;min-height:64px!important;max-height:64px!important;display:flex!important;align-items:center!important;background-color:rgba(30,30,30,.97)!important;border-bottom:1px solid rgba(255,255,255,.15)!important;box-shadow:0 2px 12px rgba(0,0,0,.4)!important;backdrop-filter:blur(20px)!important;position:sticky!important;top:0!important;z-index:30!important;flex-shrink:0!important;box-sizing:border-box!important;width:100%!important;padding:0 20px!important;">
+        </header>
+
+        <!-- Content Area replicando exactamente Stitch -->
+        <main class="p-4 md:p-margin flex flex-col gap-lg md:gap-xl flex-1 max-w-7xl mx-auto w-full">
+            <div class="flex items-end gap-md mb-lg border-l-8 border-olympic-red pl-md">
+                <h2 class="font-headline-md text-2xl md:text-headline-md text-white uppercase tracking-tight">Eventos
+                    Disponibles</h2>
+            </div>
+
+            <!-- Events Bento-style Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+                <!-- Event Card 1 -->
+                <div
+                    class="bg-white overflow-hidden rounded-xl border-t-4 border-olympic-red flex flex-col shadow-lg hover:shadow-olympic-red/20 transition-all duration-300 group">
+                    <div class="p-md flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-title-lg text-on-surface mb-xs">Maríatón Lima 42K</h3>
+                        <div class="flex items-center gap-xs text-on-surface-variant mb-md">
+                            <span class="material-symbols-outlined text-body-md">location_on</span>
+                            <span class="font-body-md">Estadio Nacional, Lima</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-sm mb-md bg-surface-container-low p-sm rounded-lg">
+                            <div>
+                                <p class="font-caption text-caption text-secondary uppercase">Inicio</p>
+                                <p class="font-label-md text-on-surface">15 Mayo 2024</p>
+                            </div>
+                            <div>
+                                <p class="font-caption text-caption text-secondary uppercase">Fin</p>
+                                <p class="font-label-md text-on-surface">15 Mayo 2024</p>
+                            </div>
+                        </div>
+                        <div class="mt-auto flex flex-col gap-sm">
+                            <span
+                                class="flex items-center justify-center px-sm py-xs bg-green-100 text-green-700 font-label-md text-caption rounded-lg border border-green-200">
+                                <span class="material-symbols-outlined text-[16px] mr-xs">check_circle</span>
+                                Cupos disponibles
+                            </span>
+                            <button
+                                class="w-full bg-olympic-red text-white px-lg py-sm font-label-md text-label-md rounded-lg hover:brightness-110 active:scale-95 transition-all uppercase tracking-wider">Inscribirse</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Card 2 -->
+                <div
+                    class="bg-white overflow-hidden rounded-xl border-t-4 border-olympic-red flex flex-col shadow-lg hover:shadow-olympic-red/20 transition-all duration-300 group">
+                    <div class="p-md flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-title-lg text-on-surface mb-xs">Copa Nacional Inca</h3>
+                        <div class="flex items-center gap-xs text-on-surface-variant mb-md">
+                            <span class="material-symbols-outlined text-body-md">location_on</span>
+                            <span class="font-body-md">Polideportivo Callao</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-sm mb-md bg-surface-container-low p-sm rounded-lg">
+                            <div>
+                                <p class="font-caption text-caption text-secondary uppercase">Inicio</p>
+                                <p class="font-label-md text-on-surface">22 Junio 2024</p>
+                            </div>
+                            <div>
+                                <p class="font-caption text-caption text-secondary uppercase">Fin</p>
+                                <p class="font-label-md text-on-surface">30 Junio 2024</p>
+                            </div>
+                        </div>
+                        <div class="mt-auto flex flex-col gap-sm">
+                            <span
+                                class="flex items-center justify-center px-sm py-xs bg-red-100 text-red-700 font-label-md text-caption rounded-lg border border-red-200">
+                                <span class="material-symbols-outlined text-[16px] mr-xs">block</span>
+                                Sin cupos
+                            </span>
+                            <button
+                                class="w-full border-2 border-olympic-red/30 text-olympic-red/50 px-lg py-sm font-label-md text-label-md rounded-lg cursor-not-allowed uppercase tracking-wider">Agotado</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Card 3 -->
+                <div
+                    class="bg-white overflow-hidden rounded-xl border-t-4 border-olympic-red flex flex-col shadow-lg hover:shadow-olympic-red/20 transition-all duration-300 group">
+                    <div class="p-md flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-title-lg text-on-surface mb-xs">Torneo Regional Sur</h3>
+                        <div class="flex items-center gap-xs text-on-surface-variant mb-md">
+                            <span class="material-symbols-outlined text-body-md">location_on</span>
+                            <span class="font-body-md">Gimnasio Olimpico, Arequipa</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-sm mb-md bg-surface-container-low p-sm rounded-lg">
+                            <div>
+                                <p class="font-caption text-caption text-secondary uppercase">Inicio</p>
+                                <p class="font-label-md text-on-surface">05 Agosto 2024</p>
+                            </div>
+                            <div>
+                                <p class="font-caption text-caption text-secondary uppercase">Fin</p>
+                                <p class="font-label-md text-on-surface">07 Agosto 2024</p>
+                            </div>
+                        </div>
+                        <div class="mt-auto flex flex-col gap-sm">
+                            <span
+                                class="flex items-center justify-center px-sm py-xs bg-green-100 text-green-700 font-label-md text-caption rounded-lg border border-green-200">
+                                <span class="material-symbols-outlined text-[16px] mr-xs">check_circle</span>
+                                Cupos disponibles
+                            </span>
+                            <button
+                                class="w-full bg-olympic-red text-white px-lg py-sm font-label-md text-label-md rounded-lg hover:brightness-110 active:scale-95 transition-all uppercase tracking-wider">Inscribirse</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Event Card 4 -->
+                <div
+                    class="bg-white overflow-hidden rounded-xl border-t-4 border-olympic-red flex flex-col shadow-lg hover:shadow-olympic-red/20 transition-all duration-300 group">
+                    <div class="p-md flex flex-col flex-grow">
+                        <h3 class="font-headline-md text-title-lg text-on-surface mb-xs">Nacional de Natación</h3>
+                        <div class="flex items-center gap-xs text-on-surface-variant mb-md">
+                            <span class="material-symbols-outlined text-body-md">location_on</span>
+                            <span class="font-body-md">VIDENA, San Luis</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-sm mb-md bg-surface-container-low p-sm rounded-lg">
+                            <div>
+                                <p class="font-caption text-caption text-secondary uppercase">Inicio</p>
+                                <p class="font-label-md text-on-surface">12 Setiembre 2024</p>
+                            </div>
+                            <div>
+                                <p class="font-caption text-caption text-secondary uppercase">Fin</p>
+                                <p class="font-label-md text-on-surface">15 Setiembre 2024</p>
+                            </div>
+                        </div>
+                        <div class="mt-auto flex flex-col gap-sm">
+                            <span
+                                class="flex items-center justify-center px-sm py-xs bg-green-100 text-green-700 font-label-md text-caption rounded-lg border border-green-200">
+                                <span class="material-symbols-outlined text-[16px] mr-xs">check_circle</span>
+                                Cupos disponibles
+                            </span>
+                            <button
+                                class="w-full bg-olympic-red text-white px-lg py-sm font-label-md text-label-md rounded-lg hover:brightness-110 active:scale-95 transition-all uppercase tracking-wider">Inscribirse</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer
+            class="w-full border-t border-white/10 px-6 md:px-margin py-8 flex flex-col md:flex-row justify-between items-center gap-md bg-[#1e1e1e] mt-auto">
+            <div class="flex items-center gap-sm opacity-80">
+                <span class="font-label-md text-white text-center md:text-left">© 2024 Comité Olímpico Peruano</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-md">
+                <a class="text-caption text-white/70 hover:text-white transition-colors" href="#">Términos y
+                    Condiciones</a>
+                <a class="text-caption text-white/70 hover:text-white transition-colors" href="#">Privacidad</a>
+                <a class="text-caption text-white/70 hover:text-white transition-colors" href="#">Soporte Técnico</a>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

@@ -2,6 +2,7 @@ package com.olimpiadas.olimpiadas_backend.service;
 
 import com.olimpiadas.olimpiadas_backend.model.Institucion;
 import com.olimpiadas.olimpiadas_backend.repository.InstitucionRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,8 @@ public class InstitucionService {
         return institucionRepository.findAll();
     }
 
-    public Institucion guardar(Institucion institucion) {
+    @NonNull
+    public Institucion guardar(@NonNull Institucion institucion) {
         return institucionRepository.save(institucion);
     }
 
@@ -27,11 +29,12 @@ public class InstitucionService {
         return institucionRepository.findById(id).orElse(null);
     }
 
-    public Institucion actualizar(Long id, Institucion datos) {
+    @NonNull
+    public Institucion actualizar(Long id, @NonNull Institucion datos) {
         Institucion institucion = buscarPorId(id);
 
         if (institucion == null) {
-            return null;
+            throw new RuntimeException("Institucion no encontrada");
         }
 
         institucion.setNombre(datos.getNombre());

@@ -1,9 +1,13 @@
 package com.olimpiadas.olimpiadas_backend.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "usuarios")
+@Data
+@NoArgsConstructor
 public class Usuario {
 
     @Id
@@ -13,39 +17,4 @@ public class Usuario {
     private String username;
     private String password;
     private String rol;
-
-    public Usuario() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
 }

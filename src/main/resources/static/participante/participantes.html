@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="es"><head><style>
+        .page-background {
+            background-image: linear-gradient(rgba(41, 0, 4, 0.9), rgba(18, 18, 18, 0.95)), url(https://lh3.googleusercontent.com/aida-public/AB6AXuBH7Yr98KcgkqAiM6B4fVTEZzzKlGiBQwdfWBHKwGQn6eFAs5yHZzSMWp9ZL-YuHMKY4eTtt4F4Wur-7M1L8FXkAQYoDMea0hUgQW77i_k374iFzNXMKuNwjq4Ko1RRy-ocNobmWncnXm4mpOqsfdRBdE-kINRmr_XSFrUkWuytydYO9P0yE2guviAEaTfBU5xBQdkc-MkvFAwx8XbIlhXuIHNaqPN9nvH2nTUeZAKLEBRX-Jez62mQoSlivS4TG-PNYT7RxFlXpwQ);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Gestión de Participantes - Olimpiadas Perúú</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "outline-variant": "#e7bdb9",
+                        "surface": "#fcf9f8",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-secondary-fixed": "#1a1c1c",
+                        "on-background": "#1c1b1b",
+                        "surface-bright": "#fcf9f8",
+                        "on-tertiary-container": "#f0f0f0",
+                        "on-surface": "#1c1b1b",
+                        "on-error": "#ffffff",
+                        "background": "#fcf9f8",
+                        "on-primary-fixed-variant": "#930011",
+                        "surface-container-high": "#eae7e7",
+                        "secondary-container": "#dfe0e0",
+                        "primary": "#ad0017",
+                        "inverse-primary": "#ffb3ad",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "outline": "#926e6b",
+                        "surface-variant": "#e5e2e1",
+                        "on-primary-container": "#ffecea",
+                        "tertiary-fixed": "#e2e2e2",
+                        "tertiary-container": "#6c6d6d",
+                        "inverse-on-surface": "#f3f0ef",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed-dim": "#ffb3ad",
+                        "tertiary": "#535555",
+                        "secondary": "#5d5f5f",
+                        "surface-container-highest": "#e5e2e1",
+                        "on-primary-fixed": "#410003",
+                        "inverse-surface": "#313030",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "primary-container": "#d91023",
+                        "on-secondary-fixed-variant": "#454747",
+                        "on-tertiary": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#c6c6c7",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#c0001a",
+                        "on-surface-variant": "#5d3f3c",
+                        "error": "#ba1a1a",
+                        "surface-container-low": "#f6f3f2",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#616363",
+                        "surface-dim": "#dcd9d9",
+                        "primary-fixed": "#ffdad6",
+                        "secondary-fixed": "#e2e2e2",
+                        "surface-container": "#f0eded",
+                        "olympic-red": "#D91023",
+                        "white-smoke": "#f5f5f5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "xl": "64px",
+                        "sm": "12px",
+                        "base": "8px",
+                        "margin": "32px",
+                        "lg": "40px",
+                        "md": "24px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Lexend"],
+                        "title-lg": ["Lexend"],
+                        "label-md": ["Lexend"],
+                        "display-lg": ["Lexend"],
+                        "body-lg": ["Lexend"],
+                        "headline-xl": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "caption": ["Lexend"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "title-lg": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
+                        "caption": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .page-background {
+            background-image: linear-gradient(rgba(41, 0, 4, 0.9), rgba(18, 18, 18, 0.95)), url(https://lh3.googleusercontent.com/aida-public/AB6AXuBH7Yr98KcgkqAiM6B4fVTEZzzKlGiBQwdfWBHKwGQn6eFAs5yHZzSMWp9ZL-YuHMKY4eTtt4F4Wur-7M1L8FXkAQYoDMea0hUgQW77i_k374iFzNXMKuNwjq4Ko1RRy-ocNobmWncnXm4mpOqsfdRBdE-kINRmr_XSFrUkWuytydYO9P0yE2guviAEaTfBU5xBQdkc-MkvFAwx8XbIlhXuIHNaqPN9nvH2nTUeZAKLEBRX-Jez62mQoSlivS4TG-PNYT7RxFlXpwQ);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+<script src="../js/sidebar-participante.js?v=4"></script><script src="../js/header-participante.js?v=4"></script><link rel="stylesheet" href="../css/style.css?v=4"></head>
+<body class="font-body-md text-on-surface min-h-screen flex flex-col h-full overflow-x-hidden page-background">
+<!-- Mobile Overlay -->
+<div class="fixed inset-0 bg-black/70 z-40 md:hidden" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
+<!-- NavigationDrawer -->
+<aside id="sidebar"></aside>
+<!-- Main Canvas -->
+<div class="flex flex-col min-h-screen relative transition-sidebar flex-1" id="main-canvas">
+<!-- Header -->
+<header id="header-participante" style="height:64px!important;min-height:64px!important;max-height:64px!important;display:flex!important;align-items:center!important;background-color:rgba(30,30,30,.97)!important;border-bottom:1px solid rgba(255,255,255,.15)!important;box-shadow:0 2px 12px rgba(0,0,0,.4)!important;backdrop-filter:blur(20px)!important;position:sticky!important;top:0!important;z-index:30!important;flex-shrink:0!important;box-sizing:border-box!important;width:100%!important;padding:0 20px!important;"></header>
+<!-- Content Canvas -->
+<div class="p-6 md:p-margin flex flex-col flex-1 w-full gap-md">
+<!-- Controls Row -->
+<div class="flex flex-col md:flex-row gap-4 items-end">
+<!-- Search Bar -->
+<div class="bg-white p-4 rounded-xl shadow-sm border border-outline-variant/30 flex-1 w-full">
+<div class="relative w-full">
+<label class="block text-caption font-label-md text-on-surface-variant mb-1">Nombre / DNI</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-body-md">search</span>
+<input class="w-full bg-white-smoke border border-outline-variant rounded-lg py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all font-body-md" placeholder="Ej: 72458933" type="text"/>
+</div>
+</div>
+</div>
+<!-- Action Button -->
+<button class="bg-olympic-red text-on-primary px-lg py-3 rounded-xl font-label-md text-base flex items-center justify-center gap-sm shadow-md hover:brightness-110 transition-all active:scale-95 whitespace-nowrap h-[74px] md:w-auto w-full" onclick="openModal()">
+<span class="material-symbols-outlined">person_add</span>
+                Registrar Participante
+            </button>
+</div>
+<!-- Participant Table -->
+<div class="bg-white rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/30">
+<th class="px-6 py-4 font-label-md text-on-surface-variant text-sm uppercase tracking-wider">Participante</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant text-sm uppercase tracking-wider">Identificación</th><th class="px-6 py-4 font-label-md text-on-surface-variant text-sm uppercase tracking-wider">Edad</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant text-sm uppercase tracking-wider">Deporte</th>
+<th class="px-6 py-4 font-label-md text-on-surface-variant text-sm uppercase tracking-wider text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/20">
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<img alt="Diego" class="w-10 h-10 rounded-full object-cover border border-outline-variant/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCf_SAbf4U7bDJvhq7W2lyyqkucQn7MyFPHFD2Vc2CFSoZV0NwxApPN0sKOmhBOw_r3ak7ZKn-YSMOEPHgI1WFjX5ZfoHAwBoXppU-qXJiU-7dAcaBfIjfqccrIJ1WjcRFLYTEKluBgFKRI2d1Qv29_YUbb16f_trs-U_SMvH9p2eFnvREWz4loXe86AEj35UI2PRupVdW7vegAwfb11Di8TDs7Kxrhf8sN2b4N74fPWLBgTAVv_QfPgmO8aI0DfX0fnEE1KVQvkd0"/>
+<div>
+<div class="font-bold text-on-surface">Diego Armando Quispe</div>
+<div class="text-caption text-on-surface-variant">Pumas Reales</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-body-md text-sm text-on-surface">71452369</span>
+</td><td class="px-6 py-4"><span class="font-body-md text-sm text-on-surface">24</span></td>
+<td class="px-6 py-4">
+<span class="px-sm py-1 bg-surface-container-high text-on-surface-variant rounded-full font-caption text-[10px] font-bold uppercase tracking-wider">Atletismo</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-primary hover:bg-primary/5 rounded-lg transition-colors"><span class="material-symbols-outlined text-xl">edit</span></button>
+<button class="p-2 text-error hover:bg-error/5 rounded-lg transition-colors"><span class="material-symbols-outlined text-xl">delete</span></button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-4">
+<img alt="Maria" class="w-10 h-10 rounded-full object-cover border border-outline-variant/30" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBibGh9HaCIgwTvcfLEY5YFIwGEkbIP5qMW4dzyJNBp8EIBUpHGxtTbX9CHs9wtunRRfzoGL9h7g6M6k0bgOoVymaWokYQTEqHFt7er_DDDzgfx6D-UYSEFYz_xrW5QSPkgRxFJXPvVnYP-UhvBMHK2wOb2_3_u5EVkQhc5eSCti0VMI8maEUzbOmU4bokDBH00EBqHbNf1BZw5yr2jMnRbk0VMMkOcApYw4HmSp4m05iI9bGSsQzVbbf7aDyupQNQ8rZFQDCvuOuI"/>
+<div>
+<div class="font-bold text-on-surface">María Elena Torres</div>
+<div class="text-caption text-on-surface-variant">Delfines Azules</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="font-body-md text-sm text-on-surface">45896321</span>
+</td><td class="px-6 py-4"><span class="font-body-md text-sm text-on-surface">22</span></td>
+<td class="px-6 py-4">
+<span class="px-sm py-1 bg-surface-container-high text-on-surface-variant rounded-full font-caption text-[10px] font-bold uppercase tracking-wider">Natación</span>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="flex justify-end gap-2">
+<button class="p-2 text-primary hover:bg-primary/5 rounded-lg transition-colors"><span class="material-symbols-outlined text-xl">edit</span></button>
+<button class="p-2 text-error hover:bg-error/5 rounded-lg transition-colors"><span class="material-symbols-outlined text-xl">delete</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Pagination -->
+</div>
+<!-- Footer -->
+<footer class="w-full border-t border-white/10 px-6 md:px-margin py-8 flex flex-col md:flex-row justify-between items-center gap-md bg-[#1e1e1e] mt-auto">
+<div class="flex items-center gap-sm opacity-80">
+<span class="font-label-md text-white text-center md:text-left">© 2024 Comité Olímpico Peruano</span>
+</div>
+<div class="flex flex-wrap justify-center gap-md">
+<a class="text-caption text-white/70 hover:text-white transition-colors" href="#">Términos y Condiciones</a>
+<a class="text-caption text-white/70 hover:text-white transition-colors" href="#">Privacidad</a>
+<a class="text-caption text-white/70 hover:text-white transition-colors" href="#">Soporte Técnico</a>
+</div>
+</footer>
+</div>
+<!-- Modal: Registrar Participante -->
+<div class="hidden fixed inset-0 z-[110] flex items-center justify-center p-4" id="participantModal">
+<div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal()"></div>
+<div class="relative bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-300">
+<div class="bg-olympic-red p-6 text-white flex justify-between items-center">
+<h3 class="font-title-lg">Registrar Participante</h3>
+<button class="hover:bg-white/10 p-1 rounded-full transition-colors" onclick="closeModal()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="p-6 md:p-8 flex flex-col gap-md">
+<div class="space-y-1">
+<label class="block font-label-md text-sm text-gray-500 uppercase tracking-wide">Nombre Completo</label>
+<input class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md" placeholder="Ejem: Juan Pérez" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="block font-label-md text-sm text-gray-500 uppercase tracking-wide">DNI / Documento</label>
+<input class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md" placeholder="8 dígitos" type="text"/>
+</div><div class="space-y-1">
+<label class="block font-label-md text-sm text-gray-500 uppercase tracking-wide">Edad</label>
+<input class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md" placeholder="Ejem: 25" type="number"/>
+</div>
+<div class="space-y-1">
+<label class="block font-label-md text-sm text-gray-500 uppercase tracking-wide">Deporte</label>
+<select class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md">
+<option>Atletismo</option>
+<option>Natación</option>
+<option>Fútbol</option>
+<option>Vóley</option>
+<option>Gimnasia</option>
+</select>
+</div><div class="flex flex-col sm:flex-row gap-4 pt-4">
+<button class="w-full px-6 py-3 border border-gray-300 rounded-lg font-bold text-gray-600 hover:bg-gray-50 transition-colors" onclick="closeModal()">Cancelar</button>
+<button class="w-full px-6 py-3 bg-olympic-red text-white rounded-lg font-bold hover:brightness-110 transition-colors shadow-lg">Guardar Participante</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+    function openModal() {
+        document.getElementById('participantModal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        document.getElementById('participantModal').classList.add('hidden');
+        document.body.style.overflow = '';
+    }
+</script>
+</body></html>
+
+

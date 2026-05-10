@@ -1,32 +1,28 @@
 package com.olimpiadas.olimpiadas_backend.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "inscripciones")
+@Table(name = "sorteos")
 @Data
 @NoArgsConstructor
-public class Inscripcion {
+@AllArgsConstructor
+public class Sorteo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "institucion_id")
-    private Institucion institucion;
+    @JoinColumn(name = "evento_id")
+    private Evento evento;
 
     @ManyToOne
     @JoinColumn(name = "equipo_id")
     private Equipo equipo;
 
-    @ManyToOne
-    @JoinColumn(name = "deporte_id")
-    private Deporte deporte;
-
-    private String estado;
-    private LocalDate fecha;
+    private String grupo; // A, B, C, etc.
 }

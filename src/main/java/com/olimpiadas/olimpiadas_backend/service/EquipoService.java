@@ -2,6 +2,7 @@ package com.olimpiadas.olimpiadas_backend.service;
 
 import com.olimpiadas.olimpiadas_backend.model.Equipo;
 import com.olimpiadas.olimpiadas_backend.repository.EquipoRepository;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,8 @@ public class EquipoService {
         return equipoRepository.findAll();
     }
 
-    public Equipo guardar(Equipo equipo) {
+    @NonNull
+    public Equipo guardar(@NonNull Equipo equipo) {
         return equipoRepository.save(equipo);
     }
 

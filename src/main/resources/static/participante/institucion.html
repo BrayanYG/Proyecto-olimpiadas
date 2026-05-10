@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="h-full" lang="es">
+<head>
+    <style>
+        .page-background {
+            background-image: linear-gradient(rgba(41, 0, 4, 0.9), rgba(18, 18, 18, 0.95)), url(https://lh3.googleusercontent.com/aida-public/AB6AXuBH7Yr98KcgkqAiM6B4fVTEZzzKlGiBQwdfWBHKwGQn6eFAs5yHZzSMWp9ZL-YuHMKY4eTtt4F4Wur-7M1L8FXkAQYoDMea0hUgQW77i_k374iFzNXMKuNwjq4Ko1RRy-ocNobmWncnXm4mpOqsfdRBdE-kINRmr_XSFrUkWuytydYO9P0yE2guviAEaTfBU5xBQdkc-MkvFAwx8XbIlhXuIHNaqPN9nvH2nTUeZAKLEBRX-Jez62mQoSlivS4TG-PNYT7RxFlXpwQ);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .Peruvian-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+    </style>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Perfil Institucional - Mi Institución</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#ad0017",
+                        "olympic-red": "#D91023",
+                        "olympic-black": "#121212",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1c1b1b",
+                        "on-surface-variant": "#5d3f3c",
+                        "surface-bright": "#fcf9f8",
+                        "surface-container-low": "#f6f3f2"
+                    },
+                    "borderRadius": {
+                        "lg": "0.5rem",
+                        "xl": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "md": "24px",
+                        "lg": "40px",
+                        "margin": "32px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Lexend"],
+                        "headline-md": ["Lexend"],
+                        "title-lg": ["Lexend"],
+                        "label-md": ["Lexend"]
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="../js/sidebar-participante.js?v=4"></script>
+    <script src="../js/header-participante.js?v=4"></script>
+    <link rel="stylesheet" href="../css/style.css?v=4"/>
+</head>
+<body class="bg-background font-body-md text-on-surface min-h-screen flex flex-col h-full page-background overflow-x-hidden participante-theme">
+    <div class="fixed inset-0 bg-black/70 z-40 md:hidden" id="mobile-overlay" onclick="toggleMobileMenu()"></div>
+    <aside id="sidebar"></aside>
+    <div class="flex flex-col min-h-screen relative transition-sidebar flex-1" id="main-canvas">
+        <header id="header-participante" style="height:64px!important;min-height:64px!important;max-height:64px!important;display:flex!important;align-items:center!important;background-color:rgba(30,30,30,.97)!important;border-bottom:1px solid rgba(255,255,255,.15)!important;box-shadow:0 2px 12px rgba(0,0,0,.4)!important;backdrop-filter:blur(20px)!important;position:sticky!important;top:0!important;z-index:30!important;flex-shrink:0!important;box-sizing:border-box!important;width:100%!important;padding:0 20px!important;"></header>
+        
+        <!-- Content Area replicando exactamente Stitch -->
+        <main class="flex-1 flex flex-col p-6 md:p-margin gap-lg">
+            <!-- Institution Header -->
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-md mb-2">
+                <div>
+                    <h1 class="font-headline-md text-3xl md:text-headline-md text-white font-bold">Universidad Nacional de Ingeniería</h1>
+                    <p class="font-body-md text-white/70">Sede Principal - Lima, Perúú</p>
+                </div>
+                <button class="bg-olympic-red text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:brightness-110 transition-all active:scale-95 shadow-lg" onclick="openModal()">
+                    <span class="material-symbols-outlined text-[20px]">edit</span>
+                    <span class="font-label-md">Editar Información</span>
+                </button>
+            </div>
+
+            <!-- Dashboard Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+                <!-- Datos Generales Card -->
+                <div class="lg:col-span-7 bg-white/10 backdrop-blur-md rounded-xl p-8 border border-white/20 shadow-xl flex flex-col gap-md overflow-hidden">
+                    <div class="flex items-center gap-sm mb-4 border-b border-white/10 pb-4">
+                        <span class="material-symbols-outlined text-olympic-red">info</span>
+                        <h2 class="font-title-lg text-white">Datos Generales</h2>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex flex-col gap-1">
+                            <span class="font-label-md text-white/50 uppercase tracking-wider text-xs">Siglas</span>
+                            <span class="font-body-lg text-white font-bold">UNI</span>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <span class="font-label-md text-white/50 uppercase tracking-wider text-xs">Dirección</span>
+                            <span class="font-body-lg text-white">Av. Túpac Amaru 210, Rímac 15333, Lima</span>
+                        </div>
+                        <div class="flex flex-col gap-1">
+                            <span class="font-label-md text-white/50 uppercase tracking-wider text-xs">Correo Electrónico Institucional</span>
+                            <span class="font-body-lg text-olympic-red font-medium">contacto@uni.edu.pe</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen Activity Cards -->
+                <div class="lg:col-span-5 flex flex-col gap-gutter">
+                    <div class="bg-olympic-red backdrop-blur-md rounded-xl p-8 border border-white/10 shadow-xl flex flex-col h-full overflow-hidden">
+                        <div class="flex items-center gap-sm mb-6 border-b border-white/20 pb-4 text-white">
+                            <span class="material-symbols-outlined">monitoring</span>
+                            <h2 class="font-title-lg">Resumen de Actividad</h2>
+                        </div>
+                        <div class="grid grid-cols-1 gap-4">
+                            <!-- Stat 1 -->
+                            <div class="bg-white p-5 rounded-lg flex items-center justify-between border border-white/10 shadow-sm">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-primary">groups</span>
+                                    </div>
+                                    <span class="font-body-md font-medium text-on-surface">Equipos Registrados</span>
+                                </div>
+                                <span class="font-headline-md text-primary font-extrabold">12</span>
+                            </div>
+                            <!-- Stat 2 -->
+                            <div class="bg-white p-5 rounded-lg flex items-center justify-between border border-white/10 shadow-sm">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-primary">person</span>
+                                    </div>
+                                    <span class="font-body-md font-medium text-on-surface">Participantes Totales</span>
+                                </div>
+                                <span class="font-headline-md text-primary font-extrabold">158</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Banner Section -->
+                <div class="lg:col-span-12 relative overflow-hidden rounded-xl h-64 bg-olympic-black group shadow-2xl">
+                    <img alt="Deporte Universitario" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBz4jQ6pRRiuBDNI65FwSV8L3RF890-co7KyTf6QAvA6FAOF1ve5Tk-lLYS8QKMpE0UeBRt3waC4WTMcoA17cZqRp9HYhQVoM4aTREMfnQjbbzHg_Alu-nKxqJ-mm1UIUrXI7YnUCkYMmvjf1upHx1N3m9qFYia8wPEAfFJTc2-X3eiWr_Xk_KK11gAw9vZlAkVpH5Je8TxiFJQNuRZM_iFN0khbWKeCaovAiA5UBvvbTmmtXHFC_PPMWVi9cf49bFdFMJ1f_GfYfU"/>
+                    <div class="absolute inset-0 bg-gradient-to-r from-olympic-red/80 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-8 max-w-2xl">
+                        <h3 class="font-headline-md text-2xl md:text-headline-md text-white mb-2">Excelencia Académica y Deportiva</h3>
+                        <p class="font-body-md text-white/90">Potenciando el talento de los futuros ingenieros en la arena competitiva nacional.</p>
+                    </div>
+                    <div class="absolute top-0 right-0 p-8 hidden md:block">
+                        <div class="Peruvian-pattern w-32 h-32 opacity-20"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="w-full border-t border-white/10 px-6 md:px-margin py-8 flex flex-col md:flex-row justify-between items-center gap-md bg-[#1e1e1e] mt-auto">
+            <div class="flex items-center gap-sm opacity-80">
+                <span class="font-label-md text-white text-center md:text-left">© 2024 Comité Olímpico Peruano</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-md">
+                <a class="text-caption text-white/70 hover:text-white transition-colors" href="#">Términos y Condiciones</a>
+                <a class="text-caption text-white/70 hover:text-white transition-colors" href="#">Privacidad</a>
+                <a class="text-caption text-white/70 hover:text-white transition-colors" href="#">Soporte Técnico</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal Edit Form -->
+    <div class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4" id="edit-modal">
+        <div class="fixed inset-0 bg-black/80 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="relative bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-300">
+            <div class="bg-olympic-red p-6 text-white flex justify-between items-center">
+                <h3 class="font-title-lg">Editar Información Institucional</h3>
+                <button class="hover:bg-white/10 p-1 rounded-full transition-colors" onclick="closeModal()">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <form class="p-8 space-y-6 text-olympic-black">
+                <div class="space-y-1">
+                    <label class="block font-label-md text-sm text-gray-500 uppercase tracking-wide">Siglas</label>
+                    <input class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md" type="text" value="UNI"/>
+                </div>
+                <div class="space-y-1">
+                    <label class="block font-label-md text-sm text-gray-500 uppercase tracking-wide">Dirección</label>
+                    <input class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md" type="text" value="Av. Túpac Amaru 210, Rímac 15333, Lima"/>
+                </div>
+                <div class="space-y-1">
+                    <label class="block font-label-md text-sm text-gray-500 uppercase tracking-wide">Correo Institucional</label>
+                    <input class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md" type="email" value="contacto@uni.edu.pe"/>
+                </div>
+                <div class="flex gap-4 pt-4">
+                    <button class="flex-1 px-6 py-3 border border-gray-300 rounded-lg font-bold text-gray-600 hover:bg-gray-50 transition-colors" onclick="closeModal()" type="button">Cancelar</button>
+                    <button class="flex-1 px-6 py-3 bg-olympic-red text-white rounded-lg font-bold hover:brightness-110 transition-colors shadow-lg" type="submit">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById('edit-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById('edit-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>
+
