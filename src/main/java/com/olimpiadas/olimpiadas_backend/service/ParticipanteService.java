@@ -25,12 +25,12 @@ public class ParticipanteService {
         return participanteRepository.save(participante);
     }
 
-    public Participante buscarPorId(Long id) {
+    public Participante buscarPorId(@NonNull Long id) {
         return participanteRepository.findById(id).orElse(null);
     }
 
     @NonNull
-    public Participante actualizar(Long id, @NonNull Participante datos) {
+    public Participante actualizar(@NonNull Long id, @NonNull Participante datos) {
         Participante participante = buscarPorId(id);
 
         if (participante == null) {
@@ -46,7 +46,7 @@ public class ParticipanteService {
         return participanteRepository.save(participante);
     }
 
-    public boolean eliminar(Long id) {
+    public boolean eliminar(@NonNull Long id) {
         Participante participante = buscarPorId(id);
 
         if (participante == null) {

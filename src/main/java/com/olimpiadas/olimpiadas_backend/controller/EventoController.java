@@ -23,19 +23,19 @@ public class EventoController {
     }
 
     @PostMapping
-    public Evento guardar(@RequestBody Evento evento) {
+    public Evento guardar(@RequestBody @org.springframework.lang.NonNull Evento evento) {
         return eventoRepository.save(evento);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Evento> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Evento> buscarPorId(@PathVariable @org.springframework.lang.NonNull Long id) {
         return eventoRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Evento> actualizar(@PathVariable Long id, @RequestBody Evento datos) {
+    public ResponseEntity<Evento> actualizar(@PathVariable @org.springframework.lang.NonNull Long id, @RequestBody Evento datos) {
         return eventoRepository.findById(id)
                 .map(evento -> {
                     evento.setNombre(datos.getNombre());
@@ -49,7 +49,7 @@ public class EventoController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminar(@PathVariable @org.springframework.lang.NonNull Long id) {
         if (eventoRepository.existsById(id)) {
             eventoRepository.deleteById(id);
             return ResponseEntity.ok().build();

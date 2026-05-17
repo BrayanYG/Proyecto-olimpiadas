@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="material-symbols-outlined" style="${perfilFill}">settings</span>
                 <span class="nav-label" style="font-family: 'Lexend', sans-serif; font-size: 14px;">Mi Perfil</span>
             </a>
-            <a href="../index.html" class="nav-item" style="border-left: 4px solid transparent;">
+            <a href="#" onclick="window.logout(); return false;" class="nav-item" style="border-left: 4px solid transparent;">
                 <span class="material-symbols-outlined">logout</span>
                 <span class="nav-label" style="font-family: 'Lexend', sans-serif; font-size: 14px;">Cerrar sesi\u00f3n</span>
             </a>

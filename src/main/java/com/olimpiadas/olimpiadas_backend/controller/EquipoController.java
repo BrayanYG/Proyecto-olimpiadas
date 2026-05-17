@@ -23,22 +23,22 @@ public class EquipoController {
     }
 
     @PostMapping
-    public Equipo guardar(@RequestBody Equipo equipo) {
+    public Equipo guardar(@RequestBody @org.springframework.lang.NonNull Equipo equipo) {
         return equipoService.guardar(equipo);
     }
 
     @GetMapping("/{id}")
-    public Equipo buscarPorId(@PathVariable Long id) {
+    public Equipo buscarPorId(@PathVariable @org.springframework.lang.NonNull Long id) {
         return equipoService.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
-    public Equipo actualizar(@PathVariable Long id, @RequestBody Equipo equipo) {
+    public Equipo actualizar(@PathVariable @org.springframework.lang.NonNull Long id, @RequestBody Equipo equipo) {
         return equipoService.actualizar(id, equipo);
     }
 
     @DeleteMapping("/{id}")
-    public String eliminar(@PathVariable Long id) {
+    public String eliminar(@PathVariable @org.springframework.lang.NonNull Long id) {
         boolean eliminado = equipoService.eliminar(id);
 
         if (eliminado) {

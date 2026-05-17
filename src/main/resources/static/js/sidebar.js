@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
     menuHtml += `
         <div class="mt-auto">
             <div class="divider"></div>
-            <a href="../index.html" class="nav-item mb-2">
+            <a href="#" onclick="window.logout(); return false;" class="nav-item mb-2">
                 <span class="material-symbols-outlined">logout</span>
                 <span class="font-label-md text-sm nav-label">Cerrar sesión</span>
             </a>

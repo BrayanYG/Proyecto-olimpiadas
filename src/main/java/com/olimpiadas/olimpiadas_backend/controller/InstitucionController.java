@@ -23,22 +23,22 @@ public class InstitucionController {
     }
 
     @PostMapping
-    public Institucion guardar(@RequestBody Institucion institucion) {
+    public Institucion guardar(@RequestBody @org.springframework.lang.NonNull Institucion institucion) {
         return institucionService.guardar(institucion);
     }
 
     @GetMapping("/{id}")
-    public Institucion buscarPorId(@PathVariable Long id) {
+    public Institucion buscarPorId(@PathVariable @org.springframework.lang.NonNull Long id) {
         return institucionService.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
-    public Institucion actualizar(@PathVariable Long id, @RequestBody Institucion institucion) {
+    public Institucion actualizar(@PathVariable @org.springframework.lang.NonNull Long id, @RequestBody @org.springframework.lang.NonNull Institucion institucion) {
         return institucionService.actualizar(id, institucion);
     }
 
     @DeleteMapping("/{id}")
-    public String eliminar(@PathVariable Long id) {
+    public String eliminar(@PathVariable @org.springframework.lang.NonNull Long id) {
         boolean eliminado = institucionService.eliminar(id);
 
         if (eliminado) {

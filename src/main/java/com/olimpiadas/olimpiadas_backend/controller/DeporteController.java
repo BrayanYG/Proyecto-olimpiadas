@@ -23,19 +23,19 @@ public class DeporteController {
     }
 
     @PostMapping
-    public Deporte guardar(@RequestBody Deporte deporte) {
+    public Deporte guardar(@RequestBody @org.springframework.lang.NonNull Deporte deporte) {
         return deporteRepository.save(deporte);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Deporte> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Deporte> buscarPorId(@PathVariable @org.springframework.lang.NonNull Long id) {
         return deporteRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Deporte> actualizar(@PathVariable Long id, @RequestBody Deporte datos) {
+    public ResponseEntity<Deporte> actualizar(@PathVariable @org.springframework.lang.NonNull Long id, @RequestBody Deporte datos) {
         return deporteRepository.findById(id)
                 .map(deporte -> {
                     deporte.setNombre(datos.getNombre());
@@ -47,7 +47,7 @@ public class DeporteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminar(@PathVariable @org.springframework.lang.NonNull Long id) {
         if (deporteRepository.existsById(id)) {
             deporteRepository.deleteById(id);
             return ResponseEntity.ok().build();

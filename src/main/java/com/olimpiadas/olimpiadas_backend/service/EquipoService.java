@@ -25,11 +25,11 @@ public class EquipoService {
         return equipoRepository.save(equipo);
     }
 
-    public Equipo buscarPorId(Long id) {
+    public Equipo buscarPorId(@NonNull Long id) {
         return equipoRepository.findById(id).orElse(null);
     }
 
-    public Equipo actualizar(Long id, Equipo datos) {
+    public Equipo actualizar(@NonNull Long id, Equipo datos) {
         Equipo equipo = buscarPorId(id);
 
         if (equipo == null) {
@@ -43,7 +43,7 @@ public class EquipoService {
         return equipoRepository.save(equipo);
     }
 
-    public boolean eliminar(Long id) {
+    public boolean eliminar(@NonNull Long id) {
         Equipo equipo = buscarPorId(id);
 
         if (equipo == null) {

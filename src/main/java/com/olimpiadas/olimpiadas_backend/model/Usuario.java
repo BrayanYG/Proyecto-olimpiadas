@@ -14,7 +14,10 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String username;
     private String password;
+    private String email;
     private String rol;
+    private String codigoMfa;
 }

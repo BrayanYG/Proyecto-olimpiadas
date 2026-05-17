@@ -23,22 +23,22 @@ public class ParticipanteController {
     }
 
     @PostMapping
-    public Participante guardar(@RequestBody Participante participante) {
+    public Participante guardar(@RequestBody @org.springframework.lang.NonNull Participante participante) {
         return participanteService.guardar(participante);
     }
 
     @GetMapping("/{id}")
-    public Participante buscarPorId(@PathVariable Long id) {
+    public Participante buscarPorId(@PathVariable @org.springframework.lang.NonNull Long id) {
         return participanteService.buscarPorId(id);
     }
 
     @PutMapping("/{id}")
-    public Participante actualizar(@PathVariable Long id, @RequestBody Participante participante) {
+    public Participante actualizar(@PathVariable @org.springframework.lang.NonNull Long id, @RequestBody @org.springframework.lang.NonNull Participante participante) {
         return participanteService.actualizar(id, participante);
     }
 
     @DeleteMapping("/{id}")
-    public String eliminar(@PathVariable Long id) {
+    public String eliminar(@PathVariable @org.springframework.lang.NonNull Long id) {
         boolean eliminado = participanteService.eliminar(id);
 
         if (eliminado) {

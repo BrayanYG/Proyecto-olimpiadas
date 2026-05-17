@@ -23,7 +23,7 @@ public class InscripcionController {
     }
 
     @PostMapping
-    public Inscripcion guardar(@RequestBody Inscripcion inscripcion) {
+    public Inscripcion guardar(@RequestBody @org.springframework.lang.NonNull Inscripcion inscripcion) {
         return inscripcionService.guardar(inscripcion);
     }
 }

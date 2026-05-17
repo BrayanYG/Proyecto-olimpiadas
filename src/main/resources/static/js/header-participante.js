@@ -77,12 +77,23 @@ document.addEventListener('DOMContentLoaded', function() {
             <span class="material-symbols-outlined">menu</span>
         </button>` : '';
 
+    const usuarioStr = localStorage.getItem('usuario');
+    let username = "Inca Warriors";
+    if (usuarioStr) {
+        try {
+            const usuario = JSON.parse(usuarioStr);
+            if (usuario && usuario.username) {
+                username = usuario.username;
+            }
+        } catch (e) {}
+    }
+
     header.innerHTML = `
         <div style="flex:1;display:flex;align-items:center;gap:16px;min-width:0;width:100%;">
             ${menuBtnHtml}
             <div style="flex:1;min-width:0;">
                 <h2 style="font-family:'Lexend',sans-serif;font-size:${isDesktop ? '18px' : '15px'};font-weight:400;color:white;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0;line-height:1.3;">
-                    Participante: <span style="font-weight:700;">Inca Warriors</span>
+                    Participante: <span style="font-weight:700;">${username}</span>
                 </h2>
             </div>
             <span style="flex-shrink:0;font-family:'Lexend',sans-serif;font-size:12px;color:rgba(255,255,255,0.55);white-space:nowrap;">ID: 2024-IW-001</span>

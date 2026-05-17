@@ -155,8 +155,7 @@
                     <p class="font-body-md text-body-md text-on-surface-variant">Ingresa tus credenciales para continuar
                     </p>
                 </div>
-                <form class="space-y-md"
-                    onsubmit="event.preventDefault(); const role = document.getElementById('email').value.toLowerCase(); if(role === 'admin') { window.location.href = 'administrador/dashboard.html'; } else { window.location.href = 'participante/index.html'; }">
+                <form id="login-form" class="space-y-md">
                     <div>
                         <label class="block font-label-md text-label-md text-on-surface mb-xs"
                             for="email">Usuario</label>
@@ -171,12 +170,18 @@
                             <a class="font-label-md text-label-md text-primary hover:underline transition-all"
                                 href="#">¿Olvidaste tu contraseña?</a>
                         </div>
-                        <input
-                            class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md"
-                            id="password" placeholder="••••••••" type="password" />
+                        <div class="relative">
+                            <input
+                                class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md pr-12"
+                                id="password" placeholder="••••••••" type="password" />
+                            <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-primary transition-colors" onclick="togglePasswordVisibility('password', 'login-eye-icon')">
+                                <span class="material-symbols-outlined" id="login-eye-icon">visibility</span>
+                            </button>
+                        </div>
                     </div>
                     <button
-                        class="w-full bg-primary-container text-on-primary-container font-title-lg text-title-lg py-md rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-md mt-sm"
+                        id="login-submit-btn"
+                        class="w-full bg-primary-container text-on-primary-container font-title-lg text-title-lg py-md rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-md mt-sm flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
                         type="submit">
                         Iniciar Sesión
                     </button>
@@ -207,7 +212,7 @@
             <div class="p-lg">
                 <p class="font-body-md text-on-surface-variant mb-md">Crea tu cuenta para vivir la pasión del deporte
                     nacional.</p>
-                <form class="space-y-md">
+                <form id="reg-form" class="space-y-md">
                     <div>
                         <label class="block font-label-md text-label-md text-on-surface mb-xs" for="reg-email">Correo
                             electrónico</label>
@@ -225,9 +230,14 @@
                     <div>
                         <label class="block font-label-md text-label-md text-on-surface mb-xs"
                             for="reg-password">Contraseña</label>
-                        <input
-                            class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md"
-                            id="reg-password" placeholder="••••••••" required="" type="password" />
+                        <div class="relative">
+                            <input
+                                class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md pr-12"
+                                id="reg-password" placeholder="••••••••" required="" type="password" />
+                            <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-primary transition-colors" onclick="togglePasswordVisibility('reg-password', 'reg-eye-icon')">
+                                <span class="material-symbols-outlined" id="reg-eye-icon">visibility</span>
+                            </button>
+                        </div>
                     </div>
                     <button
                         class="w-full bg-primary-container text-on-primary-container font-title-lg text-title-lg py-md rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-md mt-lg"
@@ -238,6 +248,17 @@
             </div>
         </div>
     </div>
+
+    <!-- Custom Alert Modal -->
+    <div class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300 opacity-0" id="custom-alert-modal">
+        <div class="bg-surface w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95 flex flex-col items-center p-lg text-center" id="custom-alert-content">
+            <span class="material-symbols-outlined text-[48px] mb-sm" id="custom-alert-icon"></span>
+            <h3 class="font-headline-md text-title-lg mb-xs text-on-surface" id="custom-alert-title">Mensaje</h3>
+            <p class="font-body-md text-on-surface-variant mb-md" id="custom-alert-message">Aquí va el mensaje.</p>
+            <button class="w-full bg-primary-container text-on-primary-container font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all" onclick="closeCustomAlert()">Aceptar</button>
+        </div>
+    </div>
+
     <script>
         const modal = document.getElementById('registration-modal');
         const openBtn = document.getElementById('open-register-modal');
@@ -257,6 +278,49 @@
             }
         };
 
+        const togglePasswordVisibility = (inputId, iconId) => {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.innerText = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.innerText = 'visibility';
+            }
+        };
+
+        const customAlertModal = document.getElementById('custom-alert-modal');
+        const customAlertContent = document.getElementById('custom-alert-content');
+
+        const showCustomAlert = (title, message, isError = false) => {
+            document.getElementById('custom-alert-title').innerText = title;
+            document.getElementById('custom-alert-message').innerText = message;
+            
+            const icon = document.getElementById('custom-alert-icon');
+            if (isError) {
+                icon.innerText = 'error';
+                icon.classList.add('text-error');
+                icon.classList.remove('text-primary');
+            } else {
+                icon.innerText = 'check_circle';
+                icon.classList.add('text-primary');
+                icon.classList.remove('text-error');
+            }
+
+            customAlertModal.classList.remove('hidden');
+            setTimeout(() => {
+                customAlertModal.classList.remove('opacity-0');
+                customAlertContent.classList.remove('scale-95');
+            }, 10);
+        };
+
+        const closeCustomAlert = () => {
+            customAlertModal.classList.add('opacity-0');
+            customAlertContent.classList.add('scale-95');
+            setTimeout(() => customAlertModal.classList.add('hidden'), 300);
+        };
+
         openBtn.addEventListener('click', (e) => {
             e.preventDefault();
             toggleModal(true);
@@ -266,6 +330,89 @@
 
         modal.addEventListener('click', (e) => {
             if (e.target === modal) toggleModal(false);
+        });
+
+        const regForm = document.getElementById('reg-form');
+        regForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('reg-email').value;
+            const username = document.getElementById('reg-user').value;
+            const password = document.getElementById('reg-password').value;
+
+            // Validación de contraseña segura
+            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+            if (!passwordRegex.test(password)) {
+                showCustomAlert(
+                    'Contraseña débil', 
+                    'La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, un número y un carácter especial.', 
+                    true
+                );
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/auth/registro', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, username, password })
+                });
+
+                if (response.ok) {
+                    showCustomAlert('¡Registro exitoso!', 'Tu cuenta ha sido creada correctamente. Ahora puedes iniciar sesión.');
+                    toggleModal(false);
+                    regForm.reset();
+                } else if (response.status === 400) {
+                    const data = await response.json();
+                    showCustomAlert('Usuario no disponible', data.error || 'El nombre de usuario ya está en uso. Por favor, escoge otro.', true);
+                } else {
+                    showCustomAlert('Error', 'No se pudo registrar el usuario. Inténtalo de nuevo.', true);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showCustomAlert('Error de conexión', 'No se pudo conectar con el servidor.', true);
+            }
+        });
+        const loginForm = document.getElementById('login-form');
+        const loginSubmitBtn = document.getElementById('login-submit-btn');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const originalBtnText = loginSubmitBtn.innerHTML;
+            loginSubmitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin align-middle mr-2" style="animation: spin 1s linear infinite;">progress_activity</span>Enviando...';
+            loginSubmitBtn.disabled = true;
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (data.estado === 'MFA_REQUIRED') {
+                    localStorage.setItem('temp_username', data.username);
+                    window.location.href = 'mfa.html';
+                } else if (data.estado === true) {
+                    localStorage.setItem('usuario', JSON.stringify({ username: data.username, rol: data.rol }));
+                    if (data.rol === 'ADMINISTRADOR') {
+                        window.location.href = 'administrador/dashboard.html';
+                    } else {
+                        window.location.href = 'participante/index.html';
+                    }
+                } else {
+                    showCustomAlert('Error de inicio de sesión', data.mensaje || 'Usuario o contraseña incorrectos', true);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showCustomAlert('Error de conexión', 'No se pudo conectar con el servidor.', true);
+            } finally {
+                loginSubmitBtn.innerHTML = originalBtnText;
+                loginSubmitBtn.disabled = false;
+            }
         });
     </script>
 </body>

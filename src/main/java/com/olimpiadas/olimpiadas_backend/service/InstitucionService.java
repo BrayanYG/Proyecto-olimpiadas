@@ -25,12 +25,12 @@ public class InstitucionService {
         return institucionRepository.save(institucion);
     }
 
-    public Institucion buscarPorId(Long id) {
+    public Institucion buscarPorId(@NonNull Long id) {
         return institucionRepository.findById(id).orElse(null);
     }
 
     @NonNull
-    public Institucion actualizar(Long id, @NonNull Institucion datos) {
+    public Institucion actualizar(@NonNull Long id, @NonNull Institucion datos) {
         Institucion institucion = buscarPorId(id);
 
         if (institucion == null) {
@@ -44,7 +44,7 @@ public class InstitucionService {
         return institucionRepository.save(institucion);
     }
 
-    public boolean eliminar(Long id) {
+    public boolean eliminar(@NonNull Long id) {
         Institucion institucion = buscarPorId(id);
 
         if (institucion == null) {
