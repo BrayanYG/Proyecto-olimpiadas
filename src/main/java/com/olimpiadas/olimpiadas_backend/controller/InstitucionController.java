@@ -33,7 +33,8 @@ public class InstitucionController {
     }
 
     @PutMapping("/{id}")
-    public Institucion actualizar(@PathVariable @org.springframework.lang.NonNull Long id, @RequestBody @org.springframework.lang.NonNull Institucion institucion) {
+    public Institucion actualizar(@PathVariable @org.springframework.lang.NonNull Long id,
+            @RequestBody @org.springframework.lang.NonNull Institucion institucion) {
         return institucionService.actualizar(id, institucion);
     }
 

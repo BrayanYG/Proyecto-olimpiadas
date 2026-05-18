@@ -1,420 +1,583 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html class="light" lang="es">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap" rel="stylesheet" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;display=swap"
+      rel="stylesheet"
+    />
     <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
     <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "tertiary-container": "#6c6d6d",
-                        "on-secondary-fixed": "#1a1c1c",
-                        "on-surface-variant": "#5d3f3c",
-                        "primary-fixed-dim": "#ffb3ad",
-                        "outline-variant": "#e7bdb9",
-                        "secondary-container": "#dfe0e0",
-                        "surface-container-highest": "#e5e2e1",
-                        "primary-fixed": "#ffdad6",
-                        "on-tertiary-container": "#f0f0f0",
-                        "surface-container": "#f0eded",
-                        "on-primary-fixed-variant": "#930011",
-                        "background": "#fcf9f8",
-                        "error-container": "#ffdad6",
-                        "surface-dim": "#dcd9d9",
-                        "on-primary": "#ffffff",
-                        "surface": "#fcf9f8",
-                        "surface-variant": "#e5e2e1",
-                        "secondary-fixed-dim": "#c6c6c7",
-                        "inverse-on-surface": "#f3f0ef",
-                        "on-tertiary-fixed-variant": "#454747",
-                        "primary": "#ad0017",
-                        "tertiary-fixed-dim": "#c6c6c7",
-                        "on-surface": "#1c1b1b",
-                        "surface-container-low": "#f6f3f2",
-                        "outline": "#926e6b",
-                        "surface-container-lowest": "#ffffff",
-                        "on-primary-fixed": "#410003",
-                        "inverse-primary": "#ffb3ad",
-                        "on-tertiary-fixed": "#1a1c1c",
-                        "on-error-container": "#93000a",
-                        "secondary-fixed": "#e2e2e2",
-                        "on-background": "#1c1b1b",
-                        "secondary": "#5d5f5f",
-                        "on-primary-container": "#ffecea",
-                        "on-secondary-container": "#616363",
-                        "on-error": "#ffffff",
-                        "on-secondary-fixed-variant": "#454747",
-                        "tertiary-fixed": "#e2e2e2",
-                        "tertiary": "#535555",
-                        "primary-container": "#d91023",
-                        "surface-bright": "#fcf9f8",
-                        "on-secondary": "#ffffff",
-                        "error": "#ba1a1a",
-                        "on-tertiary": "#ffffff",
-                        "surface-tint": "#c0001a",
-                        "surface-container-high": "#eae7e7",
-                        "inverse-surface": "#313030"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "base": "8px",
-                        "sm": "12px",
-                        "md": "24px",
-                        "xs": "4px",
-                        "lg": "40px",
-                        "gutter": "24px",
-                        "margin": "32px",
-                        "xl": "64px"
-                    },
-                    "fontFamily": {
-                        "headline-md": ["Lexend"],
-                        "display-lg": ["Lexend"],
-                        "title-lg": ["Lexend"],
-                        "body-md": ["Lexend"],
-                        "body-lg": ["Lexend"],
-                        "caption": ["Lexend"],
-                        "label-md": ["Lexend"],
-                        "headline-xl": ["Lexend"]
-                    },
-                    "fontSize": {
-                        "headline-md": ["32px", { "lineHeight": "1.3", "fontWeight": "700" }],
-                        "display-lg": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800" }],
-                        "title-lg": ["20px", { "lineHeight": "1.4", "fontWeight": "600" }],
-                        "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
-                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
-                        "caption": ["12px", { "lineHeight": "1.2", "fontWeight": "500" }],
-                        "label-md": ["14px", { "lineHeight": "1.2", "fontWeight": "600" }],
-                        "headline-xl": ["48px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700" }]
-                    }
-                },
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#6c6d6d",
+              "on-secondary-fixed": "#1a1c1c",
+              "on-surface-variant": "#5d3f3c",
+              "primary-fixed-dim": "#ffb3ad",
+              "outline-variant": "#e7bdb9",
+              "secondary-container": "#dfe0e0",
+              "surface-container-highest": "#e5e2e1",
+              "primary-fixed": "#ffdad6",
+              "on-tertiary-container": "#f0f0f0",
+              "surface-container": "#f0eded",
+              "on-primary-fixed-variant": "#930011",
+              background: "#fcf9f8",
+              "error-container": "#ffdad6",
+              "surface-dim": "#dcd9d9",
+              "on-primary": "#ffffff",
+              surface: "#fcf9f8",
+              "surface-variant": "#e5e2e1",
+              "secondary-fixed-dim": "#c6c6c7",
+              "inverse-on-surface": "#f3f0ef",
+              "on-tertiary-fixed-variant": "#454747",
+              primary: "#ad0017",
+              "tertiary-fixed-dim": "#c6c6c7",
+              "on-surface": "#1c1b1b",
+              "surface-container-low": "#f6f3f2",
+              outline: "#926e6b",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-fixed": "#410003",
+              "inverse-primary": "#ffb3ad",
+              "on-tertiary-fixed": "#1a1c1c",
+              "on-error-container": "#93000a",
+              "secondary-fixed": "#e2e2e2",
+              "on-background": "#1c1b1b",
+              secondary: "#5d5f5f",
+              "on-primary-container": "#ffecea",
+              "on-secondary-container": "#616363",
+              "on-error": "#ffffff",
+              "on-secondary-fixed-variant": "#454747",
+              "tertiary-fixed": "#e2e2e2",
+              tertiary: "#535555",
+              "primary-container": "#d91023",
+              "surface-bright": "#fcf9f8",
+              "on-secondary": "#ffffff",
+              error: "#ba1a1a",
+              "on-tertiary": "#ffffff",
+              "surface-tint": "#c0001a",
+              "surface-container-high": "#eae7e7",
+              "inverse-surface": "#313030",
             },
-        }
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              base: "8px",
+              sm: "12px",
+              md: "24px",
+              xs: "4px",
+              lg: "40px",
+              gutter: "24px",
+              margin: "32px",
+              xl: "64px",
+            },
+            fontFamily: {
+              "headline-md": ["Lexend"],
+              "display-lg": ["Lexend"],
+              "title-lg": ["Lexend"],
+              "body-md": ["Lexend"],
+              "body-lg": ["Lexend"],
+              caption: ["Lexend"],
+              "label-md": ["Lexend"],
+              "headline-xl": ["Lexend"],
+            },
+            fontSize: {
+              "headline-md": ["32px", { lineHeight: "1.3", fontWeight: "700" }],
+              "display-lg": [
+                "64px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "800",
+                },
+              ],
+              "title-lg": ["20px", { lineHeight: "1.4", fontWeight: "600" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              caption: ["12px", { lineHeight: "1.2", fontWeight: "500" }],
+              "label-md": ["14px", { lineHeight: "1.2", fontWeight: "600" }],
+              "headline-xl": [
+                "48px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "700",
+                },
+              ],
+            },
+          },
+        },
+      };
     </script>
     <style>
-        body {
-            font-family: 'Lexend', sans-serif;
-            background-color: #fcf9f8;
-        }
+      body {
+        font-family: "Lexend", sans-serif;
+        background-color: #fcf9f8;
+      }
 
-        .textile-pattern {
-            background-image: radial-gradient(#ad0017 0.5px, transparent 0.5px), radial-gradient(#ad0017 0.5px, #fcf9f8 0.5px);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-            opacity: 0.05;
-        }
+      .textile-pattern {
+        background-image:
+          radial-gradient(#ad0017 0.5px, transparent 0.5px),
+          radial-gradient(#ad0017 0.5px, #fcf9f8 0.5px);
+        background-size: 20px 20px;
+        background-position:
+          0 0,
+          10px 10px;
+        opacity: 0.05;
+      }
 
-        .hero-clip {
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
-        }
+      .hero-clip {
+        clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+      }
     </style>
     <style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
+      body {
+        min-height: max(884px, 100dvh);
+      }
     </style>
-</head>
+  </head>
 
-<body class="bg-background text-on-background min-h-screen">
+  <body class="bg-background text-on-background min-h-screen">
     <!-- Top Navigation Suppression: Not rendered for Transactional Login flow -->
     <main class="w-full flex flex-col md:flex-row min-h-screen">
-        <!-- Hero Section -->
-        <section
-            class="relative w-full md:w-1/2 min-h-[353px] md:min-h-screen bg-primary overflow-hidden hero-clip md:clip-none">
-            <div class="absolute inset-0 textile-pattern"></div>
-            <img class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-60"
-                data-alt="A dramatic shot of a football stadium at night under bright lights, with a focus on the pitch, treated with a deep red Peruvian aesthetic to inspire passion and national pride."
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgCmGO-l5wV84AXejVSOVcd_yf_id5zwEUWI_hC2KqAs8OFniTpw3earQiz897-X8iID35pJIr4uNdUfHAdUj3AhImvwt2-G94o5hM66UJ2B4Q3Z4ewCTRXEc9OJkHBiNZp5ECLhAgU3bV4BCsStAuWKhR62NJLUUupTo36QaWCCwdIiBz0f2XYR65oLPzt_D2sDmVfgFt9QAeRgamYuVGt3KxK1-gpaYIXQcr2-H1pZG8MXEa9dInp2us8fcJf4aoZNHRWccQ45I" />
-            <div class="relative z-10 h-full flex flex-col justify-end p-margin md:p-xl text-on-primary">
-                <span class="font-label-md text-label-md uppercase tracking-[0.2em] mb-sm opacity-90">Orgullo
-                    Nacional</span>
-                <h1 class="font-display-lg text-headline-xl md:text-display-lg mb-md leading-none">SOMOS TEAM PERÚ</h1>
+      <!-- Hero Section -->
+      <section
+        class="relative w-full md:w-1/2 min-h-[353px] md:min-h-screen bg-primary overflow-hidden hero-clip md:clip-none"
+      >
+        <div class="absolute inset-0 textile-pattern"></div>
+        <img
+          class="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-60"
+          data-alt="A dramatic shot of a football stadium at night under bright lights, with a focus on the pitch, treated with a deep red Peruvian aesthetic to inspire passion and national pride."
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgCmGO-l5wV84AXejVSOVcd_yf_id5zwEUWI_hC2KqAs8OFniTpw3earQiz897-X8iID35pJIr4uNdUfHAdUj3AhImvwt2-G94o5hM66UJ2B4Q3Z4ewCTRXEc9OJkHBiNZp5ECLhAgU3bV4BCsStAuWKhR62NJLUUupTo36QaWCCwdIiBz0f2XYR65oLPzt_D2sDmVfgFt9QAeRgamYuVGt3KxK1-gpaYIXQcr2-H1pZG8MXEa9dInp2us8fcJf4aoZNHRWccQ45I"
+        />
+        <div
+          class="relative z-10 h-full flex flex-col justify-end p-margin md:p-xl text-on-primary"
+        >
+          <span
+            class="font-label-md text-label-md uppercase tracking-[0.2em] mb-sm opacity-90"
+            >Orgullo Nacional</span
+          >
+          <h1
+            class="font-display-lg text-headline-xl md:text-display-lg mb-md leading-none"
+          >
+            SOMOS TEAM PERÚ
+          </h1>
+        </div>
+      </section>
+      <!-- Login Form Section -->
+      <section
+        class="w-full md:w-1/2 flex flex-col justify-center px-margin py-xl md:px-xl"
+      >
+        <div class="max-w-md w-full mx-auto">
+          <div class="mb-lg">
+            <h2 class="font-headline-md text-headline-md text-primary mb-xs">
+              Bienvenido
+            </h2>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              Ingresa tus credenciales para continuar
+            </p>
+          </div>
+          <form id="login-form" class="space-y-md">
+            <div>
+              <label
+                class="block font-label-md text-label-md text-on-surface mb-xs"
+                for="email"
+                >Usuario</label
+              >
+              <input
+                class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md"
+                id="email"
+                placeholder="Usuario"
+                type="text"
+              />
             </div>
-        </section>
-        <!-- Login Form Section -->
-        <section class="w-full md:w-1/2 flex flex-col justify-center px-margin py-xl md:px-xl">
-            <div class="max-w-md w-full mx-auto">
-                <div class="mb-lg">
-                    <h2 class="font-headline-md text-headline-md text-primary mb-xs">Bienvenido</h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant">Ingresa tus credenciales para continuar
-                    </p>
-                </div>
-                <form id="login-form" class="space-y-md">
-                    <div>
-                        <label class="block font-label-md text-label-md text-on-surface mb-xs"
-                            for="email">Usuario</label>
-                        <input
-                            class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md"
-                            id="email" placeholder="Usuario" type="text" />
-                    </div>
-                    <div>
-                        <div class="flex justify-between items-center mb-xs">
-                            <label class="block font-label-md text-label-md text-on-surface"
-                                for="password">Contraseña</label>
-                            <a class="font-label-md text-label-md text-primary hover:underline transition-all"
-                                href="#">¿Olvidaste tu contraseña?</a>
-                        </div>
-                        <div class="relative">
-                            <input
-                                class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md pr-12"
-                                id="password" placeholder="••••••••" type="password" />
-                            <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-primary transition-colors" onclick="togglePasswordVisibility('password', 'login-eye-icon')">
-                                <span class="material-symbols-outlined" id="login-eye-icon">visibility</span>
-                            </button>
-                        </div>
-                    </div>
-                    <button
-                        id="login-submit-btn"
-                        class="w-full bg-primary-container text-on-primary-container font-title-lg text-title-lg py-md rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-md mt-sm flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
-                        type="submit">
-                        Iniciar Sesión
-                    </button>
-                </form>
-                <p class="mt-xl text-center font-body-md text-body-md text-on-surface-variant">
-                    ¿No tienes una cuenta?
-                    <a class="text-primary font-title-lg font-semibold hover:underline" href="#"
-                        id="open-register-modal">Regístrate</a>
-                </p>
+            <div>
+              <div class="flex justify-between items-center mb-xs">
+                <label
+                  class="block font-label-md text-label-md text-on-surface"
+                  for="password"
+                  >Contraseña</label
+                >
+                <a
+                  class="font-label-md text-label-md text-primary hover:underline transition-all"
+                  href="#"
+                  >¿Olvidaste tu contraseña?</a
+                >
+              </div>
+              <div class="relative">
+                <input
+                  class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md pr-12"
+                  id="password"
+                  placeholder="••••••••"
+                  type="password"
+                />
+                <button
+                  type="button"
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-primary transition-colors"
+                  onclick="
+                    togglePasswordVisibility('password', 'login-eye-icon')
+                  "
+                >
+                  <span class="material-symbols-outlined" id="login-eye-icon"
+                    >visibility</span
+                  >
+                </button>
+              </div>
             </div>
-        </section>
+            <button
+              id="login-submit-btn"
+              class="w-full bg-primary-container text-on-primary-container font-title-lg text-title-lg py-md rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-md mt-sm flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
+              type="submit"
+            >
+              Iniciar Sesión
+            </button>
+          </form>
+          <p
+            class="mt-xl text-center font-body-md text-body-md text-on-surface-variant"
+          >
+            ¿No tienes una cuenta?
+            <a
+              class="text-primary font-title-lg font-semibold hover:underline"
+              href="#"
+              id="open-register-modal"
+              >Regístrate</a
+            >
+          </p>
+        </div>
+      </section>
     </main>
     <!-- Contextual Footer Decoration (Peruvian Heritage) -->
     <div class="fixed bottom-0 left-0 w-full h-1 bg-primary opacity-20"></div>
     <div class="fixed bottom-1 left-0 w-full h-px bg-primary opacity-10"></div>
     <!-- Registration Modal -->
-    <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300"
-        id="registration-modal">
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300"
+      id="registration-modal"
+    >
+      <div
+        class="bg-surface w-full max-w-md rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95"
+      >
         <div
-            class="bg-surface w-full max-w-md rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95">
-            <div
-                class="p-md flex justify-between items-center border-b border-outline-variant bg-surface-container-low">
-                <h3 class="font-headline-md text-title-lg text-primary">Únete a Team Perú</h3>
-                <button class="p-2 hover:bg-surface-variant rounded-full transition-colors" id="close-modal">
-                    <span class="material-symbols-outlined text-on-surface-variant">close</span>
-                </button>
-            </div>
-            <div class="p-lg">
-                <p class="font-body-md text-on-surface-variant mb-md">Crea tu cuenta para vivir la pasión del deporte
-                    nacional.</p>
-                <form id="reg-form" class="space-y-md">
-                    <div>
-                        <label class="block font-label-md text-label-md text-on-surface mb-xs" for="reg-email">Correo
-                            electrónico</label>
-                        <input
-                            class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md"
-                            id="reg-email" placeholder="ejemplo@correo.com" required="" type="email" />
-                    </div>
-                    <div>
-                        <label class="block font-label-md text-label-md text-on-surface mb-xs"
-                            for="reg-user">Usuario</label>
-                        <input
-                            class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md"
-                            id="reg-user" placeholder="Nombre de usuario" required="" type="text" />
-                    </div>
-                    <div>
-                        <label class="block font-label-md text-label-md text-on-surface mb-xs"
-                            for="reg-password">Contraseña</label>
-                        <div class="relative">
-                            <input
-                                class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md pr-12"
-                                id="reg-password" placeholder="••••••••" required="" type="password" />
-                            <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-primary transition-colors" onclick="togglePasswordVisibility('reg-password', 'reg-eye-icon')">
-                                <span class="material-symbols-outlined" id="reg-eye-icon">visibility</span>
-                            </button>
-                        </div>
-                    </div>
-                    <button
-                        class="w-full bg-primary-container text-on-primary-container font-title-lg text-title-lg py-md rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-md mt-lg"
-                        type="submit">
-                        Registrarse
-                    </button>
-                </form>
-            </div>
+          class="p-md flex justify-between items-center border-b border-outline-variant bg-surface-container-low"
+        >
+          <h3 class="font-headline-md text-title-lg text-primary">
+            Únete a Team Perú
+          </h3>
+          <button
+            class="p-2 hover:bg-surface-variant rounded-full transition-colors"
+            id="close-modal"
+          >
+            <span class="material-symbols-outlined text-on-surface-variant"
+              >close</span
+            >
+          </button>
         </div>
+        <div class="p-lg">
+          <p class="font-body-md text-on-surface-variant mb-md">
+            Crea tu cuenta para vivir la pasión del deporte nacional.
+          </p>
+          <form id="reg-form" class="space-y-md">
+            <div>
+              <label
+                class="block font-label-md text-label-md text-on-surface mb-xs"
+                for="reg-email"
+                >Correo electrónico</label
+              >
+              <input
+                class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md"
+                id="reg-email"
+                placeholder="ejemplo@correo.com"
+                required=""
+                type="email"
+              />
+            </div>
+            <div>
+              <label
+                class="block font-label-md text-label-md text-on-surface mb-xs"
+                for="reg-user"
+                >Usuario</label
+              >
+              <input
+                class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md"
+                id="reg-user"
+                placeholder="Nombre de usuario"
+                required=""
+                type="text"
+              />
+            </div>
+            <div>
+              <label
+                class="block font-label-md text-label-md text-on-surface mb-xs"
+                for="reg-password"
+                >Contraseña</label
+              >
+              <div class="relative">
+                <input
+                  class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md pr-12"
+                  id="reg-password"
+                  placeholder="••••••••"
+                  required=""
+                  type="password"
+                />
+                <button
+                  type="button"
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-primary transition-colors"
+                  onclick="
+                    togglePasswordVisibility('reg-password', 'reg-eye-icon')
+                  "
+                >
+                  <span class="material-symbols-outlined" id="reg-eye-icon"
+                    >visibility</span
+                  >
+                </button>
+              </div>
+            </div>
+            <button
+              class="w-full bg-primary-container text-on-primary-container font-title-lg text-title-lg py-md rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-md mt-lg"
+              type="submit"
+            >
+              Registrarse
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
 
     <!-- Custom Alert Modal -->
-    <div class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300 opacity-0" id="custom-alert-modal">
-        <div class="bg-surface w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95 flex flex-col items-center p-lg text-center" id="custom-alert-content">
-            <span class="material-symbols-outlined text-[48px] mb-sm" id="custom-alert-icon"></span>
-            <h3 class="font-headline-md text-title-lg mb-xs text-on-surface" id="custom-alert-title">Mensaje</h3>
-            <p class="font-body-md text-on-surface-variant mb-md" id="custom-alert-message">Aquí va el mensaje.</p>
-            <button class="w-full bg-primary-container text-on-primary-container font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all" onclick="closeCustomAlert()">Aceptar</button>
-        </div>
+    <div
+      class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300 opacity-0"
+      id="custom-alert-modal"
+    >
+      <div
+        class="bg-surface w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95 flex flex-col items-center p-lg text-center"
+        id="custom-alert-content"
+      >
+        <span
+          class="material-symbols-outlined text-[48px] mb-sm"
+          id="custom-alert-icon"
+        ></span>
+        <h3
+          class="font-headline-md text-title-lg mb-xs text-on-surface"
+          id="custom-alert-title"
+        >
+          Mensaje
+        </h3>
+        <p
+          class="font-body-md text-on-surface-variant mb-md"
+          id="custom-alert-message"
+        >
+          Aquí va el mensaje.
+        </p>
+        <button
+          class="w-full bg-primary-container text-on-primary-container font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all"
+          onclick="closeCustomAlert()"
+        >
+          Aceptar
+        </button>
+      </div>
     </div>
 
     <script>
-        const modal = document.getElementById('registration-modal');
-        const openBtn = document.getElementById('open-register-modal');
-        const closeBtn = document.getElementById('close-modal');
+      const modal = document.getElementById("registration-modal");
+      const openBtn = document.getElementById("open-register-modal");
+      const closeBtn = document.getElementById("close-modal");
 
-        const toggleModal = (show) => {
-            if (show) {
-                modal.classList.remove('hidden');
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                    modal.querySelector('div').classList.remove('scale-95');
-                }, 10);
+      const toggleModal = (show) => {
+        if (show) {
+          modal.classList.remove("hidden");
+          setTimeout(() => {
+            modal.classList.remove("opacity-0");
+            modal.querySelector("div").classList.remove("scale-95");
+          }, 10);
+        } else {
+          modal.classList.add("opacity-0");
+          modal.querySelector("div").classList.add("scale-95");
+          setTimeout(() => modal.classList.add("hidden"), 300);
+        }
+      };
+
+      const togglePasswordVisibility = (inputId, iconId) => {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        if (input.type === "password") {
+          input.type = "text";
+          icon.innerText = "visibility_off";
+        } else {
+          input.type = "password";
+          icon.innerText = "visibility";
+        }
+      };
+
+      const customAlertModal = document.getElementById("custom-alert-modal");
+      const customAlertContent = document.getElementById(
+        "custom-alert-content",
+      );
+
+      const showCustomAlert = (title, message, isError = false) => {
+        document.getElementById("custom-alert-title").innerText = title;
+        document.getElementById("custom-alert-message").innerText = message;
+
+        const icon = document.getElementById("custom-alert-icon");
+        if (isError) {
+          icon.innerText = "error";
+          icon.classList.add("text-error");
+          icon.classList.remove("text-primary");
+        } else {
+          icon.innerText = "check_circle";
+          icon.classList.add("text-primary");
+          icon.classList.remove("text-error");
+        }
+
+        customAlertModal.classList.remove("hidden");
+        setTimeout(() => {
+          customAlertModal.classList.remove("opacity-0");
+          customAlertContent.classList.remove("scale-95");
+        }, 10);
+      };
+
+      const closeCustomAlert = () => {
+        customAlertModal.classList.add("opacity-0");
+        customAlertContent.classList.add("scale-95");
+        setTimeout(() => customAlertModal.classList.add("hidden"), 300);
+      };
+
+      openBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        toggleModal(true);
+      });
+
+      closeBtn.addEventListener("click", () => toggleModal(false));
+
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) toggleModal(false);
+      });
+
+      const regForm = document.getElementById("reg-form");
+      regForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const email = document.getElementById("reg-email").value;
+        const username = document.getElementById("reg-user").value;
+        const password = document.getElementById("reg-password").value;
+
+        // Validación de contraseña segura
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        if (!passwordRegex.test(password)) {
+          showCustomAlert(
+            "Contraseña débil",
+            "La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, un número y un carácter especial.",
+            true,
+          );
+          return;
+        }
+
+        try {
+          const response = await fetch("/api/auth/registro", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, username, password }),
+          });
+
+          if (response.ok) {
+            showCustomAlert(
+              "¡Registro exitoso!",
+              "Tu cuenta ha sido creada correctamente. Ahora puedes iniciar sesión.",
+            );
+            toggleModal(false);
+            regForm.reset();
+          } else if (response.status === 400) {
+            const data = await response.json();
+            showCustomAlert(
+              "Usuario no disponible",
+              data.error ||
+                "El nombre de usuario ya está en uso. Por favor, escoge otro.",
+              true,
+            );
+          } else {
+            showCustomAlert(
+              "Error",
+              "No se pudo registrar el usuario. Inténtalo de nuevo.",
+              true,
+            );
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          showCustomAlert(
+            "Error de conexión",
+            "No se pudo conectar con el servidor.",
+            true,
+          );
+        }
+      });
+      const loginForm = document.getElementById("login-form");
+      const loginSubmitBtn = document.getElementById("login-submit-btn");
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const username = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const originalBtnText = loginSubmitBtn.innerHTML;
+        loginSubmitBtn.innerHTML =
+          '<span class="material-symbols-outlined animate-spin align-middle mr-2" style="animation: spin 1s linear infinite;">progress_activity</span>Enviando...';
+        loginSubmitBtn.disabled = true;
+
+        try {
+          const response = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await response.json();
+
+          if (data.estado === "MFA_REQUIRED") {
+            localStorage.setItem("temp_username", data.username);
+            window.location.href = "mfa.html";
+          } else if (data.estado === true) {
+            localStorage.setItem(
+              "usuario",
+              JSON.stringify({ username: data.username, rol: data.rol }),
+            );
+            if (data.rol === "ADMINISTRADOR") {
+              window.location.href = "administrador/dashboard.html";
             } else {
-                modal.classList.add('opacity-0');
-                modal.querySelector('div').classList.add('scale-95');
-                setTimeout(() => modal.classList.add('hidden'), 300);
+              window.location.href = "participante/index.html";
             }
-        };
-
-        const togglePasswordVisibility = (inputId, iconId) => {
-            const input = document.getElementById(inputId);
-            const icon = document.getElementById(iconId);
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.innerText = 'visibility_off';
-            } else {
-                input.type = 'password';
-                icon.innerText = 'visibility';
-            }
-        };
-
-        const customAlertModal = document.getElementById('custom-alert-modal');
-        const customAlertContent = document.getElementById('custom-alert-content');
-
-        const showCustomAlert = (title, message, isError = false) => {
-            document.getElementById('custom-alert-title').innerText = title;
-            document.getElementById('custom-alert-message').innerText = message;
-            
-            const icon = document.getElementById('custom-alert-icon');
-            if (isError) {
-                icon.innerText = 'error';
-                icon.classList.add('text-error');
-                icon.classList.remove('text-primary');
-            } else {
-                icon.innerText = 'check_circle';
-                icon.classList.add('text-primary');
-                icon.classList.remove('text-error');
-            }
-
-            customAlertModal.classList.remove('hidden');
-            setTimeout(() => {
-                customAlertModal.classList.remove('opacity-0');
-                customAlertContent.classList.remove('scale-95');
-            }, 10);
-        };
-
-        const closeCustomAlert = () => {
-            customAlertModal.classList.add('opacity-0');
-            customAlertContent.classList.add('scale-95');
-            setTimeout(() => customAlertModal.classList.add('hidden'), 300);
-        };
-
-        openBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleModal(true);
-        });
-
-        closeBtn.addEventListener('click', () => toggleModal(false));
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) toggleModal(false);
-        });
-
-        const regForm = document.getElementById('reg-form');
-        regForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('reg-email').value;
-            const username = document.getElementById('reg-user').value;
-            const password = document.getElementById('reg-password').value;
-
-            // Validación de contraseña segura
-            const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-            if (!passwordRegex.test(password)) {
-                showCustomAlert(
-                    'Contraseña débil', 
-                    'La contraseña debe tener al menos 8 caracteres, incluir una mayúscula, un número y un carácter especial.', 
-                    true
-                );
-                return;
-            }
-
-            try {
-                const response = await fetch('/api/auth/registro', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, username, password })
-                });
-
-                if (response.ok) {
-                    showCustomAlert('¡Registro exitoso!', 'Tu cuenta ha sido creada correctamente. Ahora puedes iniciar sesión.');
-                    toggleModal(false);
-                    regForm.reset();
-                } else if (response.status === 400) {
-                    const data = await response.json();
-                    showCustomAlert('Usuario no disponible', data.error || 'El nombre de usuario ya está en uso. Por favor, escoge otro.', true);
-                } else {
-                    showCustomAlert('Error', 'No se pudo registrar el usuario. Inténtalo de nuevo.', true);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showCustomAlert('Error de conexión', 'No se pudo conectar con el servidor.', true);
-            }
-        });
-        const loginForm = document.getElementById('login-form');
-        const loginSubmitBtn = document.getElementById('login-submit-btn');
-
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            const originalBtnText = loginSubmitBtn.innerHTML;
-            loginSubmitBtn.innerHTML = '<span class="material-symbols-outlined animate-spin align-middle mr-2" style="animation: spin 1s linear infinite;">progress_activity</span>Enviando...';
-            loginSubmitBtn.disabled = true;
-
-            try {
-                const response = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
-
-                const data = await response.json();
-
-                if (data.estado === 'MFA_REQUIRED') {
-                    localStorage.setItem('temp_username', data.username);
-                    window.location.href = 'mfa.html';
-                } else if (data.estado === true) {
-                    localStorage.setItem('usuario', JSON.stringify({ username: data.username, rol: data.rol }));
-                    if (data.rol === 'ADMINISTRADOR') {
-                        window.location.href = 'administrador/dashboard.html';
-                    } else {
-                        window.location.href = 'participante/index.html';
-                    }
-                } else {
-                    showCustomAlert('Error de inicio de sesión', data.mensaje || 'Usuario o contraseña incorrectos', true);
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                showCustomAlert('Error de conexión', 'No se pudo conectar con el servidor.', true);
-            } finally {
-                loginSubmitBtn.innerHTML = originalBtnText;
-                loginSubmitBtn.disabled = false;
-            }
-        });
+          } else {
+            showCustomAlert(
+              "Error de inicio de sesión",
+              data.mensaje || "Usuario o contraseña incorrectos",
+              true,
+            );
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          showCustomAlert(
+            "Error de conexión",
+            "No se pudo conectar con el servidor.",
+            true,
+          );
+        } finally {
+          loginSubmitBtn.innerHTML = originalBtnText;
+          loginSubmitBtn.disabled = false;
+        }
+      });
     </script>
-</body>
-
+  </body>
 </html>

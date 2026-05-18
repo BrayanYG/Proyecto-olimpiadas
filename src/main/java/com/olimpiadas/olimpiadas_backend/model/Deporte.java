@@ -19,8 +19,10 @@ public class Deporte {
     @Column(nullable = false, unique = true)
     private String nombre;
 
+    private String tipo;
+
     private String reglas;
-    
+
     @Column(name = "max_participantes")
     private Integer maxParticipantes;
 }

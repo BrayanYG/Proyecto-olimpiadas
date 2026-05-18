@@ -31,4 +31,6 @@ public class Evento {
     private Deporte deporte;
 
     private String estado; // PENDIENTE, EN_CURSO, FINALIZADO
+
+    private String ubicacion;
 }

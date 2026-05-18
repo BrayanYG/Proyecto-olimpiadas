@@ -35,10 +35,12 @@ public class DeporteController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Deporte> actualizar(@PathVariable @org.springframework.lang.NonNull Long id, @RequestBody Deporte datos) {
+    public ResponseEntity<Deporte> actualizar(@PathVariable @org.springframework.lang.NonNull Long id,
+            @RequestBody Deporte datos) {
         return deporteRepository.findById(id)
                 .map(deporte -> {
                     deporte.setNombre(datos.getNombre());
+                    deporte.setTipo(datos.getTipo());
                     deporte.setReglas(datos.getReglas());
                     deporte.setMaxParticipantes(datos.getMaxParticipantes());
                     return ResponseEntity.ok(deporteRepository.save(deporte));

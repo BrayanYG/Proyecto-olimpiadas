@@ -18,7 +18,7 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
         this.emailService = emailService;
     }
-    
+
     @NonNull
     public Usuario registrar(@NonNull Usuario usuario) {
         if (usuarioRepository.findByUsername(usuario.getUsername()).isPresent()) {
@@ -55,7 +55,7 @@ public class UsuarioService {
             }
             return usuario;
         }
-        
+
         return null;
     }
 
@@ -69,6 +69,6 @@ public class UsuarioService {
     }
 
     public List<Usuario> listar() {
-    return usuarioRepository.findAll();
+        return usuarioRepository.findAll();
     }
 }

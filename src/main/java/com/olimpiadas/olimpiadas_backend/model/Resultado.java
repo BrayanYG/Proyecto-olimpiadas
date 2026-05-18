@@ -22,6 +22,6 @@ public class Resultado {
 
     private Integer puntosLocal;
     private Integer puntosVisitante;
-    
+
     private String observaciones;
 }

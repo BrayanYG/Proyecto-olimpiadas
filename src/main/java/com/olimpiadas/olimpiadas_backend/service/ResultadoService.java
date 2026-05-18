@@ -23,7 +23,7 @@ public class ResultadoService {
         Encuentro encuentro = resultado.getEncuentro();
         encuentro.setEstado("FINALIZADO");
         encuentroRepository.save(encuentro);
-        
+
         return resultadoRepository.save(resultado);
     }
 

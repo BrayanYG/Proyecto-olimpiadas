@@ -1,340 +1,682 @@
-<!DOCTYPE html>
-
-<html class="light" lang="es"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Gestión de Deportes - Olimpiadas Perú</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
+<!doctype html>
+<html class="light" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Gestión de Deportes - Olimpiadas Perú</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
-            "colors": {
-                "surface-dim": "#dcd9d9",
-                "primary-fixed-dim": "#ffb3ad",
-                "on-primary": "#ffffff",
-                "on-surface": "#1c1b1b",
-                "on-error": "#ffffff",
-                "surface-container": "#f0eded",
-                "on-primary-container": "#ffecea",
-                "secondary-fixed": "#e2e2e2",
-                "surface-bright": "#fcf9f8",
-                "on-surface-variant": "#5d3f3c",
-                "background": "#fcf9f8",
-                "surface-variant": "#e5e2e1",
-                "surface-container-highest": "#e5e2e1",
-                "on-secondary-fixed-variant": "#454747",
-                "secondary-fixed-dim": "#c6c6c7",
-                "inverse-primary": "#ffb3ad",
-                "inverse-surface": "#313030",
-                "on-tertiary-fixed": "#1a1c1c",
-                "tertiary": "#535555",
-                "on-primary-fixed": "#410003",
-                "surface": "#fcf9f8",
-                "primary-container": "#d91023",
-                "on-tertiary-fixed-variant": "#454747",
-                "outline": "#926e6b",
-                "inverse-on-surface": "#f3f0ef",
-                "tertiary-container": "#6c6d6d",
-                "surface-container-lowest": "#ffffff",
-                "on-secondary-container": "#616363",
-                "on-error-container": "#93000a",
-                "surface-container-high": "#eae7e7",
-                "on-secondary-fixed": "#1a1c1c",
-                "primary": "#ad0017",
-                "on-primary-fixed-variant": "#930011",
-                "surface-container-low": "#f6f3f2",
-                "error": "#ba1a1a",
-                "on-background": "#1c1b1b",
-                "tertiary-fixed": "#e2e2e2",
-                "outline-variant": "#e7bdb9",
-                "primary-fixed": "#ffdad6",
-                "secondary-container": "#dfe0e0",
-                "tertiary-fixed-dim": "#c6c6c7",
-                "on-secondary": "#ffffff",
-                "surface-tint": "#c0001a",
-                "secondary": "#5d5f5f",
-                "on-tertiary-container": "#f0f0f0",
-                "on-tertiary": "#ffffff",
-                "error-container": "#ffdad6"
+            colors: {
+              "surface-dim": "#dcd9d9",
+              "primary-fixed-dim": "#ffb3ad",
+              "on-primary": "#ffffff",
+              "on-surface": "#1c1b1b",
+              "on-error": "#ffffff",
+              "surface-container": "#f0eded",
+              "on-primary-container": "#ffecea",
+              "secondary-fixed": "#e2e2e2",
+              "surface-bright": "#fcf9f8",
+              "on-surface-variant": "#5d3f3c",
+              background: "#fcf9f8",
+              "surface-variant": "#e5e2e1",
+              "surface-container-highest": "#e5e2e1",
+              "on-secondary-fixed-variant": "#454747",
+              "secondary-fixed-dim": "#c6c6c7",
+              "inverse-primary": "#ffb3ad",
+              "inverse-surface": "#313030",
+              "on-tertiary-fixed": "#1a1c1c",
+              tertiary: "#535555",
+              "on-primary-fixed": "#410003",
+              surface: "#fcf9f8",
+              "primary-container": "#d91023",
+              "on-tertiary-fixed-variant": "#454747",
+              outline: "#926e6b",
+              "inverse-on-surface": "#f3f0ef",
+              "tertiary-container": "#6c6d6d",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-container": "#616363",
+              "on-error-container": "#93000a",
+              "surface-container-high": "#eae7e7",
+              "on-secondary-fixed": "#1a1c1c",
+              primary: "#ad0017",
+              "on-primary-fixed-variant": "#930011",
+              "surface-container-low": "#f6f3f2",
+              error: "#ba1a1a",
+              "on-background": "#1c1b1b",
+              "tertiary-fixed": "#e2e2e2",
+              "outline-variant": "#e7bdb9",
+              "primary-fixed": "#ffdad6",
+              "secondary-container": "#dfe0e0",
+              "tertiary-fixed-dim": "#c6c6c7",
+              "on-secondary": "#ffffff",
+              "surface-tint": "#c0001a",
+              secondary: "#5d5f5f",
+              "on-tertiary-container": "#f0f0f0",
+              "on-tertiary": "#ffffff",
+              "error-container": "#ffdad6",
             },
-            "borderRadius": {
-                "DEFAULT": "0.25rem",
-                "lg": "0.5rem",
-                "xl": "0.75rem",
-                "full": "9999px"
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
             },
-            "spacing": {
-                "margin-mobile": "16px",
-                "xl": "64px",
-                "margin-desktop": "32px",
-                "md": "24px",
-                "base": "8px",
-                "xs": "4px",
-                "gutter": "20px",
-                "lg": "40px",
-                "sm": "12px"
+            spacing: {
+              "margin-mobile": "16px",
+              xl: "64px",
+              "margin-desktop": "32px",
+              md: "24px",
+              base: "8px",
+              xs: "4px",
+              gutter: "20px",
+              lg: "40px",
+              sm: "12px",
             },
-            "fontFamily": {
-                "headline-xl": ["Lexend"],
-                "label-md": ["Lexend"],
-                "body-md": ["Lexend"],
-                "display-lg": ["Lexend"],
-                "title-lg": ["Lexend"],
-                "headline-md": ["Lexend"],
-                "caption": ["Lexend"],
-                "body-lg": ["Lexend"]
+            fontFamily: {
+              "headline-xl": ["Lexend"],
+              "label-md": ["Lexend"],
+              "body-md": ["Lexend"],
+              "display-lg": ["Lexend"],
+              "title-lg": ["Lexend"],
+              "headline-md": ["Lexend"],
+              caption: ["Lexend"],
+              "body-lg": ["Lexend"],
             },
-            "fontSize": {
-                "headline-xl": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                "label-md": ["14px", {"lineHeight": "1.2", "fontWeight": "600"}],
-                "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
-                "display-lg": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "800"}],
-                "title-lg": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
-                "headline-md": ["32px", {"lineHeight": "1.3", "fontWeight": "700"}],
-                "caption": ["12px", {"lineHeight": "1.2", "fontWeight": "500"}],
-                "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}]
-            }
+            fontSize: {
+              "headline-xl": [
+                "48px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "700",
+                },
+              ],
+              "label-md": ["14px", { lineHeight: "1.2", fontWeight: "600" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "display-lg": [
+                "64px",
+                {
+                  lineHeight: "1.1",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "800",
+                },
+              ],
+              "title-lg": ["20px", { lineHeight: "1.4", fontWeight: "600" }],
+              "headline-md": ["32px", { lineHeight: "1.3", fontWeight: "700" }],
+              caption: ["12px", { lineHeight: "1.2", fontWeight: "500" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+            },
           },
         },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Lexend", sans-serif;
+        overflow-x: hidden;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+
+      #sidebar {
+        transition:
+          width 0.3s ease,
+          transform 0.3s ease;
+      }
+      .sidebar-collapsed {
+        width: 80px !important;
+      }
+      .sidebar-collapsed .nav-label,
+      .sidebar-collapsed .config-text {
+        display: none;
+      }
+      .sidebar-collapsed nav a {
+        justify-content: center;
+        padding-left: 0;
+        padding-right: 0;
+      }
+      .sidebar-collapsed .material-symbols-outlined {
+        margin: 0;
+      }
+
+      @media (max-width: 767px) {
+        #sidebar {
+          transform: translateX(-100%);
+          position: fixed;
+          width: 288px !important;
+        }
+        #sidebar.mobile-open {
+          transform: translateX(0);
+        }
+        #main-content {
+          margin-left: 0 !important;
+        }
+      }
+
+      .scroll-hide::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+    <script src="../js/sidebar.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="../js/header.js"></script>
+    <script src="../js/auth.js"></script>
+  </head>
+  <body class="admin-theme">
+    <!-- TopAppBar (Identical to SCREEN_44) -->
+    <header></header>
+    <!-- Overlay for Mobile Sidebar -->
+    <div
+      class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"
+      id="sidebar-overlay"
+      onclick="toggleMobileSidebar()"
+    ></div>
+    <div class="flex min-h-screen pt-16">
+      <!-- NavigationDrawer (Identical to SCREEN_44) -->
+      <aside
+        class="fixed md:sticky top-16 left-0 h-[calc(100vh-64px)] z-40 flex flex-col py-lg bg-surface-container dark:bg-inverse-surface w-72 border-r border-outline-variant shadow-lg md:shadow-none shrink-0"
+        id="sidebar"
+      ></aside>
+      <!-- Main Content -->
+      <main
+        class="flex-1 pb-20 md:pb-8 px-margin-mobile md:px-margin-desktop min-h-screen transition-all duration-300 pt-8"
+        id="main-content"
+      >
+        <div class="max-w-5xl mx-auto space-y-md">
+          <!-- List Header with Action (Style matched to SCREEN_44, Action Button RED) -->
+          <div
+            class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <div class="flex items-center gap-2">
+              <h2 class="font-title-lg text-title-lg text-on-surface">
+                Deportes Registrados
+              </h2>
+              <span
+                id="contadorDeportes"
+                class="font-caption text-caption text-on-surface-variant bg-surface-container-high px-2 py-1 rounded"
+                >0 Total</span
+              >
+            </div>
+            <button
+              class="bg-primary text-on-primary font-label-md px-6 py-3 rounded-lg shadow-md hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+              onclick="abrirModalDeporte()"
+            >
+              <span class="material-symbols-outlined text-lg">add</span>
+              Nuevo Deporte
+            </button>
+          </div>
+          <!-- Filters Section (Identical style to SCREEN_44) -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 gap-md bg-surface-container-low p-md rounded-xl border border-outline-variant/30"
+          >
+            <!-- Search/Name Filter -->
+            <div class="relative flex-1">
+              <label
+                class="block text-caption font-label-md text-on-surface-variant mb-1"
+                >Buscar Deporte</label
+              >
+              <div class="relative">
+                <span
+                  class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-body-md"
+                  >search</span
+                >
+                <input
+                  id="buscarDeporte"
+                  oninput="filtrarDeportes()"
+                  class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all font-body-md"
+                  placeholder="Ej: Fútbol"
+                  type="text"
+                />
+              </div>
+            </div>
+            <!-- Type Filter -->
+            <div class="flex-1">
+              <label
+                class="block text-caption font-label-md text-on-surface-variant mb-1"
+                >Tipo</label
+              >
+              <select
+                id="filtroTipo"
+                onchange="filtrarDeportes()"
+                class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all font-body-md appearance-none"
+              >
+                <option value="">Todos los tipos</option>
+                <option value="Colectivo">Colectivo</option>
+                <option value="Individual">Individual</option>
+              </select>
+            </div>
+          </div>
+          <!-- Table Section (Identical style to SCREEN_44) -->
+          <div
+            class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden"
+          >
+            <table class="w-full border-collapse">
+              <thead class="bg-surface-container">
+                <tr>
+                  <th
+                    class="text-left py-4 px-6 font-label-md text-on-surface text-sm uppercase tracking-wider"
+                  >
+                    Nombre
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 font-label-md text-on-surface text-sm uppercase tracking-wider"
+                  >
+                    Tipo
+                  </th>
+                  <th
+                    class="text-left py-4 px-6 font-label-md text-on-surface text-sm uppercase tracking-wider"
+                  >
+                    Máx. Participantes
+                  </th>
+                  <th
+                    class="text-right py-4 px-6 font-label-md text-on-surface text-sm uppercase tracking-wider"
+                  >
+                    Acciones
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                id="tablaDeportes"
+                class="divide-y divide-outline-variant/30"
+              ></tbody>
+            </table>
+          </div>
+          <!-- Pagination (Identical style to SCREEN_44) -->
+          <div class="flex justify-between items-center pt-md">
+            <p class="text-caption text-on-surface-variant">
+              Mostrando 4 deportes
+            </p>
+            <div class="flex gap-2">
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50"
+                disabled=""
+              >
+                <span class="material-symbols-outlined">chevron_left</span>
+              </button>
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold"
+              >
+                1
+              </button>
+              <button
+                class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors"
+              >
+                <span class="material-symbols-outlined">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+    <!-- Modal (Keep existing structure but ensure primary style) -->
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-inverse-surface/40 hidden"
+      id="new-sport-modal"
+    >
+      <div
+        class="bg-white w-full max-w-md rounded-xl shadow-2xl overflow-hidden border-t-4 border-primary animate-fade-in-up"
+      >
+        <div
+          class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest"
+        >
+          <h2 class="font-headline-md text-title-lg text-on-surface">
+            Registrar Nuevo Deporte
+          </h2>
+          <button
+            class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-on-surface-variant"
+            onclick="
+              document.getElementById('new-sport-modal').classList.add('hidden')
+            "
+          >
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="p-md space-y-md">
+          <div class="space-y-xs">
+            <label class="font-label-md text-on-surface-variant ml-1"
+              >Nombre del Deporte</label
+            >
+            <input
+              id="nombreDeporte"
+              class="w-full h-12 rounded-lg border border-outline px-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md placeholder:text-on-surface-variant/50"
+              placeholder="Ej: Atletismo"
+              type="text"
+            />
+          </div>
+          <div class="space-y-xs">
+            <label class="font-label-md text-on-surface-variant ml-1"
+              >Tipo de Deporte</label
+            >
+            <input id="deporteId" type="hidden" />
+            <div class="relative">
+              <select
+                id="tipoDeporte"
+                class="w-full h-12 rounded-lg border border-outline px-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md bg-white pr-lg"
+              >
+                <option value="">Seleccionar tipo...</option>
+                <option value="Individual">Individual</option>
+                <option value="Colectivo">Colectivo</option>
+              </select>
+            </div>
+          </div>
+          <div class="space-y-xs">
+            <label class="font-label-md text-on-surface-variant ml-1">
+              Máx. Participantes
+            </label>
+            <input
+              id="maxParticipantesDeporte"
+              class="w-full h-12 rounded-lg border border-outline px-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md"
+              placeholder="Ej: 11"
+              type="number"
+            />
+          </div>
+          <div class="space-y-xs">
+            <label class="font-label-md text-on-surface-variant ml-1"
+              >Reglas / Descripción</label
+            >
+            <textarea
+              id="reglasDeporte"
+              class="w-full rounded-lg border border-outline p-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md resize-none placeholder:text-on-surface-variant/50"
+              placeholder="Describe brevemente las reglas generales y la dinámica..."
+              rows="4"
+            ></textarea>
+          </div>
+        </div>
+        <div
+          class="p-md bg-surface-container border-t border-outline-variant flex justify-end gap-sm"
+        >
+          <button
+            class="px-md h-12 rounded-lg font-label-md text-on-surface border-2 border-outline hover:bg-surface-variant transition-colors"
+            onclick="
+              document.getElementById('new-sport-modal').classList.add('hidden')
+            "
+          >
+            Cancelar
+          </button>
+          <button
+            onclick="guardarDeporte()"
+            class="px-md h-12 rounded-lg font-label-md text-on-primary bg-primary shadow-md hover:brightness-110 active:scale-95 transition-all"
+          >
+            Guardar Deporte
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- BottomNavBar (Mobile Only - Identical to SCREEN_44) -->
+    <nav
+      class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 md:hidden px-4 pb-safe bg-surface dark:bg-inverse-surface border-t border-outline-variant dark:border-outline shadow-[0_-4px_12px_rgba(0,0,0,0.1)]"
+    >
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant dark:text-secondary-fixed-dim p-2"
+        href="dashboard.html"
+      >
+        <span class="material-symbols-outlined">dashboard</span>
+        <span class="font-label-md text-[10px] uppercase">Dashboard</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant dark:text-secondary-fixed-dim p-2"
+        href="instituciones.html"
+      >
+        <span class="material-symbols-outlined">account_balance</span>
+        <span class="font-label-md text-[10px] uppercase">Instituciones</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant dark:text-secondary-fixed-dim p-2"
+        href="equipos.html"
+      >
+        <span class="material-symbols-outlined">group</span>
+        <span class="font-label-md text-[10px] uppercase">Equipos</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-primary dark:text-inverse-primary font-bold p-2"
+        href="deportes.html"
+      >
+        <span
+          class="material-symbols-outlined"
+          style="font-variation-settings: &quot;FILL&quot; 1"
+          >sports_kabaddi</span
+        >
+        <span class="font-label-md text-[10px] uppercase">Deportes</span>
+      </a>
+      <a
+        class="flex flex-col items-center justify-center text-on-surface-variant dark:text-secondary-fixed-dim p-2"
+        href="calendario.html"
+      >
+        <span class="material-symbols-outlined">calendar_month</span>
+        <span class="font-label-md text-[10px] uppercase">Calendario</span>
+      </a>
+    </nav>
+    <script>
+      const API_DEPORTES = "/api/deportes";
+      let deportesOriginales = [];
+      document.addEventListener("DOMContentLoaded", () => {
+        cargarDeportes();
+      });
+
+      function cargarDeportes() {
+        fetch(API_DEPORTES)
+          .then((response) => response.json())
+          .then((data) => {
+            deportesOriginales = data;
+            renderizarDeportes(data);
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("Error al cargar deportes");
+          });
+      }
+
+      function abrirModalDeporte() {
+        limpiarModalDeporte();
+
+        document.getElementById("new-sport-modal").classList.remove("hidden");
+      }
+
+      function cerrarModalDeporte() {
+        document.getElementById("new-sport-modal").classList.add("hidden");
+      }
+
+      function limpiarModalDeporte() {
+        document.getElementById("deporteId").value = "";
+        document.getElementById("nombreDeporte").value = "";
+        document.getElementById("tipoDeporte").value = "";
+        document.getElementById("maxParticipantesDeporte").value = "";
+        document.getElementById("reglasDeporte").value = "";
+      }
+
+      function guardarDeporte() {
+        const id = document.getElementById("deporteId").value;
+
+        const nombre = document.getElementById("nombreDeporte").value.trim();
+
+        const tipo = document.getElementById("tipoDeporte").value;
+
+        const maxParticipantes = document.getElementById(
+          "maxParticipantesDeporte",
+        ).value;
+
+        const reglas = document.getElementById("reglasDeporte").value.trim();
+
+        if (!nombre || !tipo || !maxParticipantes || !reglas) {
+          alert("Todos los campos son obligatorios");
+          return;
+        }
+
+        const deporte = {
+          nombre,
+          tipo,
+          reglas,
+          maxParticipantes: parseInt(maxParticipantes),
+        };
+
+        const url = id ? `${API_DEPORTES}/${id}` : API_DEPORTES;
+
+        const metodo = id ? "PUT" : "POST";
+
+        fetch(url, {
+          method: metodo,
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(deporte),
+        })
+          .then((response) => response.json())
+
+          .then(() => {
+            cerrarModalDeporte();
+
+            cargarDeportes();
+
+            alert(
+              id
+                ? "Deporte actualizado correctamente"
+                : "Deporte registrado correctamente",
+            );
+          })
+
+          .catch((error) => {
+            console.error(error);
+
+            alert("Error al guardar deporte");
+          });
+      }
+
+      function editarDeporte(item) {
+        document.getElementById("deporteId").value = item.id;
+
+        document.getElementById("nombreDeporte").value = item.nombre || "";
+
+        document.getElementById("tipoDeporte").value = item.tipo || "";
+
+        document.getElementById("maxParticipantesDeporte").value =
+          item.maxParticipantes || "";
+
+        document.getElementById("reglasDeporte").value = item.reglas || "";
+
+        document.getElementById("new-sport-modal").classList.remove("hidden");
+      }
+
+      function eliminarDeporte(id) {
+        const confirmar = confirm("¿Seguro que deseas eliminar este deporte?");
+
+        if (!confirmar) return;
+
+        fetch(`${API_DEPORTES}/${id}`, {
+          method: "DELETE",
+        })
+          .then(() => {
+            cargarDeportes();
+
+            alert("Deporte eliminado correctamente");
+          })
+
+          .catch((error) => {
+            console.error(error);
+
+            alert("Error al eliminar deporte");
+          });
+      }
+      function filtrarDeportes() {
+        const texto = document
+          .getElementById("buscarDeporte")
+          .value.toLowerCase();
+        const tipo = document.getElementById("filtroTipo").value;
+
+        const filtrados = deportesOriginales.filter((item) => {
+          const nombre = item.nombre ? item.nombre.toLowerCase() : "";
+          const coincideNombre = nombre.includes(texto);
+
+          const coincideTipo = !tipo || item.tipo === tipo;
+
+          return coincideNombre && coincideTipo;
+        });
+
+        renderizarDeportes(filtrados);
+      }
+      function renderizarDeportes(data) {
+        const tabla = document.getElementById("tablaDeportes");
+        const contador = document.getElementById("contadorDeportes");
+
+        tabla.innerHTML = "";
+        contador.textContent = `${data.length} Total`;
+
+        data.forEach((item) => {
+          tabla.innerHTML += `
+      <tr class="hover:bg-surface-container-low transition-colors">
+
+        <td class="py-4 px-6">
+          <div class="flex items-center gap-sm">
+            <span class="font-bold text-on-surface">${item.nombre}</span>
+          </div>
+
+          <p class="text-xs text-on-surface-variant mt-1">
+            ${item.reglas || ""}
+          </p>
+        </td>
+
+        <td class="py-4 px-6">
+
+          <span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-bold uppercase">
+            ${item.tipo}
+          </span>
+
+        </td>
+
+        <td class="py-4 px-6">
+
+          <span class="font-bold text-on-surface">
+            ${item.maxParticipantes}
+          </span>
+
+        </td>
+
+        <td class="py-4 px-6 text-right space-x-1">
+
+          <button
+            onclick='editarDeporte(${JSON.stringify(item)})'
+            class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors">
+
+            <span class="material-symbols-outlined">
+              edit
+            </span>
+
+          </button>
+
+          <button
+            onclick="eliminarDeporte(${item.id})"
+            class="p-2 text-error hover:bg-error/10 rounded-full transition-colors">
+
+            <span class="material-symbols-outlined">
+              delete
+            </span>
+
+          </button>
+
+        </td>
+
+      </tr>
+    `;
+        });
       }
     </script>
-<style>
-        body { font-family: 'Lexend', sans-serif; overflow-x: hidden; }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        
-        #sidebar { transition: width 0.3s ease, transform 0.3s ease; }
-        .sidebar-collapsed { width: 80px !important; }
-        .sidebar-collapsed .nav-label, .sidebar-collapsed .config-text { display: none; }
-        .sidebar-collapsed nav a { justify-content: center; padding-left: 0; padding-right: 0; }
-        .sidebar-collapsed .material-symbols-outlined { margin: 0; }
-        
-        @media (max-width: 767px) {
-            #sidebar {
-                transform: translateX(-100%);
-                position: fixed;
-                width: 288px !important;
-            }
-            #sidebar.mobile-open {
-                transform: translateX(0);
-            }
-            #main-content {
-                margin-left: 0 !important;
-            }
-        }
-
-        .scroll-hide::-webkit-scrollbar { display: none; }
-    </style>
-<script src="../js/sidebar.js"></script><link rel="stylesheet" href="../css/style.css"><script src="../js/header.js"></script><script src="../js/auth.js"></script>
-</head>
-<body class="admin-theme">
-<!-- TopAppBar (Identical to SCREEN_44) -->
-<header></header>
-<!-- Overlay for Mobile Sidebar -->
-<div class="fixed inset-0 bg-black/50 z-40 hidden md:hidden" id="sidebar-overlay" onclick="toggleMobileSidebar()"></div>
-<div class="flex min-h-screen pt-16">
-<!-- NavigationDrawer (Identical to SCREEN_44) -->
-<aside class="fixed md:sticky top-16 left-0 h-[calc(100vh-64px)] z-40 flex flex-col py-lg bg-surface-container dark:bg-inverse-surface w-72 border-r border-outline-variant shadow-lg md:shadow-none shrink-0" id="sidebar"></aside>
-<!-- Main Content -->
-<main class="flex-1 pb-20 md:pb-8 px-margin-mobile md:px-margin-desktop min-h-screen transition-all duration-300 pt-8" id="main-content">
-<div class="max-w-5xl mx-auto space-y-md">
-<!-- List Header with Action (Style matched to SCREEN_44, Action Button RED) -->
-<div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-<div class="flex items-center gap-2">
-<h2 class="font-title-lg text-title-lg text-on-surface">Deportes Registrados</h2>
-<span class="font-caption text-caption text-on-surface-variant bg-surface-container-high px-2 py-1 rounded">4 Total</span>
-</div>
-<button class="bg-primary text-on-primary font-label-md px-6 py-3 rounded-lg shadow-md hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 w-full sm:w-auto" onclick="document.getElementById('new-sport-modal').classList.remove('hidden')">
-<span class="material-symbols-outlined text-lg">add</span>
-                        Nuevo Deporte
-                    </button>
-</div>
-<!-- Filters Section (Identical style to SCREEN_44) -->
-<div class="grid grid-cols-1 md:grid-cols-2 gap-md bg-surface-container-low p-md rounded-xl border border-outline-variant/30">
-<!-- Search/Name Filter -->
-<div class="relative flex-1">
-<label class="block text-caption font-label-md text-on-surface-variant mb-1">Buscar Deporte</label>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-body-md">search</span>
-<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all font-body-md" placeholder="Ej: Fútbol" type="text"/>
-</div>
-</div>
-<!-- Type Filter -->
-<div class="flex-1">
-<label class="block text-caption font-label-md text-on-surface-variant mb-1">Tipo</label>
-<select class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all font-body-md appearance-none">
-<option>Todos los tipos</option>
-<option>Colectivo</option>
-<option>Individual</option>
-</select>
-</div>
-</div>
-<!-- Table Section (Identical style to SCREEN_44) -->
-<div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
-<table class="w-full border-collapse">
-<thead class="bg-surface-container">
-<tr>
-<th class="text-left py-4 px-6 font-label-md text-on-surface text-sm uppercase tracking-wider">Nombre</th>
-<th class="text-left py-4 px-6 font-label-md text-on-surface text-sm uppercase tracking-wider">Tipo</th>
-<th class="text-right py-4 px-6 font-label-md text-on-surface text-sm uppercase tracking-wider">Acciones</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-outline-variant/30">
-<!-- Row 1 -->
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="py-4 px-6">
-<div class="flex items-center gap-sm"><span class="font-bold text-on-surface">Fútbol</span></div>
-</td>
-<td class="py-4 px-6">
-<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-bold uppercase">Colectivo</span>
-</td>
-<td class="py-4 px-6 text-right space-x-1">
-<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined">edit</span></button>
-<button class="p-2 text-error hover:bg-error/10 rounded-full transition-colors"><span class="material-symbols-outlined">delete</span></button>
-</td>
-</tr>
-<!-- Row 2 -->
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="py-4 px-6">
-<div class="flex items-center gap-sm"><span class="font-bold text-on-surface">Vóley</span></div>
-</td>
-<td class="py-4 px-6">
-<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-bold uppercase">Colectivo</span>
-</td>
-<td class="py-4 px-6 text-right space-x-1">
-<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined">edit</span></button>
-<button class="p-2 text-error hover:bg-error/10 rounded-full transition-colors"><span class="material-symbols-outlined">delete</span></button>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="py-4 px-6">
-<div class="flex items-center gap-sm"><span class="font-bold text-on-surface">Básquet</span></div>
-</td>
-<td class="py-4 px-6">
-<span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-bold uppercase">Colectivo</span>
-</td>
-<td class="py-4 px-6 text-right space-x-1">
-<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined">edit</span></button>
-<button class="p-2 text-error hover:bg-error/10 rounded-full transition-colors"><span class="material-symbols-outlined">delete</span></button>
-</td>
-</tr>
-<!-- Row 4 -->
-<tr class="hover:bg-surface-container-low transition-colors">
-<td class="py-4 px-6">
-<div class="flex items-center gap-sm"><span class="font-bold text-on-surface">Ping Pong</span></div>
-</td>
-<td class="py-4 px-6">
-<span class="px-2 py-1 bg-tertiary-container text-on-tertiary text-xs rounded-full font-bold uppercase">Individual</span>
-</td>
-<td class="py-4 px-6 text-right space-x-1">
-<button class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors"><span class="material-symbols-outlined">edit</span></button>
-<button class="p-2 text-error hover:bg-error/10 rounded-full transition-colors"><span class="material-symbols-outlined">delete</span></button>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<!-- Pagination (Identical style to SCREEN_44) -->
-<div class="flex justify-between items-center pt-md">
-<p class="text-caption text-on-surface-variant">Mostrando 4 deportes</p>
-<div class="flex gap-2">
-<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50" disabled=""><span class="material-symbols-outlined">chevron_left</span></button>
-<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
-<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors"><span class="material-symbols-outlined">chevron_right</span></button>
-</div>
-</div>
-</div>
-</main>
-</div>
-<!-- Modal (Keep existing structure but ensure primary style) -->
-<div class="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-sm bg-inverse-surface/40 hidden" id="new-sport-modal">
-<div class="bg-white w-full max-w-md rounded-xl shadow-2xl overflow-hidden border-t-4 border-primary animate-fade-in-up">
-<div class="p-md border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
-<h2 class="font-headline-md text-title-lg text-on-surface">Registrar Nuevo Deporte</h2>
-<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-on-surface-variant" onclick="document.getElementById('new-sport-modal').classList.add('hidden')">
-<span class="material-symbols-outlined">close</span>
-</button>
-</div>
-<div class="p-md space-y-md">
-<div class="space-y-xs">
-<label class="font-label-md text-on-surface-variant ml-1">Nombre del Deporte</label>
-<input class="w-full h-12 rounded-lg border border-outline px-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md placeholder:text-on-surface-variant/50" placeholder="Ej: Atletismo" type="text"/>
-</div>
-<div class="space-y-xs">
-<label class="font-label-md text-on-surface-variant ml-1">Tipo de Deporte</label>
-<div class="relative">
-<select class="w-full h-12 rounded-lg border border-outline px-md appearance-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md bg-white pr-lg">
-<option disabled="" selected="" value="">Seleccionar tipo...</option>
-<option value="individual">Individual</option>
-<option value="colectivo">Colectivo</option>
-</select>
-<div class="absolute right-md top-1/2 -translate-y-1/2 pointer-events-none">
-<span class="material-symbols-outlined text-on-surface-variant">expand_more</span>
-</div>
-</div>
-</div>
-<div class="space-y-xs">
-<label class="font-label-md text-on-surface-variant ml-1">Reglas / Descripción</label>
-<textarea class="w-full rounded-lg border border-outline p-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all font-body-md resize-none placeholder:text-on-surface-variant/50" placeholder="Describe brevemente las reglas generales y la dinámica..." rows="4"></textarea>
-</div>
-</div>
-<div class="p-md bg-surface-container border-t border-outline-variant flex justify-end gap-sm">
-<button class="px-md h-12 rounded-lg font-label-md text-on-surface border-2 border-outline hover:bg-surface-variant transition-colors" onclick="document.getElementById('new-sport-modal').classList.add('hidden')">
-                        Cancelar
-                    </button>
-<button class="px-md h-12 rounded-lg font-label-md text-on-primary bg-primary shadow-md hover:brightness-110 active:scale-95 transition-all">
-                        Guardar Deporte
-                    </button>
-</div>
-</div>
-</div>
-<!-- BottomNavBar (Mobile Only - Identical to SCREEN_44) -->
-<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 md:hidden px-4 pb-safe bg-surface dark:bg-inverse-surface border-t border-outline-variant dark:border-outline shadow-[0_-4px_12px_rgba(0,0,0,0.1)]">
-<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-secondary-fixed-dim p-2" href="dashboard.html">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="font-label-md text-[10px] uppercase">Dashboard</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-secondary-fixed-dim p-2" href="instituciones.html">
-<span class="material-symbols-outlined">account_balance</span>
-<span class="font-label-md text-[10px] uppercase">Instituciones</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-secondary-fixed-dim p-2" href="equipos.html">
-<span class="material-symbols-outlined">group</span>
-<span class="font-label-md text-[10px] uppercase">Equipos</span>
-</a>
-<a class="flex flex-col items-center justify-center text-primary dark:text-inverse-primary font-bold p-2" href="deportes.html">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sports_kabaddi</span>
-<span class="font-label-md text-[10px] uppercase">Deportes</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-secondary-fixed-dim p-2" href="calendario.html">
-<span class="material-symbols-outlined">calendar_month</span>
-<span class="font-label-md text-[10px] uppercase">Calendario</span>
-</a>
-</nav>
-
-</body></html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  </body>
+</html>

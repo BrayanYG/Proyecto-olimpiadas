@@ -35,7 +35,8 @@ public class EventoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Evento> actualizar(@PathVariable @org.springframework.lang.NonNull Long id, @RequestBody Evento datos) {
+    public ResponseEntity<Evento> actualizar(@PathVariable @org.springframework.lang.NonNull Long id,
+            @RequestBody Evento datos) {
         return eventoRepository.findById(id)
                 .map(evento -> {
                     evento.setNombre(datos.getNombre());
@@ -43,6 +44,7 @@ public class EventoController {
                     evento.setFechaFin(datos.getFechaFin());
                     evento.setDeporte(datos.getDeporte());
                     evento.setEstado(datos.getEstado());
+                    evento.setUbicacion(datos.getUbicacion());
                     return ResponseEntity.ok(eventoRepository.save(evento));
                 })
                 .orElse(ResponseEntity.notFound().build());

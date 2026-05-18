@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Inject dynamic CSS for the premium white sidebar
-    const style = document.createElement('style');
-    style.innerHTML = `
+document.addEventListener("DOMContentLoaded", function () {
+  // Inject dynamic CSS for the premium white sidebar
+  const style = document.createElement("style");
+  style.innerHTML = `
         #sidebar {
             background-color: #ffffff !important;
             border-right: 1px solid #e5e2e1 !important;
@@ -83,44 +83,49 @@ document.addEventListener('DOMContentLoaded', function() {
             display: none !important;
         }
     `;
-    document.head.appendChild(style);
+  document.head.appendChild(style);
 
-    const sidebar = document.getElementById('sidebar');
-    if (!sidebar) return;
+  const sidebar = document.getElementById("sidebar");
+  if (!sidebar) return;
 
-    // Get current filename
-    let currentPage = window.location.pathname.split('/').pop() || 'dashboard.html';
-    if (currentPage === '' || currentPage === '/') currentPage = 'dashboard.html';
+  // Get current filename
+  let currentPage =
+    window.location.pathname.split("/").pop() || "dashboard.html";
+  if (currentPage === "" || currentPage === "/") currentPage = "dashboard.html";
 
-    const menuItems = [
-        { id: 'dashboard.html', label: 'Dashboard', icon: 'grid_view' },
-        { id: 'eventos.html', label: 'Eventos', icon: 'calendar_today' },
-        { id: 'instituciones.html', label: 'Instituciones', icon: 'account_balance' },
-        { id: 'equipos.html', label: 'Equipos', icon: 'group' },
-        { id: 'participantes.html', label: 'Participantes', icon: 'person' },
-        { id: 'deportes.html', label: 'Deportes', icon: 'sports_kabaddi' },
-        { id: 'sorteo.html', label: 'Grupos', icon: 'apps' },
-        { id: 'calendario.html', label: 'Calendario', icon: 'event' },
-        { id: 'resultados.html', label: 'Resultados', icon: 'emoji_events' }
-    ];
+  const menuItems = [
+    { id: "dashboard.html", label: "Dashboard", icon: "grid_view" },
+    { id: "eventos.html", label: "Eventos", icon: "calendar_today" },
+    {
+      id: "instituciones.html",
+      label: "Instituciones",
+      icon: "account_balance",
+    },
+    { id: "equipos.html", label: "Equipos", icon: "group" },
+    { id: "participantes.html", label: "Participantes", icon: "person" },
+    { id: "deportes.html", label: "Deportes", icon: "sports_kabaddi" },
+    { id: "sorteo.html", label: "Grupos", icon: "apps" },
+    { id: "calendario.html", label: "Calendario", icon: "event" },
+    { id: "resultados.html", label: "Resultados", icon: "emoji_events" },
+  ];
 
-    let menuHtml = `<nav class="flex-1 flex flex-col pt-4 overflow-y-auto no-scrollbar">`;
-    
-    menuItems.forEach(item => {
-        const isActive = currentPage === item.id;
-        const activeClass = isActive ? 'active' : '';
-        
-        menuHtml += `
+  let menuHtml = `<nav class="flex-1 flex flex-col pt-4 overflow-y-auto no-scrollbar">`;
+
+  menuItems.forEach((item) => {
+    const isActive = currentPage === item.id;
+    const activeClass = isActive ? "active" : "";
+
+    menuHtml += `
             <a class="nav-item ${activeClass}" href="${item.id}">
                 <span class="material-symbols-outlined">${item.icon}</span>
                 <span class="font-label-md text-sm nav-label">${item.label}</span>
             </a>`;
-    });
+  });
 
-    menuHtml += `</nav>`;
+  menuHtml += `</nav>`;
 
-    // Bottom section
-    menuHtml += `
+  // Bottom section
+  menuHtml += `
         <div class="mt-auto">
             <div class="divider"></div>
             <a href="#" onclick="window.logout(); return false;" class="nav-item mb-2">
@@ -143,36 +148,36 @@ document.addEventListener('DOMContentLoaded', function() {
             </a>
         </div>`;
 
-    sidebar.innerHTML = menuHtml;
+  sidebar.innerHTML = menuHtml;
 });
 
 // Sidebar logic
 function toggleSidebarCollapse() {
-    const sidebar = document.getElementById('sidebar');
-    const icon = document.getElementById('collapse-icon');
-    if (!sidebar) return;
-    
-    sidebar.classList.toggle('sidebar-collapsed');
-    if (sidebar.classList.contains('sidebar-collapsed')) {
-        if (icon) icon.innerText = 'menu';
-    } else {
-        if (icon) icon.innerText = 'menu_open';
-    }
+  const sidebar = document.getElementById("sidebar");
+  const icon = document.getElementById("collapse-icon");
+  if (!sidebar) return;
+
+  sidebar.classList.toggle("sidebar-collapsed");
+  if (sidebar.classList.contains("sidebar-collapsed")) {
+    if (icon) icon.innerText = "menu";
+  } else {
+    if (icon) icon.innerText = "menu_open";
+  }
 }
 
 function toggleMobileMenu() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    if (!sidebar) return;
-    
-    sidebar.classList.toggle('mobile-open');
-    if (overlay) overlay.classList.toggle('hidden');
-    
-    if (sidebar.classList.contains('mobile-open')) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = '';
-    }
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("sidebar-overlay");
+  if (!sidebar) return;
+
+  sidebar.classList.toggle("mobile-open");
+  if (overlay) overlay.classList.toggle("hidden");
+
+  if (sidebar.classList.contains("mobile-open")) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "";
+  }
 }
 
 // Global functions for HTML onclicks

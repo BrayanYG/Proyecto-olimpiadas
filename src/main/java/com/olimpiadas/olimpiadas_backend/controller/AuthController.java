@@ -84,6 +84,6 @@ public class AuthController {
 
     @GetMapping("/usuarios")
     public List<Usuario> listarUsuarios() {
-       return usuarioService.listar();
+        return usuarioService.listar();
     }
 }

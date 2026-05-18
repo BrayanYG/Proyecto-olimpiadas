@@ -33,7 +33,8 @@ public class ParticipanteController {
     }
 
     @PutMapping("/{id}")
-    public Participante actualizar(@PathVariable @org.springframework.lang.NonNull Long id, @RequestBody @org.springframework.lang.NonNull Participante participante) {
+    public Participante actualizar(@PathVariable @org.springframework.lang.NonNull Long id,
+            @RequestBody @org.springframework.lang.NonNull Participante participante) {
         return participanteService.actualizar(id, participante);
     }
 

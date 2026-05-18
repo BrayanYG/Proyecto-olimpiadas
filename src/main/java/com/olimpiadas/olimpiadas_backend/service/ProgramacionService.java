@@ -35,7 +35,7 @@ public class ProgramacionService {
 
         for (String grupo : grupos.keySet()) {
             List<Sorteo> equiposGrupo = grupos.get(grupo);
-            
+
             // Generar todos contra todos dentro del grupo
             for (int i = 0; i < equiposGrupo.size(); i++) {
                 for (int j = i + 1; j < equiposGrupo.size(); j++) {
@@ -46,9 +46,9 @@ public class ProgramacionService {
                     encuentro.setFechaHora(fechaActual);
                     encuentro.setEstado("PENDIENTE");
                     encuentro.setLugar("Campo Principal");
-                    
+
                     encuentrosGenerados.add(encuentroRepository.save(encuentro));
-                    
+
                     // Incrementar fecha para el siguiente encuentro (ej. cada 2 horas)
                     fechaActual = fechaActual.plusHours(2);
                 }

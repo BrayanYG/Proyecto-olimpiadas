@@ -1,10 +1,10 @@
-document.addEventListener('DOMContentLoaded', () => {
-    injectSidebar();
-    setActiveLink();
+document.addEventListener("DOMContentLoaded", () => {
+  injectSidebar();
+  setActiveLink();
 });
 
 function injectSidebar() {
-    const sidebarHTML = `
+  const sidebarHTML = `
         <div class="sidebar">
             <div class="brand">
                 <span class="icon">🏅</span>
@@ -23,29 +23,29 @@ function injectSidebar() {
             </div>
         </div>
     `;
-    
-    const container = document.querySelector('.app-container');
-    if (container) {
-        container.insertAdjacentHTML('afterbegin', sidebarHTML);
-    }
+
+  const container = document.querySelector(".app-container");
+  if (container) {
+    container.insertAdjacentHTML("afterbegin", sidebarHTML);
+  }
 }
 
 function setActiveLink() {
-    const path = window.location.pathname;
-    const page = path.split("/").pop();
-    
-    const links = {
-        'dashboard.html': 'nav-dashboard',
-        'deportes.html': 'nav-deportes',
-        'instituciones.html': 'nav-instituciones',
-        'equipos.html': 'nav-equipos',
-        'calendario.html': 'nav-calendario',
-        'sorteo.html': 'nav-sorteo'
-    };
+  const path = window.location.pathname;
+  const page = path.split("/").pop();
 
-    const activeId = links[page];
-    if (activeId) {
-        const activeLink = document.getElementById(activeId);
-        if (activeLink) activeLink.classList.add('active');
-    }
+  const links = {
+    "dashboard.html": "nav-dashboard",
+    "deportes.html": "nav-deportes",
+    "instituciones.html": "nav-instituciones",
+    "equipos.html": "nav-equipos",
+    "calendario.html": "nav-calendario",
+    "sorteo.html": "nav-sorteo",
+  };
+
+  const activeId = links[page];
+  if (activeId) {
+    const activeLink = document.getElementById(activeId);
+    if (activeLink) activeLink.classList.add("active");
+  }
 }
