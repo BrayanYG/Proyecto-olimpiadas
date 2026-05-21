@@ -18,6 +18,8 @@ public class Participante {
     private String apellidos;
     private String dni;
     private Integer edad;
+    private String correo;
+    private String telefono;
 
     @ManyToOne
     @JoinColumn(name = "equipo_id")

@@ -211,10 +211,12 @@
               </h2>
               <span
                 class="font-caption text-caption text-on-surface-variant bg-surface-container-high px-2 py-1 rounded"
-                >156 Total</span
+                id="contadorParticipantes"
+                >0 Total</span
               >
             </div>
             <button
+              onclick="abrirModalParticipante()"
               class="bg-primary text-on-primary font-label-md px-6 py-3 rounded-lg shadow-md hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
             >
               <span class="material-symbols-outlined text-lg">person_add</span>
@@ -237,6 +239,7 @@
                   >search</span
                 >
                 <input
+                  id="buscarParticipante"
                   class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all font-body-md"
                   placeholder="Ej: 72458933"
                   type="text"
@@ -250,12 +253,10 @@
                 >Institución</label
               >
               <select
+                id="filtroInstitucion"
                 class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all font-body-md appearance-none"
               >
-                <option>Todas las instituciones</option>
-                <option>Univ. San Marcos</option>
-                <option>PUCP</option>
-                <option>UPC</option>
+                <option value="">Todos los instituciones</option>
               </select>
             </div>
             <!-- Team Filter -->
@@ -265,11 +266,10 @@
                 >Equipo</label
               >
               <select
+                id="filtroEquipo"
                 class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all font-body-md appearance-none"
               >
-                <option>Todos los equipos</option>
-                <option>Águilas del Sur</option>
-                <option>Leones de Lima</option>
+                <option value="">Todos los equipos</option>
               </select>
             </div>
             <!-- Sport Filter -->
@@ -279,12 +279,10 @@
                 >Deporte</label
               >
               <select
+                id="filtroDeporte"
                 class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all font-body-md appearance-none"
               >
-                <option>Todos los deportes</option>
-                <option>Atletismo</option>
-                <option>Natación</option>
-                <option>Vóley</option>
+                <option value="">Todos los deportes</option>
               </select>
             </div>
           </div>
@@ -332,203 +330,24 @@
                   </th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-outline-variant/30">
-                <!-- Row 1 -->
-                <tr class="hover:bg-surface-container-low transition-colors">
-                  <td class="py-4 px-6">
-                    <img
-                      alt="Participante"
-                      class="w-10 h-10 rounded-full border border-outline-variant object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCf_SAbf4U7bDJvhq7W2lyyqkucQn7MyFPHFD2Vc2CFSoZV0NwxApPN0sKOmhBOw_r3ak7ZKn-YSMOEPHgI1WFjX5ZfoHAwBoXppU-qXJiU-7dAcaBfIjfqccrIJ1WjcRFLYTEKluBgFKRI2d1Qv29_YUbb16f_trs-U_SMvH9p2eFnvREWz4loXe86AEj35UI2PRupVdW7vegAwfb11Di8TDs7Kxrhf8sN2b4N74fPWLBgTAVv_QfPgmO8aI0DfX0fnEE1KVQvkd0"
-                    />
-                  </td>
-                  <td class="py-4 px-6 font-bold text-on-surface">
-                    Diego Armando Quispe
-                  </td>
-                  <td class="py-4 px-6 text-on-surface-variant">71452369</td>
-                  <td class="py-4 px-6 text-on-surface-variant">UNMSM</td>
-                  <td class="py-4 px-6 text-on-surface-variant">
-                    Pumas Reales
-                  </td>
-                  <td class="py-4 px-6">
-                    <span
-                      class="px-2 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-bold uppercase"
-                      >Atletismo</span
-                    >
-                  </td>
-                  <td class="py-4 px-6 text-right space-x-1">
-                    <button
-                      class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors"
-                    >
-                      <span class="material-symbols-outlined">edit</span>
-                    </button>
-                    <button
-                      class="p-2 text-error hover:bg-error/10 rounded-full transition-colors"
-                    >
-                      <span class="material-symbols-outlined">delete</span>
-                    </button>
-                  </td>
-                </tr>
-                <!-- Row 2 -->
-                <tr class="hover:bg-surface-container-low transition-colors">
-                  <td class="py-4 px-6">
-                    <img
-                      alt="Participante"
-                      class="w-10 h-10 rounded-full border border-outline-variant object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuBibGh9HaCIgwTvcfLEY5YFIwGEkbIP5qMW4dzyJNBp8EIBUpHGxtTbX9CHs9wtunRRfzoGL9h7g6M6k0bgOoVymaWokYQTEqHFt7er_DDDzgfx6D-UYSEFYz_xrW5QSPkgRxFJXPvVnYP-UhvBMHK2wOb2_3_u5EVkQhc5eSCti0VMI8maEUzbOmU4bokDBH00EBqHbNf1BZw5yr2jMnRbk0VMMkOcApYw4HmSp4m05iI9bGSsQzVbbf7aDyupQNQ8rZFQDCvuOuI"
-                    />
-                  </td>
-                  <td class="py-4 px-6 font-bold text-on-surface">
-                    Maria Elena Torres
-                  </td>
-                  <td class="py-4 px-6 text-on-surface-variant">45896321</td>
-                  <td class="py-4 px-6 text-on-surface-variant">PUCP</td>
-                  <td class="py-4 px-6 text-on-surface-variant">
-                    Delfines Azules
-                  </td>
-                  <td class="py-4 px-6">
-                    <span
-                      class="px-2 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-bold uppercase"
-                      >Natación</span
-                    >
-                  </td>
-                  <td class="py-4 px-6 text-right space-x-1">
-                    <button
-                      class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors"
-                    >
-                      <span class="material-symbols-outlined">edit</span>
-                    </button>
-                    <button
-                      class="p-2 text-error hover:bg-error/10 rounded-full transition-colors"
-                    >
-                      <span class="material-symbols-outlined">delete</span>
-                    </button>
-                  </td>
-                </tr>
-                <!-- Row 3 -->
-                <tr class="hover:bg-surface-container-low transition-colors">
-                  <td class="py-4 px-6">
-                    <img
-                      alt="Participante"
-                      class="w-10 h-10 rounded-full border border-outline-variant object-cover"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK_jCHCvDSMYNhMM9AySZmwhFqS9MwYdeXx8SvZ8O49tj_IxBCJuSjkdycBgfaQuC87GZBww36rA2SbAczENlJNIxQ6hgxsjMsTEk_ztdDT_beZzECeTxZkRiwn-4jczKDb3VP_swUEO_lXOkk5YgmPK03wIxhN1v0sqGTt1CbzuGoOaShZmRw_YMpE7EoGKrRKMYW1UYbpbRZjgxdeajyZ7yuPMTgROoAtJjzh_5cqa2ZwAyXP7ADVumTQ2vOvWqw2gK8BKbWstk"
-                    />
-                  </td>
-                  <td class="py-4 px-6 font-bold text-on-surface">
-                    Juan Carlos Rojas
-                  </td>
-                  <td class="py-4 px-6 text-on-surface-variant">82563412</td>
-                  <td class="py-4 px-6 text-on-surface-variant">UPC</td>
-                  <td class="py-4 px-6 text-on-surface-variant">
-                    Incas del Rímac
-                  </td>
-                  <td class="py-4 px-6">
-                    <span
-                      class="px-2 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-bold uppercase"
-                      >Vóley</span
-                    >
-                  </td>
-                  <td class="py-4 px-6 text-right space-x-1">
-                    <button
-                      class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors"
-                    >
-                      <span class="material-symbols-outlined">edit</span>
-                    </button>
-                    <button
-                      class="p-2 text-error hover:bg-error/10 rounded-full transition-colors"
-                    >
-                      <span class="material-symbols-outlined">delete</span>
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody
+                id="tablaParticipantes"
+                class="divide-y divide-outline-variant/30"
+              ></tbody>
             </table>
           </div>
           <!-- Mobile List -->
-          <section class="space-y-sm md:hidden">
-            <div
-              class="bg-surface-container-low p-md rounded-xl border-l-4 border-primary shadow-sm"
-            >
-              <div class="flex justify-between items-center">
-                <div class="flex items-center gap-3">
-                  <img
-                    alt="Diego"
-                    class="w-10 h-10 rounded-full"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCf_SAbf4U7bDJvhq7W2lyyqkucQn7MyFPHFD2Vc2CFSoZV0NwxApPN0sKOmhBOw_r3ak7ZKn-YSMOEPHgI1WFjX5ZfoHAwBoXppU-qXJiU-7dAcaBfIjfqccrIJ1WjcRFLYTEKluBgFKRI2d1Qv29_YUbb16f_trs-U_SMvH9p2eFnvREWz4loXe86AEj35UI2PRupVdW7vegAwfb11Di8TDs7Kxrhf8sN2b4N74fPWLBgTAVv_QfPgmO8aI0DfX0fnEE1KVQvkd0"
-                  />
-                  <div>
-                    <h3 class="font-label-md text-label-md text-on-surface">
-                      Diego Armando Quispe
-                    </h3>
-                    <p
-                      class="font-caption text-caption text-on-surface-variant"
-                    >
-                      UNMSM • Atletismo
-                    </p>
-                  </div>
-                </div>
-                <div class="flex gap-1">
-                  <button
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-fixed-dim transition-colors"
-                  >
-                    <span class="material-symbols-outlined text-primary"
-                      >edit</span
-                    >
-                  </button>
-                  <button
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-error-container transition-colors"
-                  >
-                    <span class="material-symbols-outlined text-error"
-                      >delete</span
-                    >
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div
-              class="bg-surface-container-low p-md rounded-xl border-l-4 border-primary shadow-sm"
-            >
-              <div class="flex justify-between items-center">
-                <div class="flex items-center gap-3">
-                  <img
-                    alt="Maria"
-                    class="w-10 h-10 rounded-full"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBibGh9HaCIgwTvcfLEY5YFIwGEkbIP5qMW4dzyJNBp8EIBUpHGxtTbX9CHs9wtunRRfzoGL9h7g6M6k0bgOoVymaWokYQTEqHFt7er_DDDzgfx6D-UYSEFYz_xrW5QSPkgRxFJXPvVnYP-UhvBMHK2wOb2_3_u5EVkQhc5eSCti0VMI8maEUzbOmU4bokDBH00EBqHbNf1BZw5yr2jMnRbk0VMMkOcApYw4HmSp4m05iI9bGSsQzVbbf7aDyupQNQ8rZFQDCvuOuI"
-                  />
-                  <div>
-                    <h3 class="font-label-md text-label-md text-on-surface">
-                      Maria Elena Torres
-                    </h3>
-                    <p
-                      class="font-caption text-caption text-on-surface-variant"
-                    >
-                      PUCP • Natación
-                    </p>
-                  </div>
-                </div>
-                <div class="flex gap-1">
-                  <button
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-fixed-dim transition-colors"
-                  >
-                    <span class="material-symbols-outlined text-primary"
-                      >edit</span
-                    >
-                  </button>
-                  <button
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-error-container transition-colors"
-                  >
-                    <span class="material-symbols-outlined text-error"
-                      >delete</span
-                    >
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
+          <section
+            id="listaParticipantesMobile"
+            class="space-y-sm md:hidden"
+          ></section>
           <!-- Pagination -->
           <div class="flex justify-between items-center pt-md">
-            <p class="text-caption text-on-surface-variant">
-              Mostrando 1 a 3 de 156 participantes
+            <p
+              id="textoPaginacionParticipantes"
+              class="text-caption text-on-surface-variant"
+            >
+              Mostrando 0 participantes
             </p>
             <div class="flex gap-2">
               <button
@@ -560,6 +379,119 @@
           </div>
         </div>
       </main>
+    </div>
+    <!-- MODAL PARTICIPANTE -->
+    <div
+      id="modalParticipante"
+      class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-xl w-full max-w-2xl p-6 shadow-xl">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold text-primary">
+            Registrar Participante
+          </h2>
+
+          <button
+            onclick="cerrarModalParticipante()"
+            class="text-2xl font-bold text-gray-500 hover:text-red-600"
+          >
+            ×
+          </button>
+        </div>
+
+        <form id="formParticipante" class="space-y-4">
+          <input type="hidden" id="participanteId" />
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="font-semibold">Nombres</label>
+              <input
+                type="text"
+                id="nombres"
+                class="w-full border rounded-lg p-3"
+                required
+              />
+            </div>
+
+            <div>
+              <label class="font-semibold">Apellidos</label>
+              <input
+                type="text"
+                id="apellidos"
+                class="w-full border rounded-lg p-3"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="font-semibold">DNI</label>
+              <input
+                type="text"
+                id="dni"
+                class="w-full border rounded-lg p-3"
+                required
+              />
+            </div>
+
+            <div>
+              <label class="font-semibold">Edad</label>
+              <input
+                type="number"
+                id="edad"
+                class="w-full border rounded-lg p-3"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="font-semibold">Correo</label>
+              <input
+                type="email"
+                id="correo"
+                class="w-full border rounded-lg p-3"
+              />
+            </div>
+
+            <div>
+              <label class="font-semibold">Teléfono</label>
+              <input
+                type="text"
+                id="telefono"
+                class="w-full border rounded-lg p-3"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="font-semibold">Equipo</label>
+
+            <select id="equipo" class="w-full border rounded-lg p-3">
+              <option value="">Seleccione equipo</option>
+            </select>
+          </div>
+
+          <div class="flex justify-end gap-3 pt-4">
+            <button
+              type="button"
+              onclick="cerrarModalParticipante()"
+              class="px-5 py-3 border rounded-lg"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              onclick="guardarParticipante()"
+              class="bg-primary text-white px-5 py-3 rounded-lg font-bold hover:brightness-110"
+            >
+              Guardar Participante
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
     <!-- BottomNavBar (Mobile Only) -->
     <nav
@@ -605,5 +537,361 @@
         <span class="font-label-md text-[10px] uppercase">Calendario</span>
       </a>
     </nav>
+    <script>
+      const API_EQUIPOS = "http://localhost:8081/api/equipos";
+      const API_PARTICIPANTES = "http://localhost:8081/api/participantes";
+      const API_INSTITUCIONES = "http://localhost:8081/api/instituciones";
+      const API_DEPORTES = "http://localhost:8081/api/deportes";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        cargarEquipos();
+        cargarParticipantes();
+        cargarInstituciones();
+        cargarDeportes();
+
+        document
+          .getElementById("buscarParticipante")
+          .addEventListener("input", filtrarParticipantes);
+
+        document
+          .getElementById("filtroInstitucion")
+          .addEventListener("change", filtrarParticipantes);
+
+        document
+          .getElementById("filtroEquipo")
+          .addEventListener("change", filtrarParticipantes);
+
+        document
+          .getElementById("filtroDeporte")
+          .addEventListener("change", filtrarParticipantes);
+      });
+
+      function abrirModalParticipante() {
+        document.getElementById("modalParticipante").classList.remove("hidden");
+
+        document.getElementById("modalParticipante").classList.add("flex");
+      }
+
+      function cerrarModalParticipante() {
+        document.getElementById("modalParticipante").classList.add("hidden");
+
+        document.getElementById("modalParticipante").classList.remove("flex");
+      }
+
+      function cargarEquipos() {
+        fetch(API_EQUIPOS)
+          .then((response) => response.json())
+          .then((data) => {
+            const selectModal = document.getElementById("equipo");
+            const selectFiltro = document.getElementById("filtroEquipo");
+
+            selectModal.innerHTML = `<option value="">Seleccione equipo</option>`;
+            selectFiltro.innerHTML = `<option value="">Todos los equipos</option>`;
+
+            data.forEach((item) => {
+              selectModal.innerHTML += `
+          <option value="${item.id}">
+            ${item.nombre} - ${item.deporte?.nombre || ""}
+          </option>
+        `;
+
+              selectFiltro.innerHTML += `
+          <option value="${item.nombre}">
+            ${item.nombre}
+          </option>
+        `;
+            });
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("Error al cargar equipos");
+          });
+      }
+
+      function guardarParticipante() {
+        const id = document.getElementById("participanteId").value;
+
+        const nombres = document.getElementById("nombres").value.trim();
+
+        const apellidos = document.getElementById("apellidos").value.trim();
+
+        const dni = document.getElementById("dni").value.trim();
+
+        const edad = document.getElementById("edad").value;
+
+        const correo = document.getElementById("correo").value.trim();
+
+        const telefono = document.getElementById("telefono").value.trim();
+
+        const equipoId = document.getElementById("equipo").value;
+
+        if (!nombres || !apellidos || !dni || !edad || !equipoId) {
+          alert("Complete los campos obligatorios");
+
+          return;
+        }
+
+        const participante = {
+          nombres,
+          apellidos,
+          dni,
+          edad,
+          correo,
+          telefono,
+
+          equipo: {
+            id: parseInt(equipoId),
+          },
+        };
+
+        const url = id ? `${API_PARTICIPANTES}/${id}` : API_PARTICIPANTES;
+
+        const metodo = id ? "PUT" : "POST";
+
+        fetch(url, {
+          method: metodo,
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(participante),
+        })
+          .then((response) => response.json())
+
+          .then(() => {
+            cerrarModalParticipante();
+
+            limpiarFormularioParticipante();
+
+            cargarParticipantes();
+
+            alert(id ? "Participante actualizado" : "Participante registrado");
+          })
+
+          .catch((error) => {
+            console.error(error);
+
+            alert("Error al guardar participante");
+          });
+      }
+
+      function cargarParticipantes() {
+        fetch(API_PARTICIPANTES)
+          .then((response) => response.json())
+          .then((data) => {
+            participantesGlobal = data;
+            renderizarParticipantes(data);
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("Error al cargar participantes");
+          });
+      }
+
+      function limpiarFormularioParticipante() {
+        document.getElementById("participanteId").value = "";
+
+        document.getElementById("nombres").value = "";
+
+        document.getElementById("apellidos").value = "";
+
+        document.getElementById("dni").value = "";
+
+        document.getElementById("edad").value = "";
+
+        document.getElementById("correo").value = "";
+
+        document.getElementById("telefono").value = "";
+
+        document.getElementById("equipo").value = "";
+      }
+
+      function editarParticipante(item) {
+        document.getElementById("participanteId").value = item.id;
+        document.getElementById("nombres").value = item.nombres || "";
+        document.getElementById("apellidos").value = item.apellidos || "";
+        document.getElementById("dni").value = item.dni || "";
+        document.getElementById("edad").value = item.edad || "";
+        document.getElementById("correo").value = item.correo || "";
+        document.getElementById("telefono").value = item.telefono || "";
+        document.getElementById("equipo").value = item.equipo?.id || "";
+
+        abrirModalParticipante();
+      }
+
+      function eliminarParticipante(id) {
+        const confirmar = confirm(
+          "¿Seguro que deseas eliminar este participante?",
+        );
+
+        if (!confirmar) return;
+
+        fetch(`${API_PARTICIPANTES}/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.text())
+          .then(() => {
+            cargarParticipantes();
+            alert("Participante eliminado correctamente");
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("Error al eliminar participante");
+          });
+      }
+
+      let participantesGlobal = [];
+
+      function cargarInstituciones() {
+        fetch(API_INSTITUCIONES)
+          .then((response) => response.json())
+
+          .then((data) => {
+            const select = document.getElementById("filtroInstitucion");
+
+            select.innerHTML = `<option value="">Todas las instituciones</option>`;
+
+            data.forEach((item) => {
+              select.innerHTML += `
+          <option value="${item.nombre}">
+            ${item.nombre}
+          </option>
+        `;
+            });
+          });
+      }
+
+      function cargarDeportes() {
+        fetch(API_DEPORTES)
+          .then((response) => response.json())
+
+          .then((data) => {
+            const select = document.getElementById("filtroDeporte");
+
+            select.innerHTML = `<option value="">Todos los deportes</option>`;
+
+            data.forEach((item) => {
+              select.innerHTML += `
+          <option value="${item.nombre}">
+            ${item.nombre}
+          </option>
+        `;
+            });
+          });
+      }
+
+      function filtrarParticipantes() {
+        const texto = document
+          .getElementById("buscarParticipante")
+          .value.toLowerCase();
+
+        const institucion = document
+          .getElementById("filtroInstitucion")
+          .value.trim()
+          .toLowerCase();
+
+        const equipo = document
+          .getElementById("filtroEquipo")
+          .value.trim()
+          .toLowerCase();
+
+        const deporte = document
+          .getElementById("filtroDeporte")
+          .value.trim()
+          .toLowerCase();
+
+        const filtrados = participantesGlobal.filter((item) => {
+          const nombreCompleto =
+            `${item.nombres} ${item.apellidos}`.toLowerCase();
+
+          const dni = item.dni?.toLowerCase() || "";
+
+          const nombreInstitucion = (item.equipo?.institucion?.nombre || "")
+            .trim()
+            .toLowerCase();
+
+          const nombreEquipo = (item.equipo?.nombre || "").trim().toLowerCase();
+
+          const nombreDeporte = (item.equipo?.deporte?.nombre || "")
+            .trim()
+            .toLowerCase();
+
+          return (
+            (nombreCompleto.includes(texto) || dni.includes(texto)) &&
+            (!institucion || nombreInstitucion === institucion) &&
+            (!equipo || nombreEquipo === equipo) &&
+            (!deporte || nombreDeporte === deporte)
+          );
+        });
+
+        renderizarParticipantes(filtrados);
+      }
+
+      function renderizarParticipantes(data) {
+        const tabla = document.getElementById("tablaParticipantes");
+        const contador = document.getElementById("contadorParticipantes");
+
+        tabla.innerHTML = "";
+        contador.textContent = `${data.length} Total`;
+
+        document.getElementById("textoPaginacionParticipantes").textContent =
+          `Mostrando ${data.length} participantes`;
+
+        data.forEach((item) => {
+          // aquí va todo tu tabla.innerHTML += `...`
+          tabla.innerHTML = "";
+          contador.textContent = `${data.length} Total`;
+          document.getElementById("textoPaginacionParticipantes").textContent =
+            `Mostrando ${data.length} participantes`;
+
+          data.forEach((item) => {
+            tabla.innerHTML += `
+          <tr class="hover:bg-surface-container-low transition-colors">
+            <td class="py-4 px-6">
+              <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">
+                ${item.nombres ? item.nombres.charAt(0).toUpperCase() : "P"}
+              </div>
+            </td>
+
+            <td class="py-4 px-6 font-bold text-on-surface">
+              ${item.nombres || ""} ${item.apellidos || ""}
+            </td>
+
+            <td class="py-4 px-6 text-on-surface-variant">
+              ${item.dni || ""}
+            </td>
+
+            <td class="py-4 px-6 text-on-surface-variant">
+              ${item.equipo?.institucion?.nombre || "Sin institución"}
+            </td>
+
+            <td class="py-4 px-6 text-on-surface-variant">
+              ${item.equipo?.nombre || "Sin equipo"}
+            </td>
+
+            <td class="py-4 px-6">
+              <span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-bold uppercase">
+                ${item.equipo?.deporte?.nombre || "Sin deporte"}
+              </span>
+            </td>
+
+            <td class="py-4 px-6 text-right space-x-1">
+              <button onclick='editarParticipante(${JSON.stringify(item)})'
+                class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors">
+                <span class="material-symbols-outlined">edit</span>
+              </button>
+
+              <button onclick="eliminarParticipante(${item.id})"
+                class="p-2 text-error hover:bg-error/10 rounded-full transition-colors">
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+            </td>
+          </tr>
+        `;
+          });
+        });
+      }
+    </script>
   </body>
 </html>
