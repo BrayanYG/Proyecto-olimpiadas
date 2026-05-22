@@ -32,4 +32,7 @@ public class Encuentro {
     private LocalDateTime fechaHora;
     private String lugar;
     private String estado; // PENDIENTE, EN_CURSO, FINALIZADO, CANCELADO
+
+    @OneToOne(mappedBy = "encuentro", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Resultado resultado;
 }

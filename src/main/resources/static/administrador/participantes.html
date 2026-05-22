@@ -349,32 +349,8 @@
             >
               Mostrando 0 participantes
             </p>
-            <div class="flex gap-2">
-              <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors"
-              >
-                <span class="material-symbols-outlined">chevron_left</span>
-              </button>
-              <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold"
-              >
-                1
-              </button>
-              <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors"
-              >
-                2
-              </button>
-              <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors"
-              >
-                3
-              </button>
-              <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors"
-              >
-                <span class="material-symbols-outlined">chevron_right</span>
-              </button>
+            <div class="flex gap-2" id="paginacionControles">
+              <!-- Dynamically populated -->
             </div>
           </div>
         </div>
@@ -538,10 +514,16 @@
       </a>
     </nav>
     <script>
-      const API_EQUIPOS = "http://localhost:8081/api/equipos";
-      const API_PARTICIPANTES = "http://localhost:8081/api/participantes";
-      const API_INSTITUCIONES = "http://localhost:8081/api/instituciones";
-      const API_DEPORTES = "http://localhost:8081/api/deportes";
+      const API_BASE = window.location.port === "8081" ? "" : "http://localhost:8081";
+      const API_EQUIPOS = `${API_BASE}/api/equipos`;
+      const API_PARTICIPANTES = `${API_BASE}/api/participantes`;
+      const API_INSTITUCIONES = `${API_BASE}/api/instituciones`;
+      const API_DEPORTES = `${API_BASE}/api/deportes`;
+
+      let participantesGlobal = [];
+      let participantesFiltrados = [];
+      let paginaActual = 1;
+      const itemsPorPagina = 10;
 
       document.addEventListener("DOMContentLoaded", () => {
         cargarEquipos();
@@ -604,7 +586,7 @@
           })
           .catch((error) => {
             console.error(error);
-            alert("Error al cargar equipos");
+            showToast("Error al cargar equipos", "error");
           });
       }
 
@@ -626,7 +608,7 @@
         const equipoId = document.getElementById("equipo").value;
 
         if (!nombres || !apellidos || !dni || !edad || !equipoId) {
-          alert("Complete los campos obligatorios");
+          showToast("Complete los campos obligatorios", "warning");
 
           return;
         }
@@ -657,7 +639,14 @@
 
           body: JSON.stringify(participante),
         })
-          .then((response) => response.json())
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((err) => {
+                throw new Error(err.message || "Error del servidor");
+              });
+            }
+            return response.json();
+          })
 
           .then(() => {
             cerrarModalParticipante();
@@ -666,13 +655,18 @@
 
             cargarParticipantes();
 
-            alert(id ? "Participante actualizado" : "Participante registrado");
+            showToast(
+              id
+                ? "Participante actualizado correctamente"
+                : "Participante registrado correctamente",
+              "success"
+            );
           })
 
           .catch((error) => {
             console.error(error);
 
-            alert("Error al guardar participante");
+            showToast("Error al guardar participante: " + error.message, "error");
           });
       }
 
@@ -681,11 +675,13 @@
           .then((response) => response.json())
           .then((data) => {
             participantesGlobal = data;
-            renderizarParticipantes(data);
+            participantesFiltrados = data;
+            paginaActual = 1;
+            renderizarParticipantes();
           })
           .catch((error) => {
             console.error(error);
-            alert("Error al cargar participantes");
+            showToast("Error al cargar participantes", "error");
           });
       }
 
@@ -721,27 +717,23 @@
       }
 
       function eliminarParticipante(id) {
-        const confirmar = confirm(
-          "¿Seguro que deseas eliminar este participante?",
-        );
-
-        if (!confirmar) return;
-
-        fetch(`${API_PARTICIPANTES}/${id}`, {
-          method: "DELETE",
-        })
-          .then((response) => response.text())
-          .then(() => {
-            cargarParticipantes();
-            alert("Participante eliminado correctamente");
+        showConfirm("¿Seguro que deseas eliminar este participante?", () => {
+          fetch(`${API_PARTICIPANTES}/${id}`, {
+            method: "DELETE",
           })
-          .catch((error) => {
-            console.error(error);
-            alert("Error al eliminar participante");
-          });
+            .then((response) => response.text())
+            .then(() => {
+              cargarParticipantes();
+              showToast("Participante eliminado correctamente", "success");
+            })
+            .catch((error) => {
+              console.error(error);
+              showToast("Error al eliminar participante", "error");
+            });
+        });
       }
 
-      let participantesGlobal = [];
+      // participantesGlobal, participantesFiltrados, paginaActual declared above
 
       function cargarInstituciones() {
         fetch(API_INSTITUCIONES)
@@ -801,7 +793,7 @@
           .value.trim()
           .toLowerCase();
 
-        const filtrados = participantesGlobal.filter((item) => {
+        participantesFiltrados = participantesGlobal.filter((item) => {
           const nombreCompleto =
             `${item.nombres} ${item.apellidos}`.toLowerCase();
 
@@ -825,63 +817,141 @@
           );
         });
 
-        renderizarParticipantes(filtrados);
+        paginaActual = 1;
+        renderizarParticipantes();
       }
 
-      function renderizarParticipantes(data) {
+      function renderizarParticipantes() {
         const tabla = document.getElementById("tablaParticipantes");
+        const mobileContainer = document.getElementById("listaParticipantesMobile");
         const contador = document.getElementById("contadorParticipantes");
 
         tabla.innerHTML = "";
-        contador.textContent = `${data.length} Total`;
+        if (mobileContainer) mobileContainer.innerHTML = "";
 
-        document.getElementById("textoPaginacionParticipantes").textContent =
-          `Mostrando ${data.length} participantes`;
+        const totalItems = participantesFiltrados.length;
+        const textoPaginacion = document.getElementById("textoPaginacionParticipantes");
+        const controles = document.getElementById("paginacionControles");
 
-        data.forEach((item) => {
-          // aquí va todo tu tabla.innerHTML += `...`
-          tabla.innerHTML = "";
-          contador.textContent = `${data.length} Total`;
-          document.getElementById("textoPaginacionParticipantes").textContent =
-            `Mostrando ${data.length} participantes`;
+        if (totalItems === 0) {
+          tabla.innerHTML = `
+            <tr>
+              <td colspan="7" class="py-8 text-center text-on-surface-variant bg-surface-container-low/30">
+                <span class="material-symbols-outlined text-4xl mb-2 text-on-surface-variant block">person</span>
+                <p class="font-body-md text-on-surface-variant">No hay datos disponibles</p>
+              </td>
+            </tr>
+          `;
+          if (mobileContainer) {
+            mobileContainer.innerHTML = `
+              <div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant text-center my-4">
+                <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2">person</span>
+                <p class="font-body-md text-on-surface-variant">No hay datos disponibles</p>
+              </div>
+            `;
+          }
+          if (contador) {
+            contador.textContent = "0 Total";
+          }
+          if (textoPaginacion) {
+            textoPaginacion.textContent = "Mostrando 0 participantes";
+          }
+          if (controles) {
+            controles.innerHTML = "";
+          }
+          return;
+        }
 
-          data.forEach((item) => {
-            tabla.innerHTML += `
+        const totalPaginas = Math.ceil(totalItems / itemsPorPagina) || 1;
+        if (paginaActual > totalPaginas) paginaActual = totalPaginas;
+
+        const inicio = (paginaActual - 1) * itemsPorPagina;
+        const fin = Math.min(inicio + itemsPorPagina, totalItems);
+        const itemsPagina = participantesFiltrados.slice(inicio, fin);
+
+        if (contador) {
+          contador.textContent = `${totalItems} Total`;
+        }
+
+        if (textoPaginacion) {
+          textoPaginacion.textContent = `Mostrando ${inicio + 1}-${fin} de ${totalItems} participantes`;
+        }
+
+        // Generar botones de paginación
+        if (controles) {
+          controles.innerHTML = "";
+
+          const btnPrev = document.createElement("button");
+          btnPrev.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+          btnPrev.innerHTML = `<span class="material-symbols-outlined">chevron_left</span>`;
+          btnPrev.disabled = paginaActual === 1;
+          btnPrev.onclick = () => {
+            if (paginaActual > 1) {
+              paginaActual--;
+              renderizarParticipantes();
+            }
+          };
+          controles.appendChild(btnPrev);
+
+          for (let i = 1; i <= totalPaginas; i++) {
+            const btnPag = document.createElement("button");
+            if (i === paginaActual) {
+              btnPag.className = "w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold transition-all";
+            } else {
+              btnPag.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors";
+            }
+            btnPag.textContent = i;
+            btnPag.onclick = () => {
+              paginaActual = i;
+              renderizarParticipantes();
+            };
+            controles.appendChild(btnPag);
+          }
+
+          const btnNext = document.createElement("button");
+          btnNext.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+          btnNext.innerHTML = `<span class="material-symbols-outlined">chevron_right</span>`;
+          btnNext.disabled = paginaActual === totalPaginas;
+          btnNext.onclick = () => {
+            if (paginaActual < totalPaginas) {
+              paginaActual++;
+              renderizarParticipantes();
+            }
+          };
+          controles.appendChild(btnNext);
+        }
+
+        // Renderizar tabla desktop y lista mobile
+        itemsPagina.forEach((item) => {
+          tabla.innerHTML += `
           <tr class="hover:bg-surface-container-low transition-colors">
             <td class="py-4 px-6">
               <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">
                 ${item.nombres ? item.nombres.charAt(0).toUpperCase() : "P"}
               </div>
             </td>
-
             <td class="py-4 px-6 font-bold text-on-surface">
               ${item.nombres || ""} ${item.apellidos || ""}
             </td>
-
             <td class="py-4 px-6 text-on-surface-variant">
               ${item.dni || ""}
             </td>
-
             <td class="py-4 px-6 text-on-surface-variant">
               ${item.equipo?.institucion?.nombre || "Sin institución"}
             </td>
-
             <td class="py-4 px-6 text-on-surface-variant">
               ${item.equipo?.nombre || "Sin equipo"}
             </td>
-
             <td class="py-4 px-6">
               <span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-bold uppercase">
                 ${item.equipo?.deporte?.nombre || "Sin deporte"}
               </span>
             </td>
-
             <td class="py-4 px-6 text-right space-x-1">
               <button onclick='editarParticipante(${JSON.stringify(item)})'
                 class="p-2 text-primary hover:bg-primary/10 rounded-full transition-colors">
                 <span class="material-symbols-outlined">edit</span>
               </button>
-
               <button onclick="eliminarParticipante(${item.id})"
                 class="p-2 text-error hover:bg-error/10 rounded-full transition-colors">
                 <span class="material-symbols-outlined">delete</span>
@@ -889,7 +959,35 @@
             </td>
           </tr>
         `;
-          });
+
+          if (mobileContainer) {
+            mobileContainer.innerHTML += `
+              <div class="bg-surface-container-low p-md rounded-xl border-l-4 border-primary shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-center gap-4">
+                  <div class="flex items-center gap-3 flex-1 min-w-0">
+                    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold shrink-0">
+                      ${item.nombres ? item.nombres.charAt(0).toUpperCase() : "P"}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="font-label-md text-label-md text-on-surface truncate" title="${item.nombres || ""} ${item.apellidos || ""}">${item.nombres || ""} ${item.apellidos || ""}</h3>
+                      <p class="font-caption text-caption text-on-surface-variant truncate">DNI: ${item.dni || ""} · ${item.equipo?.nombre || "Sin equipo"}</p>
+                      <p class="font-caption text-caption text-primary font-bold mt-1 truncate">${item.equipo?.deporte?.nombre || "Sin deporte"} · ${item.equipo?.institucion?.nombre || "Sin institución"}</p>
+                    </div>
+                  </div>
+                  <div class="flex gap-1 shrink-0">
+                    <button onclick='editarParticipante(${JSON.stringify(item)})'
+                      class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-fixed-dim transition-colors">
+                      <span class="material-symbols-outlined text-primary">edit</span>
+                    </button>
+                    <button onclick="eliminarParticipante(${item.id})"
+                      class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-error-container transition-colors">
+                      <span class="material-symbols-outlined text-error">delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
         });
       }
     </script>

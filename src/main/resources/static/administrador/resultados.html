@@ -213,24 +213,23 @@
                 >Deporte</label
               >
               <select
+                id="filtroDeporte"
                 class="w-full bg-surface-container-low border border-outline rounded-lg px-md py-sm focus:border-primary focus:ring-0 text-body-md"
               >
-                <option>Fútbol - Todos</option>
-                <option>Baloncesto</option>
-                <option>Voleibol</option>
-                <option>Natación</option>
-                <option>Atletismo</option>
+                <option value="">Todos los Deportes</option>
               </select>
             </div>
             <div
               class="flex bg-surface-container rounded-lg p-1 w-full md:w-auto"
             >
               <button
+                id="tabPendientes"
                 class="flex-1 md:flex-none px-6 md:px-lg py-sm rounded-lg bg-surface-container-lowest text-primary font-bold shadow-sm text-label-md"
               >
                 Pendientes
               </button>
               <button
+                id="tabFinalizados"
                 class="flex-1 md:flex-none px-6 md:px-lg py-sm rounded-lg text-secondary hover:text-on-surface transition-colors text-label-md"
               >
                 Finalizados
@@ -238,12 +237,12 @@
             </div>
           </section>
           <!-- Results List -->
-          <div class="flex flex-col gap-md">
+          <div id="contenedorResultados" class="flex flex-col gap-md">
             <!-- Match Card 1 -->
             <div
-              class="bg-surface-container-low rounded-xl p-4 md:p-6 flex flex-col lg:flex-row items-center gap-md md:gap-lg border border-outline-variant hover:shadow-md transition-shadow"
+              class="bg-surface-container-low rounded-xl p-4 md:p-6 flex flex-col xl:flex-row items-center gap-md md:gap-lg border border-outline-variant hover:shadow-md transition-shadow"
             >
-              <div class="flex-1 flex flex-col gap-xs w-full lg:w-1/4">
+              <div class="flex-1 flex flex-col gap-xs w-full xl:w-1/4">
                 <div class="flex items-center gap-xs flex-wrap">
                   <span
                     class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full text-[10px] font-bold"
@@ -263,7 +262,7 @@
               </div>
               <!-- Centered Score Area -->
               <div
-                class="flex items-center justify-center gap-4 sm:gap-lg px-2 sm:px-md py-md bg-surface-container-lowest rounded-xl border border-outline-variant/30 w-full lg:flex-1"
+                class="flex items-center justify-center gap-4 sm:gap-lg px-2 sm:px-md py-md bg-surface-container-lowest rounded-xl border border-outline-variant/30 w-full xl:flex-1"
               >
                 <div
                   class="flex flex-col items-center gap-xs min-w-[70px] sm:min-w-[80px]"
@@ -310,7 +309,7 @@
                 </div>
               </div>
               <!-- Action Buttons -->
-              <div class="flex flex-col gap-sm w-full lg:w-auto min-w-[200px]">
+              <div class="flex flex-col gap-sm w-full xl:w-auto min-w-[200px] shrink-0">
                 <button
                   class="bg-primary text-on-primary w-full py-2.5 rounded-lg font-label-md text-sm hover:brightness-95 transition-all"
                 >
@@ -328,9 +327,9 @@
             </div>
             <!-- Match Card 2 -->
             <div
-              class="bg-surface-container-low rounded-xl p-4 md:p-6 flex flex-col lg:flex-row items-center gap-md md:gap-lg border border-outline-variant hover:shadow-md transition-shadow"
+              class="bg-surface-container-low rounded-xl p-4 md:p-6 flex flex-col xl:flex-row items-center gap-md md:gap-lg border border-outline-variant hover:shadow-md transition-shadow"
             >
-              <div class="flex-1 flex flex-col gap-xs w-full lg:w-1/4">
+              <div class="flex-1 flex flex-col gap-xs w-full xl:w-1/4">
                 <div class="flex items-center gap-xs flex-wrap">
                   <span
                     class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full text-[10px] font-bold"
@@ -349,7 +348,7 @@
                 </p>
               </div>
               <div
-                class="flex items-center justify-center gap-4 sm:gap-lg px-2 sm:px-md py-md bg-surface-container-lowest rounded-xl border border-outline-variant/30 w-full lg:flex-1"
+                class="flex items-center justify-center gap-4 sm:gap-lg px-2 sm:px-md py-md bg-surface-container-lowest rounded-xl border border-outline-variant/30 w-full xl:flex-1"
               >
                 <div
                   class="flex flex-col items-center gap-xs min-w-[70px] sm:min-w-[80px]"
@@ -395,7 +394,7 @@
                   >
                 </div>
               </div>
-              <div class="flex flex-col gap-sm w-full lg:w-auto min-w-[200px]">
+              <div class="flex flex-col gap-sm w-full xl:w-auto min-w-[200px] shrink-0">
                 <button
                   class="bg-primary text-on-primary w-full py-2.5 rounded-lg font-label-md text-sm hover:brightness-95 transition-all"
                 >
@@ -413,9 +412,9 @@
             </div>
             <!-- Match Card 3 -->
             <div
-              class="bg-surface-container-low rounded-xl p-4 md:p-6 flex flex-col lg:flex-row items-center gap-md md:gap-lg border border-outline-variant hover:shadow-md transition-shadow"
+              class="bg-surface-container-low rounded-xl p-4 md:p-6 flex flex-col xl:flex-row items-center gap-md md:gap-lg border border-outline-variant hover:shadow-md transition-shadow"
             >
-              <div class="flex-1 flex flex-col gap-xs w-full lg:w-1/4">
+              <div class="flex-1 flex flex-col gap-xs w-full xl:w-1/4">
                 <div class="flex items-center gap-xs flex-wrap">
                   <span
                     class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full text-[10px] font-bold"
@@ -434,7 +433,7 @@
                 </p>
               </div>
               <div
-                class="flex items-center justify-center gap-4 sm:gap-lg px-2 sm:px-md py-md bg-surface-container-lowest rounded-xl border border-outline-variant/30 w-full lg:flex-1"
+                class="flex items-center justify-center gap-4 sm:gap-lg px-2 sm:px-md py-md bg-surface-container-lowest rounded-xl border border-outline-variant/30 w-full xl:flex-1"
               >
                 <div
                   class="flex flex-col items-center gap-xs min-w-[70px] sm:min-w-[80px]"
@@ -480,7 +479,7 @@
                   >
                 </div>
               </div>
-              <div class="flex flex-col gap-sm w-full lg:w-auto min-w-[200px]">
+              <div class="flex flex-col gap-sm w-full xl:w-auto min-w-[200px] shrink-0">
                 <button
                   class="bg-primary text-on-primary w-full py-2.5 rounded-lg font-label-md text-sm hover:brightness-95 transition-all"
                 >
@@ -500,5 +499,56 @@
         </div>
       </main>
     </div>
+
+    <!-- Modal: Hoja de Anotación -->
+    <div id="modalAnotacion" class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4">
+      <div class="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" onclick="cerrarModalAnotacion()"></div>
+      <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg w-full max-w-lg z-10 overflow-hidden flex flex-col max-h-[90vh]">
+        <!-- Header -->
+        <div class="bg-surface-container-high px-md py-4 flex justify-between items-center border-b border-outline-variant">
+          <h3 class="font-headline-md text-title-lg text-primary font-bold flex items-center gap-xs">
+            <span class="material-symbols-outlined">description</span>
+            Hoja de Anotación
+          </h3>
+          <button onclick="cerrarModalAnotacion()" class="p-1 hover:bg-surface-container-highest rounded text-on-surface-variant">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+
+        <!-- Content -->
+        <div class="p-md overflow-y-auto flex-1 space-y-4">
+          <div id="modalAnotacionInfo" class="p-4 rounded-lg bg-surface-container-low border border-outline-variant">
+            <!-- Dynamically populated match info -->
+          </div>
+          
+          <div class="flex flex-col gap-xs">
+            <label class="font-caption text-xs uppercase font-bold text-secondary">Anotadores y Goles / Canastas</label>
+            <textarea id="modalAnotacionGoles" rows="3" placeholder="Ej: Juan Pérez (2), Pedro Gómez (1)" class="w-full bg-white px-md py-3 rounded-lg border border-outline-variant font-label-md text-label-md focus:border-primary text-on-surface"></textarea>
+          </div>
+
+          <div class="flex flex-col gap-xs">
+            <label class="font-caption text-xs uppercase font-bold text-secondary">Tarjetas y Sanciones</label>
+            <textarea id="modalAnotacionTarjetas" rows="3" placeholder="Ej: Amarilla: Carlos Ruíz (Local) • Roja: Luis Soto (Visitante)" class="w-full bg-white px-md py-3 rounded-lg border border-outline-variant font-label-md text-label-md focus:border-primary text-on-surface"></textarea>
+          </div>
+
+          <div class="flex flex-col gap-xs">
+            <label class="font-caption text-xs uppercase font-bold text-secondary">Observaciones Generales</label>
+            <textarea id="modalAnotacionObs" rows="3" placeholder="Detalles adicionales sobre el encuentro..." class="w-full bg-white px-md py-3 rounded-lg border border-outline-variant font-label-md text-label-md focus:border-primary text-on-surface"></textarea>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-surface-container-high px-md py-4 flex justify-end gap-2 border-t border-outline-variant">
+          <button onclick="cerrarModalAnotacion()" class="border-2 border-primary text-primary px-6 py-2.5 rounded-lg font-label-md text-sm hover:bg-surface-container-highest transition-colors active:scale-95 duration-150">
+            Cerrar
+          </button>
+          <button id="btnGuardarAnotacion" onclick="guardarAnotacion()" class="bg-primary-container text-on-primary-container px-6 py-2.5 rounded-lg font-label-md text-sm hover:bg-primary transition-colors active:scale-95 duration-150">
+            Guardar Estadísticas
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/resultados.js"></script>
   </body>
 </html>

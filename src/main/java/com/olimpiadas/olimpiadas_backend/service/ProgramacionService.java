@@ -25,34 +25,72 @@ public class ProgramacionService {
     }
 
     @NonNull
-    public List<Encuentro> generarProgramacion(@NonNull Evento evento, LocalDateTime fechaInicio) {
+    public List<Encuentro> generarProgramacion(@NonNull Evento evento) {
         List<Sorteo> sorteos = sorteoRepository.findByEventoId(evento.getId());
         Map<String, List<Sorteo>> grupos = sorteos.stream()
                 .collect(Collectors.groupingBy(Sorteo::getGrupo));
 
         List<Encuentro> encuentrosGenerados = new ArrayList<>();
-        LocalDateTime fechaActual = fechaInicio;
 
+        // Determinar rango de fechas del evento
+        java.time.LocalDate startDate = evento.getFechaInicio();
+        java.time.LocalDate endDate = evento.getFechaFin();
+
+        if (startDate == null) {
+            startDate = java.time.LocalDate.now();
+        }
+        if (endDate == null || endDate.isBefore(startDate)) {
+            endDate = startDate.plusDays(3);
+        }
+
+        // Crear lista de fechas disponibles
+        List<java.time.LocalDate> fechasDisponibles = new ArrayList<>();
+        java.time.LocalDate current = startDate;
+        while (!current.isAfter(endDate)) {
+            fechasDisponibles.add(current);
+            current = current.plusDays(1);
+        }
+
+        // Determinar la ubicación (lugar)
+        String lugar = (evento.getUbicacion() != null && !evento.getUbicacion().trim().isEmpty()) 
+                ? evento.getUbicacion().trim() 
+                : "Campo Principal";
+
+        // Obtener todos los enfrentamientos posibles por grupo
+        List<Sorteo[]> enfrentamientos = new ArrayList<>();
         for (String grupo : grupos.keySet()) {
             List<Sorteo> equiposGrupo = grupos.get(grupo);
-
-            // Generar todos contra todos dentro del grupo
             for (int i = 0; i < equiposGrupo.size(); i++) {
                 for (int j = i + 1; j < equiposGrupo.size(); j++) {
-                    Encuentro encuentro = new Encuentro();
-                    encuentro.setEvento(evento);
-                    encuentro.setEquipoLocal(equiposGrupo.get(i).getEquipo());
-                    encuentro.setEquipoVisitante(equiposGrupo.get(j).getEquipo());
-                    encuentro.setFechaHora(fechaActual);
-                    encuentro.setEstado("PENDIENTE");
-                    encuentro.setLugar("Campo Principal");
-
-                    encuentrosGenerados.add(encuentroRepository.save(encuentro));
-
-                    // Incrementar fecha para el siguiente encuentro (ej. cada 2 horas)
-                    fechaActual = fechaActual.plusHours(2);
+                    enfrentamientos.add(new Sorteo[]{equiposGrupo.get(i), equiposGrupo.get(j)});
                 }
             }
+        }
+
+        // Programar los encuentros distribuyéndolos de forma balanceada en los días
+        int totalFechas = fechasDisponibles.size();
+        for (int index = 0; index < enfrentamientos.size(); index++) {
+            Sorteo[] par = enfrentamientos.get(index);
+            Sorteo localSorteo = par[0];
+            Sorteo visitanteSorteo = par[1];
+
+            // Distribuir equitativamente entre los días
+            int dayIndex = index % totalFechas;
+            int matchNumOnDay = index / totalFechas;
+
+            // Slots de 2 horas a partir de las 08:00 AM
+            java.time.LocalTime startTime = java.time.LocalTime.of(8, 0).plusHours(2 * matchNumOnDay);
+            LocalDateTime fechaHora = LocalDateTime.of(fechasDisponibles.get(dayIndex), startTime);
+
+            Encuentro encuentro = new Encuentro();
+            encuentro.setEvento(evento);
+            encuentro.setEquipoLocal(localSorteo.getEquipo());
+            encuentro.setEquipoVisitante(visitanteSorteo.getEquipo());
+            encuentro.setFechaHora(fechaHora);
+            encuentro.setEstado("PENDIENTE");
+            encuentro.setLugar(lugar);
+
+            encuentrosGenerados.add(encuentroRepository.save(encuentro));
         }
 
         return encuentrosGenerados;

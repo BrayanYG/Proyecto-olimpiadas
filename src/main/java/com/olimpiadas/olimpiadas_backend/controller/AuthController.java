@@ -74,6 +74,7 @@ public class AuthController {
             respuesta.put("estado", true);
             respuesta.put("rol", authUser.getRol());
             respuesta.put("username", authUser.getUsername());
+            respuesta.put("email", authUser.getEmail() != null ? authUser.getEmail() : "");
         } else {
             respuesta.put("mensaje", "Código incorrecto");
             respuesta.put("estado", false);
@@ -85,5 +86,40 @@ public class AuthController {
     @GetMapping("/usuarios")
     public List<Usuario> listarUsuarios() {
         return usuarioService.listar();
+    }
+
+    @PutMapping("/cambiar-contrasena")
+    public ResponseEntity<?> cambiarContrasena(@RequestBody Map<String, String> payload) {
+        String username = payload.get("username");
+        String passwordActual = payload.get("passwordActual");
+        String nuevaPassword = payload.get("nuevaPassword");
+
+        if (username == null || passwordActual == null || nuevaPassword == null) {
+            Map<String, String> resp = new HashMap<>();
+            resp.put("error", "Todos los campos son requeridos.");
+            return ResponseEntity.badRequest().body(resp);
+        }
+
+        if (nuevaPassword.length() < 6) {
+            Map<String, String> resp = new HashMap<>();
+            resp.put("error", "La nueva contraseña debe tener al menos 6 caracteres.");
+            return ResponseEntity.badRequest().body(resp);
+        }
+
+        try {
+            boolean exito = usuarioService.cambiarContrasena(username, passwordActual, nuevaPassword);
+            Map<String, String> resp = new HashMap<>();
+            if (exito) {
+                resp.put("mensaje", "Contraseña actualizada correctamente.");
+                return ResponseEntity.ok(resp);
+            } else {
+                resp.put("error", "La contraseña actual es incorrecta.");
+                return ResponseEntity.badRequest().body(resp);
+            }
+        } catch (IllegalArgumentException e) {
+            Map<String, String> resp = new HashMap<>();
+            resp.put("error", e.getMessage());
+            return ResponseEntity.status(404).body(resp);
+        }
     }
 }

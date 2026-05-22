@@ -226,6 +226,16 @@
           </div>
           <!-- Listado de Instituciones -->
           <section id="listaInstituciones" class="space-y-sm"></section>
+
+          <!-- Pagination -->
+          <div class="flex justify-between items-center pt-md">
+            <p class="text-caption text-on-surface-variant" id="textoPaginacion">
+              Mostrando 0 de 0 instituciones
+            </p>
+            <div class="flex gap-2" id="paginacionControles">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
         </div>
       </main>
     </div>
@@ -331,7 +341,11 @@
       </div>
     </div>
     <script>
-      const API_INSTITUCIONES = "/api/instituciones";
+      const API_BASE = window.location.port === "8081" ? "" : "http://localhost:8081";
+      const API_INSTITUCIONES = `${API_BASE}/api/instituciones`;
+      let institucionesOriginales = [];
+      let paginaActual = 1;
+      const itemsPorPagina = 10;
 
       document.addEventListener("DOMContentLoaded", () => {
         cargarInstituciones();
@@ -341,39 +355,120 @@
         fetch(API_INSTITUCIONES)
           .then((response) => response.json())
           .then((data) => {
-            const lista = document.getElementById("listaInstituciones");
-            const contador = document.getElementById("contadorInstituciones");
-
-            lista.innerHTML = "";
-            contador.textContent = `${data.length} Total`;
-
-            data.forEach((item) => {
-              lista.innerHTML += `
-          <div class="bg-surface-container-low p-md rounded-xl border-l-4 border-primary shadow-sm hover:shadow-md transition-shadow">
-            <div class="flex justify-between items-center">
-              <div>
-                <h3 class="font-label-md text-label-md text-on-surface">${item.nombre}</h3>
-                <p class="font-caption text-caption text-on-surface-variant">${item.telefono || "Sin teléfono"} • ${item.direccion || "Sin dirección"}</p>
-              </div>
-              <div class="flex gap-1 md:gap-2">
-                <button onclick='editarInstitucion(${JSON.stringify(item)})'
-                  class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-fixed-dim transition-colors">
-                  <span class="material-symbols-outlined text-primary">edit</span>
-                </button>
-                <button onclick="eliminarInstitucion(${item.id})"
-                  class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-error-container transition-colors">
-                  <span class="material-symbols-outlined text-error">delete</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-            });
+            institucionesOriginales = data;
+            paginaActual = 1;
+            renderizarInstituciones();
           })
           .catch((error) => {
             console.error(error);
-            alert("Error al cargar instituciones");
+            showToast("Error al cargar instituciones", "error");
           });
+      }
+
+      function renderizarInstituciones() {
+        const lista = document.getElementById("listaInstituciones");
+        const contador = document.getElementById("contadorInstituciones");
+
+        lista.innerHTML = "";
+        contador.textContent = `${institucionesOriginales.length} Total`;
+
+        const totalItems = institucionesOriginales.length;
+
+        const textoPaginacion = document.getElementById("textoPaginacion");
+        const controles = document.getElementById("paginacionControles");
+
+        if (totalItems === 0) {
+          lista.innerHTML = `
+            <div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant text-center my-4">
+              <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2">account_balance</span>
+              <p class="font-body-md text-on-surface-variant">No hay datos disponibles</p>
+            </div>
+          `;
+          if (textoPaginacion) {
+            textoPaginacion.textContent = "Mostrando 0 de 0 instituciones";
+          }
+          if (controles) {
+            controles.innerHTML = "";
+          }
+          return;
+        }
+
+        const totalPaginas = Math.ceil(totalItems / itemsPorPagina) || 1;
+        if (paginaActual > totalPaginas) paginaActual = totalPaginas;
+
+        const inicio = (paginaActual - 1) * itemsPorPagina;
+        const fin = Math.min(inicio + itemsPorPagina, totalItems);
+        const itemsPagina = institucionesOriginales.slice(inicio, fin);
+
+        if (textoPaginacion) {
+          textoPaginacion.textContent = `Mostrando ${inicio + 1}-${fin} de ${totalItems} instituciones`;
+        }
+
+        if (controles) {
+          controles.innerHTML = "";
+
+          const btnPrev = document.createElement("button");
+          btnPrev.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+          btnPrev.innerHTML = `<span class="material-symbols-outlined">chevron_left</span>`;
+          btnPrev.disabled = paginaActual === 1;
+          btnPrev.onclick = () => {
+            if (paginaActual > 1) {
+              paginaActual--;
+              renderizarInstituciones();
+            }
+          };
+          controles.appendChild(btnPrev);
+
+          for (let i = 1; i <= totalPaginas; i++) {
+            const btnPag = document.createElement("button");
+            if (i === paginaActual) {
+              btnPag.className = "w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold transition-all";
+            } else {
+              btnPag.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors";
+            }
+            btnPag.textContent = i;
+            btnPag.onclick = () => {
+              paginaActual = i;
+              renderizarInstituciones();
+            };
+            controles.appendChild(btnPag);
+          }
+
+          const btnNext = document.createElement("button");
+          btnNext.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+          btnNext.innerHTML = `<span class="material-symbols-outlined">chevron_right</span>`;
+          btnNext.disabled = paginaActual === totalPaginas;
+          btnNext.onclick = () => {
+            if (paginaActual < totalPaginas) {
+              paginaActual++;
+              renderizarInstituciones();
+            }
+          };
+          controles.appendChild(btnNext);
+        }
+
+        itemsPagina.forEach((item) => {
+          lista.innerHTML += `
+            <div class="bg-surface-container-low p-md rounded-xl border-l-4 border-primary shadow-sm hover:shadow-md transition-shadow">
+              <div class="flex justify-between items-center gap-4">
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-label-md text-label-md text-on-surface truncate" title="${item.nombre}">${item.nombre}</h3>
+                  <p class="font-caption text-caption text-on-surface-variant truncate" title="${item.telefono || "Sin teléfono"} • ${item.direccion || "Sin dirección"}">${item.telefono || "Sin teléfono"} • ${item.direccion || "Sin dirección"}</p>
+                </div>
+                <div class="flex gap-1 md:gap-2 shrink-0">
+                  <button onclick='editarInstitucion(${JSON.stringify(item)})'
+                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-fixed-dim transition-colors">
+                    <span class="material-symbols-outlined text-primary">edit</span>
+                  </button>
+                  <button onclick="eliminarInstitucion(${item.id})"
+                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-error-container transition-colors">
+                    <span class="material-symbols-outlined text-error">delete</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
       }
 
       function abrirFormularioInstitucion() {
@@ -409,12 +504,12 @@
           .value.trim();
 
         if (!nombre || !direccion || !telefono) {
-          alert("Todos los campos son obligatorios");
+          showToast("Todos los campos son obligatorios", "warning");
           return;
         }
 
         if (!/^[0-9]+$/.test(telefono)) {
-          alert("El teléfono debe contener solo números");
+          showToast("El teléfono debe contener solo números", "warning");
           return;
         }
 
@@ -434,19 +529,27 @@
           },
           body: JSON.stringify(institucion),
         })
-          .then((response) => response.json())
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((err) => {
+                throw new Error(err.message || "Error del servidor");
+              });
+            }
+            return response.json();
+          })
           .then(() => {
             cerrarFormularioInstitucion();
             cargarInstituciones();
-            alert(
+            showToast(
               id
                 ? "Institución actualizada correctamente"
                 : "Institución registrada correctamente",
+              "success"
             );
           })
           .catch((error) => {
             console.error(error);
-            alert("Error al guardar institución");
+            showToast("Error al guardar institución: " + error.message, "error");
           });
       }
 
@@ -465,24 +568,20 @@
       }
 
       function eliminarInstitucion(id) {
-        const confirmar = confirm(
-          "¿Seguro que deseas eliminar esta institución?",
-        );
-
-        if (!confirmar) return;
-
-        fetch(`${API_INSTITUCIONES}/${id}`, {
-          method: "DELETE",
-        })
-          .then((response) => response.text())
-          .then(() => {
-            cargarInstituciones();
-            alert("Institución eliminada correctamente");
+        showConfirm("¿Seguro que deseas eliminar esta institución?", () => {
+          fetch(`${API_INSTITUCIONES}/${id}`, {
+            method: "DELETE",
           })
-          .catch((error) => {
-            console.error(error);
-            alert("Error al eliminar institución");
-          });
+            .then((response) => response.text())
+            .then(() => {
+              cargarInstituciones();
+              showToast("Institución eliminada correctamente", "success");
+            })
+            .catch((error) => {
+              console.error(error);
+              showToast("Error al eliminar institución", "error");
+            });
+        });
       }
     </script>
   </body>

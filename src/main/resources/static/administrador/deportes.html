@@ -300,26 +300,11 @@
           </div>
           <!-- Pagination (Identical style to SCREEN_44) -->
           <div class="flex justify-between items-center pt-md">
-            <p class="text-caption text-on-surface-variant">
-              Mostrando 4 deportes
+            <p class="text-caption text-on-surface-variant" id="textoPaginacion">
+              Mostrando 0 de 0 deportes
             </p>
-            <div class="flex gap-2">
-              <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50"
-                disabled=""
-              >
-                <span class="material-symbols-outlined">chevron_left</span>
-              </button>
-              <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold"
-              >
-                1
-              </button>
-              <button
-                class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors"
-              >
-                <span class="material-symbols-outlined">chevron_right</span>
-              </button>
+            <div class="flex gap-2" id="paginacionControles">
+              <!-- Dynamically populated -->
             </div>
           </div>
         </div>
@@ -464,8 +449,12 @@
       </a>
     </nav>
     <script>
-      const API_DEPORTES = "/api/deportes";
+      const API_BASE = window.location.port === "8081" ? "" : "http://localhost:8081";
+      const API_DEPORTES = `${API_BASE}/api/deportes`;
       let deportesOriginales = [];
+      let deportesFiltrados = [];
+      let paginaActual = 1;
+      const itemsPorPagina = 10;
       document.addEventListener("DOMContentLoaded", () => {
         cargarDeportes();
       });
@@ -475,11 +464,13 @@
           .then((response) => response.json())
           .then((data) => {
             deportesOriginales = data;
-            renderizarDeportes(data);
+            deportesFiltrados = data;
+            paginaActual = 1;
+            renderizarDeportes();
           })
           .catch((error) => {
             console.error(error);
-            alert("Error al cargar deportes");
+            showToast("Error al cargar deportes", "error");
           });
       }
 
@@ -515,7 +506,7 @@
         const reglas = document.getElementById("reglasDeporte").value.trim();
 
         if (!nombre || !tipo || !maxParticipantes || !reglas) {
-          alert("Todos los campos son obligatorios");
+          showToast("Todos los campos son obligatorios", "warning");
           return;
         }
 
@@ -539,24 +530,32 @@
 
           body: JSON.stringify(deporte),
         })
-          .then((response) => response.json())
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((err) => {
+                throw new Error(err.message || "Error del servidor");
+              });
+            }
+            return response.json();
+          })
 
           .then(() => {
             cerrarModalDeporte();
 
             cargarDeportes();
 
-            alert(
+            showToast(
               id
                 ? "Deporte actualizado correctamente"
                 : "Deporte registrado correctamente",
+              "success"
             );
           })
 
           .catch((error) => {
             console.error(error);
 
-            alert("Error al guardar deporte");
+            showToast("Error al guardar deporte: " + error.message, "error");
           });
       }
 
@@ -576,24 +575,19 @@
       }
 
       function eliminarDeporte(id) {
-        const confirmar = confirm("¿Seguro que deseas eliminar este deporte?");
-
-        if (!confirmar) return;
-
-        fetch(`${API_DEPORTES}/${id}`, {
-          method: "DELETE",
-        })
-          .then(() => {
-            cargarDeportes();
-
-            alert("Deporte eliminado correctamente");
+        showConfirm("¿Seguro que deseas eliminar este deporte?", () => {
+          fetch(`${API_DEPORTES}/${id}`, {
+            method: "DELETE",
           })
-
-          .catch((error) => {
-            console.error(error);
-
-            alert("Error al eliminar deporte");
-          });
+            .then(() => {
+              cargarDeportes();
+              showToast("Deporte eliminado correctamente", "success");
+            })
+            .catch((error) => {
+              console.error(error);
+              showToast("Error al eliminar deporte", "error");
+            });
+        });
       }
       function filtrarDeportes() {
         const texto = document
@@ -601,7 +595,7 @@
           .value.toLowerCase();
         const tipo = document.getElementById("filtroTipo").value;
 
-        const filtrados = deportesOriginales.filter((item) => {
+        deportesFiltrados = deportesOriginales.filter((item) => {
           const nombre = item.nombre ? item.nombre.toLowerCase() : "";
           const coincideNombre = nombre.includes(texto);
 
@@ -610,16 +604,93 @@
           return coincideNombre && coincideTipo;
         });
 
-        renderizarDeportes(filtrados);
+        paginaActual = 1;
+        renderizarDeportes();
       }
-      function renderizarDeportes(data) {
+      function renderizarDeportes() {
         const tabla = document.getElementById("tablaDeportes");
         const contador = document.getElementById("contadorDeportes");
 
         tabla.innerHTML = "";
-        contador.textContent = `${data.length} Total`;
+        contador.textContent = `${deportesFiltrados.length} Total`;
 
-        data.forEach((item) => {
+        const totalItems = deportesFiltrados.length;
+        const textoPaginacion = document.getElementById("textoPaginacion");
+        const controles = document.getElementById("paginacionControles");
+
+        if (totalItems === 0) {
+          tabla.innerHTML = `
+            <tr>
+              <td colspan="4" class="py-8 text-center text-on-surface-variant bg-surface-container-low/30">
+                <span class="material-symbols-outlined text-4xl mb-2 text-on-surface-variant block">sports_kabaddi</span>
+                <p class="font-body-md text-on-surface-variant">No hay datos disponibles</p>
+              </td>
+            </tr>
+          `;
+          if (textoPaginacion) {
+            textoPaginacion.textContent = "Mostrando 0 de 0 deportes";
+          }
+          if (controles) {
+            controles.innerHTML = "";
+          }
+          return;
+        }
+
+        const totalPaginas = Math.ceil(totalItems / itemsPorPagina) || 1;
+        if (paginaActual > totalPaginas) paginaActual = totalPaginas;
+
+        const inicio = (paginaActual - 1) * itemsPorPagina;
+        const fin = Math.min(inicio + itemsPorPagina, totalItems);
+        const itemsPagina = deportesFiltrados.slice(inicio, fin);
+
+        if (textoPaginacion) {
+          textoPaginacion.textContent = `Mostrando ${inicio + 1}-${fin} de ${totalItems} deportes`;
+        }
+
+        if (controles) {
+          controles.innerHTML = "";
+          
+          const btnPrev = document.createElement("button");
+          btnPrev.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+          btnPrev.innerHTML = `<span class="material-symbols-outlined">chevron_left</span>`;
+          btnPrev.disabled = paginaActual === 1;
+          btnPrev.onclick = () => {
+            if (paginaActual > 1) {
+              paginaActual--;
+              renderizarDeportes();
+            }
+          };
+          controles.appendChild(btnPrev);
+
+          for (let i = 1; i <= totalPaginas; i++) {
+            const btnPag = document.createElement("button");
+            if (i === paginaActual) {
+              btnPag.className = "w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold transition-all";
+            } else {
+              btnPag.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors";
+            }
+            btnPag.textContent = i;
+            btnPag.onclick = () => {
+              paginaActual = i;
+              renderizarDeportes();
+            };
+            controles.appendChild(btnPag);
+          }
+
+          const btnNext = document.createElement("button");
+          btnNext.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+          btnNext.innerHTML = `<span class="material-symbols-outlined">chevron_right</span>`;
+          btnNext.disabled = paginaActual === totalPaginas;
+          btnNext.onclick = () => {
+            if (paginaActual < totalPaginas) {
+              paginaActual++;
+              renderizarDeportes();
+            }
+          };
+          controles.appendChild(btnNext);
+        }
+
+        itemsPagina.forEach((item) => {
           tabla.innerHTML += `
       <tr class="hover:bg-surface-container-low transition-colors">
 

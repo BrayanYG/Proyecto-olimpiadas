@@ -394,6 +394,7 @@
     </div>
 
     <script>
+      const API_BASE = window.location.port === "8081" ? "" : "http://localhost:8081";
       const modal = document.getElementById("registration-modal");
       const openBtn = document.getElementById("open-register-modal");
       const closeBtn = document.getElementById("close-modal");
@@ -487,7 +488,7 @@
         }
 
         try {
-          const response = await fetch("/api/auth/registro", {
+          const response = await fetch(`${API_BASE}/api/auth/registro`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, username, password }),
@@ -538,7 +539,7 @@
         loginSubmitBtn.disabled = true;
 
         try {
-          const response = await fetch("/api/auth/login", {
+          const response = await fetch(`${API_BASE}/api/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, password }),
@@ -552,7 +553,7 @@
           } else if (data.estado === true) {
             localStorage.setItem(
               "usuario",
-              JSON.stringify({ username: data.username, rol: data.rol }),
+              JSON.stringify({ username: data.username, rol: data.rol, email: data.email || "" }),
             );
             if (data.rol === "ADMINISTRADOR") {
               window.location.href = "administrador/dashboard.html";

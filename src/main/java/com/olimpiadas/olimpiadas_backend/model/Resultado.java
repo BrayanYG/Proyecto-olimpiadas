@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "resultados")
@@ -18,6 +19,7 @@ public class Resultado {
 
     @OneToOne
     @JoinColumn(name = "encuentro_id")
+    @JsonIgnore
     private Encuentro encuentro;
 
     private Integer puntosLocal;

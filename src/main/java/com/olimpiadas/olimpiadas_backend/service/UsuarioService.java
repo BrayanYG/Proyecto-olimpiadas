@@ -71,4 +71,22 @@ public class UsuarioService {
     public List<Usuario> listar() {
         return usuarioRepository.findAll();
     }
+
+    /**
+     * Cambia la contraseña del usuario verificando la contraseña actual.
+     * @return true si el cambio fue exitoso, false si la contraseña actual no coincide.
+     * @throws IllegalArgumentException si el usuario no existe.
+     */
+    public boolean cambiarContrasena(String username, String passwordActual, String nuevaPassword) {
+        Usuario usuario = usuarioRepository.findByUsername(username)
+            .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado."));
+
+        if (!passwordEncoder.matches(passwordActual, usuario.getPassword())) {
+            return false; // Contraseña actual incorrecta
+        }
+
+        usuario.setPassword(passwordEncoder.encode(nuevaPassword));
+        usuarioRepository.save(usuario);
+        return true;
+    }
 }

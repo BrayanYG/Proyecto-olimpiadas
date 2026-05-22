@@ -226,67 +226,59 @@
         <div
           class="bg-surface-container-lowest rounded-lg shadow-sm border border-outline-variant/30 overflow-hidden"
         >
-          <div class="p-md">
-            <div
-              class="flex flex-col sm:flex-row items-center sm:items-start gap-md mb-lg"
+          <div
+            class="bg-surface-container px-md py-3 border-b border-outline-variant flex items-center gap-2"
+          >
+            <span class="material-symbols-outlined text-primary">account_circle</span>
+            <h4
+              class="font-label-md text-label-md uppercase tracking-wider text-on-surface"
             >
-              <div class="text-center sm:text-left mt-2 sm:mt-0">
-                <h3
-                  class="font-title-lg text-title-lg text-on-surface font-bold"
+              Información de la Cuenta
+            </h4>
+          </div>
+          <div class="p-md space-y-md">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+              <div class="flex flex-col gap-xs">
+                <label class="font-label-md text-on-surface-variant px-1"
+                  >Usuario</label
                 >
-                  Administrador General
-                </h3>
-                <p class="font-label-md text-label-md text-primary">
-                  Comité Olímpico Peruano
-                </p>
-                <p class="text-caption text-secondary mt-1">
-                  Miembro desde Enero 2024
-                </p>
-              </div>
-            </div>
-            <div class="space-y-md">
-              <h4
-                class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant border-b border-outline-variant pb-2"
-              >
-                Información Básica
-              </h4>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
-                <div class="flex flex-col gap-xs">
-                  <label class="font-label-md text-on-surface-variant px-1"
-                    >Usuario</label
+                <div class="relative">
+                  <input
+                    id="perfilUsername"
+                    class="w-full h-12 px-md pr-10 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface-variant font-body-md cursor-not-allowed select-none"
+                    readonly=""
+                    type="text"
+                    value="Cargando..."
+                  />
+                  <span
+                    class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant text-sm"
+                    >lock</span
                   >
-                  <div class="relative">
-                    <input
-                      class="w-full h-12 px-md pr-10 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface-variant font-body-md cursor-not-allowed"
-                      readonly=""
-                      type="text"
-                      value="admin_peru2024"
-                    />
-                    <span
-                      class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant text-sm"
-                      >lock</span
-                    >
-                  </div>
                 </div>
-                <div class="flex flex-col gap-xs">
-                  <label class="font-label-md text-on-surface-variant px-1"
-                    >Correo electrónico</label
+              </div>
+              <div class="flex flex-col gap-xs">
+                <label class="font-label-md text-on-surface-variant px-1"
+                  >Correo electrónico</label
+                >
+                <div class="relative">
+                  <input
+                    id="perfilEmail"
+                    class="w-full h-12 px-md pr-10 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface-variant font-body-md cursor-not-allowed select-none"
+                    readonly=""
+                    type="email"
+                    value="Cargando..."
+                  />
+                  <span
+                    class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant text-sm"
+                    >lock</span
                   >
-                  <div class="relative">
-                    <input
-                      class="w-full h-12 px-md pr-10 rounded-lg border border-outline-variant bg-surface-container-low text-on-surface-variant font-body-md cursor-not-allowed"
-                      readonly=""
-                      type="email"
-                      value="contacto@teamperu.pe"
-                    />
-                    <span
-                      class="material-symbols-outlined absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant text-sm"
-                      >lock</span
-                    >
-                  </div>
                 </div>
               </div>
             </div>
+            <p class="text-caption text-on-surface-variant bg-surface-container px-3 py-2 rounded-lg flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm">info</span>
+              El usuario y el correo son datos de solo lectura. Contacte al administrador del sistema para modificarlos.
+            </p>
           </div>
         </div>
         <!-- Password Change Card -->
@@ -303,46 +295,78 @@
               Cambiar Contraseña
             </h4>
           </div>
-          <form class="p-md space-y-md" onsubmit="event.preventDefault()">
+          <form class="p-md space-y-md" id="formCambiarContrasena" onsubmit="event.preventDefault()">
             <div class="flex flex-col gap-xs">
               <label class="font-label-md text-on-surface-variant px-1"
                 >Contraseña Actual</label
               >
-              <input
-                class="w-full h-12 px-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md"
-                placeholder="••••••••"
-                type="password"
-              />
+              <div class="relative">
+                <input
+                  id="passwordActual"
+                  class="w-full h-12 px-md pr-12 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md"
+                  placeholder="••••••••"
+                  type="password"
+                />
+                <button type="button" onclick="togglePassword('passwordActual', 'eyeActual')"
+                  class="absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+                  <span id="eyeActual" class="material-symbols-outlined text-sm">visibility</span>
+                </button>
+              </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
               <div class="flex flex-col gap-xs">
                 <label class="font-label-md text-on-surface-variant px-1"
                   >Nueva Contraseña</label
                 >
-                <input
-                  class="w-full h-12 px-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md"
-                  placeholder="Mínimo 8 caracteres"
-                  type="password"
-                />
+                <div class="relative">
+                  <input
+                    id="passwordNueva"
+                    class="w-full h-12 px-md pr-12 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md"
+                    placeholder="Mínimo 6 caracteres"
+                    type="password"
+                  />
+                  <button type="button" onclick="togglePassword('passwordNueva', 'eyeNueva')"
+                    class="absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+                    <span id="eyeNueva" class="material-symbols-outlined text-sm">visibility</span>
+                  </button>
+                </div>
               </div>
               <div class="flex flex-col gap-xs">
                 <label class="font-label-md text-on-surface-variant px-1"
                   >Confirmar Nueva Contraseña</label
                 >
-                <input
-                  class="w-full h-12 px-md rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md"
-                  placeholder="Repite la contraseña"
-                  type="password"
-                />
+                <div class="relative">
+                  <input
+                    id="passwordConfirmar"
+                    class="w-full h-12 px-md pr-12 rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-md"
+                    placeholder="Repite la contraseña"
+                    type="password"
+                  />
+                  <button type="button" onclick="togglePassword('passwordConfirmar', 'eyeConfirmar')"
+                    class="absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors">
+                    <span id="eyeConfirmar" class="material-symbols-outlined text-sm">visibility</span>
+                  </button>
+                </div>
               </div>
             </div>
-            <div class="pt-4 flex justify-end">
+            <!-- Strength indicator -->
+            <div id="strengthBar" class="hidden">
+              <div class="flex items-center gap-2">
+                <div class="flex-1 h-1.5 rounded-full bg-outline-variant overflow-hidden">
+                  <div id="strengthFill" class="h-full rounded-full transition-all duration-300 w-0"></div>
+                </div>
+                <span id="strengthLabel" class="text-caption text-xs font-bold w-20 text-right"></span>
+              </div>
+            </div>
+            <div class="pt-2 flex justify-end">
               <button
+                id="btnGuardarContrasena"
+                onclick="cambiarContrasena()"
                 class="w-full md:w-auto px-lg py-sm bg-primary text-on-primary font-bold rounded-lg shadow-md hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2"
-                type="submit"
+                type="button"
               >
-                <span class="material-symbols-outlined text-sm">save</span>
-                Guardar Cambios
+                <span class="material-symbols-outlined text-sm">lock_reset</span>
+                Cambiar Contraseña
               </button>
             </div>
           </form>
@@ -387,5 +411,159 @@
         <span class="font-label-md text-caption font-bold">Configuración</span>
       </a>
     </nav>
+
+    <script>
+      const API_BASE = window.location.port === "8081" ? "" : "http://localhost:8081";
+      const API_CAMBIAR_CONTRASENA = `${API_BASE}/api/auth/cambiar-contrasena`;
+
+      // Cargar datos del usuario desde localStorage
+      document.addEventListener("DOMContentLoaded", () => {
+        const usuarioStr = localStorage.getItem("usuario");
+        if (!usuarioStr) return;
+
+        const usuario = JSON.parse(usuarioStr);
+        const inputUsername = document.getElementById("perfilUsername");
+        const inputEmail = document.getElementById("perfilEmail");
+
+        if (inputUsername) inputUsername.value = usuario.username || "Sin usuario";
+        if (inputEmail) inputEmail.value = usuario.email || usuario.correo || "Sin correo registrado";
+
+        // Indicador de fortaleza al escribir la nueva contraseña
+        document.getElementById("passwordNueva").addEventListener("input", actualizarFortaleza);
+      });
+
+      // Alternar visibilidad de campo password
+      function togglePassword(inputId, iconId) {
+        const input = document.getElementById(inputId);
+        const icon = document.getElementById(iconId);
+        if (!input || !icon) return;
+        if (input.type === "password") {
+          input.type = "text";
+          icon.textContent = "visibility_off";
+        } else {
+          input.type = "password";
+          icon.textContent = "visibility";
+        }
+      }
+
+      // Indicador de fortaleza de la contraseña
+      function actualizarFortaleza() {
+        const val = document.getElementById("passwordNueva").value;
+        const bar = document.getElementById("strengthBar");
+        const fill = document.getElementById("strengthFill");
+        const label = document.getElementById("strengthLabel");
+
+        if (!val) {
+          bar.classList.add("hidden");
+          return;
+        }
+
+        bar.classList.remove("hidden");
+
+        let score = 0;
+        if (val.length >= 6) score++;
+        if (val.length >= 10) score++;
+        if (/[A-Z]/.test(val)) score++;
+        if (/[0-9]/.test(val)) score++;
+        if (/[^A-Za-z0-9]/.test(val)) score++;
+
+        const levels = [
+          { pct: "20%", color: "bg-error", text: "Muy débil" },
+          { pct: "40%", color: "bg-amber-500", text: "Débil" },
+          { pct: "60%", color: "bg-yellow-400", text: "Regular" },
+          { pct: "80%", color: "bg-blue-500", text: "Buena" },
+          { pct: "100%", color: "bg-green-500", text: "Muy fuerte" },
+        ];
+
+        const level = levels[Math.min(score, 4)];
+        fill.style.width = level.pct;
+        fill.className = `h-full rounded-full transition-all duration-300 ${level.color}`;
+        label.textContent = level.text;
+        label.className = `text-caption text-xs font-bold w-20 text-right ${level.color.replace("bg-", "text-")}`;
+      }
+
+      // Cambiar contraseña
+      function cambiarContrasena() {
+        const usuarioStr = localStorage.getItem("usuario");
+        if (!usuarioStr) {
+          window.showToast("Sesión no encontrada. Por favor inicia sesión nuevamente.", "error");
+          return;
+        }
+        const usuario = JSON.parse(usuarioStr);
+
+        const passwordActual = document.getElementById("passwordActual").value;
+        const passwordNueva = document.getElementById("passwordNueva").value;
+        const passwordConfirmar = document.getElementById("passwordConfirmar").value;
+
+        // Validaciones locales
+        if (!passwordActual || !passwordNueva || !passwordConfirmar) {
+          window.showToast("Por favor complete todos los campos.", "warning");
+          return;
+        }
+
+        if (passwordNueva.length < 6) {
+          window.showToast("La nueva contraseña debe tener al menos 6 caracteres.", "warning");
+          return;
+        }
+
+        if (passwordNueva !== passwordConfirmar) {
+          window.showToast("Las contraseñas nuevas no coinciden.", "warning");
+          return;
+        }
+
+        if (passwordActual === passwordNueva) {
+          window.showToast("La nueva contraseña debe ser diferente a la actual.", "warning");
+          return;
+        }
+
+        // Confirmar antes de enviar
+        window.showConfirm(
+          "¿Está seguro de que desea cambiar su contraseña? Deberá iniciar sesión nuevamente después del cambio.",
+          async () => {
+            const btn = document.getElementById("btnGuardarContrasena");
+            btn.disabled = true;
+            btn.innerHTML = `<span class="material-symbols-outlined text-sm animate-spin">sync</span> Guardando...`;
+
+            try {
+              const response = await fetch(API_CAMBIAR_CONTRASENA, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  username: usuario.username,
+                  passwordActual: passwordActual,
+                  nuevaPassword: passwordNueva,
+                }),
+              });
+
+              const data = await response.json();
+
+              if (response.ok) {
+                window.showToast("Contraseña actualizada correctamente. Cerrando sesión...", "success");
+                // Limpiar campos
+                document.getElementById("passwordActual").value = "";
+                document.getElementById("passwordNueva").value = "";
+                document.getElementById("passwordConfirmar").value = "";
+                document.getElementById("strengthBar").classList.add("hidden");
+                // Cerrar sesión automáticamente después de 2 segundos
+                setTimeout(() => {
+                  localStorage.removeItem("usuario");
+                  window.location.href = "../index.html";
+                }, 2500);
+              } else {
+                window.showToast(data.error || "Error al cambiar la contraseña.", "error");
+                btn.disabled = false;
+                btn.innerHTML = `<span class="material-symbols-outlined text-sm">lock_reset</span> Cambiar Contraseña`;
+              }
+            } catch (err) {
+              console.error(err);
+              window.showToast("Error de conexión. Verifique que el servidor esté activo.", "error");
+              btn.disabled = false;
+              btn.innerHTML = `<span class="material-symbols-outlined text-sm">lock_reset</span> Cambiar Contraseña`;
+            }
+          }
+        );
+      }
+    </script>
   </body>
 </html>
+

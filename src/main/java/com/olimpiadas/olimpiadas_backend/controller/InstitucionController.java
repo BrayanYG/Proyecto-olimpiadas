@@ -1,6 +1,7 @@
 package com.olimpiadas.olimpiadas_backend.controller;
 
 import com.olimpiadas.olimpiadas_backend.model.Institucion;
+import com.olimpiadas.olimpiadas_backend.model.InstitucionRankingDTO;
 import com.olimpiadas.olimpiadas_backend.service.InstitucionService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,11 @@ public class InstitucionController {
 
     public InstitucionController(InstitucionService institucionService) {
         this.institucionService = institucionService;
+    }
+
+    @GetMapping("/ranking")
+    public List<InstitucionRankingDTO> obtenerRanking() {
+        return institucionService.obtenerRanking();
     }
 
     @GetMapping

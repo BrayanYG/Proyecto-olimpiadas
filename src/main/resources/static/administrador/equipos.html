@@ -323,92 +323,17 @@
             </table>
           </div>
           <!-- Mobile List (Consistency with SCREEN_20) -->
-          <section class="space-y-sm md:hidden">
-            <div
-              class="bg-surface-container-low p-md rounded-xl border-l-4 border-primary shadow-sm"
-            >
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-label-md text-label-md text-on-surface">
-                    Leones de Lima
-                  </h3>
-                  <p class="font-caption text-caption text-on-surface-variant">
-                    Univ. San Marcos • Fútbol
-                  </p>
-                  <p
-                    class="font-caption text-caption text-primary font-bold mt-1"
-                  >
-                    22 Jugadores
-                  </p>
-                </div>
-                <div class="flex gap-1">
-                  <button
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-fixed-dim transition-colors"
-                  >
-                    <span class="material-symbols-outlined text-primary"
-                      >group</span
-                    >
-                  </button>
-                  <button
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-fixed-dim transition-colors"
-                  >
-                    <span class="material-symbols-outlined text-primary"
-                      >edit</span
-                    >
-                  </button>
-                  <button
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-error-container transition-colors"
-                  >
-                    <span class="material-symbols-outlined text-error"
-                      >delete</span
-                    >
-                  </button>
-                </div>
-              </div>
+          <section id="listaEquiposMobile" class="space-y-sm md:hidden"></section>
+
+          <!-- Pagination -->
+          <div class="flex justify-between items-center pt-md">
+            <p class="text-caption text-on-surface-variant" id="textoPaginacion">
+              Mostrando 0 de 0 equipos
+            </p>
+            <div class="flex gap-2" id="paginacionControles">
+              <!-- Dynamically populated -->
             </div>
-            <div
-              class="bg-surface-container-low p-md rounded-xl border-l-4 border-primary shadow-sm"
-            >
-              <div class="flex justify-between items-center">
-                <div>
-                  <h3 class="font-label-md text-label-md text-on-surface">
-                    Águilas del Sur
-                  </h3>
-                  <p class="font-caption text-caption text-on-surface-variant">
-                    Club Regatas • Vóley
-                  </p>
-                  <p
-                    class="font-caption text-caption text-primary font-bold mt-1"
-                  >
-                    12 Jugadores
-                  </p>
-                </div>
-                <div class="flex gap-1">
-                  <button
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-fixed-dim transition-colors"
-                  >
-                    <span class="material-symbols-outlined text-primary"
-                      >group</span
-                    >
-                  </button>
-                  <button
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-fixed-dim transition-colors"
-                  >
-                    <span class="material-symbols-outlined text-primary"
-                      >edit</span
-                    >
-                  </button>
-                  <button
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-error-container transition-colors"
-                  >
-                    <span class="material-symbols-outlined text-error"
-                      >delete</span
-                    >
-                  </button>
-                </div>
-              </div>
-            </div>
-          </section>
+          </div>
         </div>
       </main>
     </div>
@@ -518,11 +443,15 @@
       </div>
     </div>
     <script>
-      const API_EQUIPOS = "/api/equipos";
-      const API_INSTITUCIONES = "/api/instituciones";
-      const API_DEPORTES = "/api/deportes";
+      const API_BASE = window.location.port === "8081" ? "" : "http://localhost:8081";
+      const API_EQUIPOS = `${API_BASE}/api/equipos`;
+      const API_INSTITUCIONES = `${API_BASE}/api/instituciones`;
+      const API_DEPORTES = `${API_BASE}/api/deportes`;
 
       let equiposOriginales = [];
+      let equiposFiltrados = [];
+      let paginaActual = 1;
+      const itemsPorPagina = 10;
       let institucionesOriginales = [];
       let deportesOriginales = [];
 
@@ -579,22 +508,110 @@
           .then((response) => response.json())
           .then((data) => {
             equiposOriginales = data;
-            renderizarEquipos(data);
+            equiposFiltrados = data;
+            paginaActual = 1;
+            renderizarEquipos();
           })
           .catch((error) => {
             console.error(error);
-            alert("Error al cargar equipos");
+            showToast("Error al cargar equipos", "error");
           });
       }
 
-      function renderizarEquipos(data) {
+      function renderizarEquipos() {
         const tabla = document.getElementById("tablaEquipos");
+        const mobileContainer = document.getElementById("listaEquiposMobile");
         const contador = document.getElementById("contadorEquipos");
 
         tabla.innerHTML = "";
-        contador.textContent = `${data.length} Total`;
+        if (mobileContainer) mobileContainer.innerHTML = "";
+        contador.textContent = `${equiposFiltrados.length} Total`;
 
-        data.forEach((item) => {
+        const totalItems = equiposFiltrados.length;
+        const textoPaginacion = document.getElementById("textoPaginacion");
+        const controles = document.getElementById("paginacionControles");
+
+        if (totalItems === 0) {
+          tabla.innerHTML = `
+            <tr>
+              <td colspan="5" class="py-8 text-center text-on-surface-variant bg-surface-container-low/30">
+                <span class="material-symbols-outlined text-4xl mb-2 text-on-surface-variant block">group</span>
+                <p class="font-body-md text-on-surface-variant">No hay datos disponibles</p>
+              </td>
+            </tr>
+          `;
+          if (mobileContainer) {
+            mobileContainer.innerHTML = `
+              <div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant text-center my-4">
+                <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-2">group</span>
+                <p class="font-body-md text-on-surface-variant">No hay datos disponibles</p>
+              </div>
+            `;
+          }
+          if (textoPaginacion) {
+            textoPaginacion.textContent = "Mostrando 0 de 0 equipos";
+          }
+          if (controles) {
+            controles.innerHTML = "";
+          }
+          return;
+        }
+
+        const totalPaginas = Math.ceil(totalItems / itemsPorPagina) || 1;
+        if (paginaActual > totalPaginas) paginaActual = totalPaginas;
+
+        const inicio = (paginaActual - 1) * itemsPorPagina;
+        const fin = Math.min(inicio + itemsPorPagina, totalItems);
+        const itemsPagina = equiposFiltrados.slice(inicio, fin);
+
+        if (textoPaginacion) {
+          textoPaginacion.textContent = `Mostrando ${inicio + 1}-${fin} de ${totalItems} equipos`;
+        }
+
+        if (controles) {
+          controles.innerHTML = "";
+
+          const btnPrev = document.createElement("button");
+          btnPrev.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+          btnPrev.innerHTML = `<span class="material-symbols-outlined">chevron_left</span>`;
+          btnPrev.disabled = paginaActual === 1;
+          btnPrev.onclick = () => {
+            if (paginaActual > 1) {
+              paginaActual--;
+              renderizarEquipos();
+            }
+          };
+          controles.appendChild(btnPrev);
+
+          for (let i = 1; i <= totalPaginas; i++) {
+            const btnPag = document.createElement("button");
+            if (i === paginaActual) {
+              btnPag.className = "w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold transition-all";
+            } else {
+              btnPag.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors";
+            }
+            btnPag.textContent = i;
+            btnPag.onclick = () => {
+              paginaActual = i;
+              renderizarEquipos();
+            };
+            controles.appendChild(btnPag);
+          }
+
+          const btnNext = document.createElement("button");
+          btnNext.className = "w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant hover:bg-surface-container transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
+          btnNext.innerHTML = `<span class="material-symbols-outlined">chevron_right</span>`;
+          btnNext.disabled = paginaActual === totalPaginas;
+          btnNext.onclick = () => {
+            if (paginaActual < totalPaginas) {
+              paginaActual++;
+              renderizarEquipos();
+            }
+          };
+          controles.appendChild(btnNext);
+        }
+
+        itemsPagina.forEach((item) => {
           tabla.innerHTML += `
       <tr class="hover:bg-surface-container-low transition-colors">
         <td class="py-4 px-6 font-bold text-on-surface">${item.nombre}</td>
@@ -626,6 +643,30 @@
         </td>
       </tr>
     `;
+
+          if (mobileContainer) {
+            mobileContainer.innerHTML += `
+              <div class="bg-surface-container-low p-md rounded-xl border-l-4 border-primary shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-center gap-4">
+                  <div class="flex-1 min-w-0">
+                    <h3 class="font-label-md text-label-md text-on-surface truncate" title="${item.nombre}">${item.nombre}</h3>
+                    <p class="font-caption text-caption text-on-surface-variant truncate" title="${item.institucion?.nombre || "Sin institución"} • ${item.deporte?.nombre || "Sin deporte"}">${item.institucion?.nombre || "Sin institución"} • ${item.deporte?.nombre || "Sin deporte"}</p>
+                    <p class="font-caption text-caption text-primary font-bold mt-1 truncate">${item.categoria || "Sin categoría"}</p>
+                  </div>
+                  <div class="flex gap-1 shrink-0">
+                    <button onclick='editarEquipo(${JSON.stringify(item)})'
+                      class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-primary-fixed-dim transition-colors shrink-0">
+                      <span class="material-symbols-outlined text-primary">edit</span>
+                    </button>
+                    <button onclick="eliminarEquipo(${item.id})"
+                      class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-error-container transition-colors shrink-0">
+                      <span class="material-symbols-outlined text-error">delete</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
         });
       }
 
@@ -661,7 +702,7 @@
         const deporteId = document.getElementById("deporteEquipo").value;
 
         if (!nombre || !categoria || !institucionId || !deporteId) {
-          alert("Todos los campos son obligatorios");
+          showToast("Todos los campos son obligatorios", "warning");
           return;
         }
 
@@ -686,19 +727,27 @@
           },
           body: JSON.stringify(equipo),
         })
-          .then((response) => response.json())
+          .then((response) => {
+            if (!response.ok) {
+              return response.json().then((err) => {
+                throw new Error(err.message || "Error del servidor");
+              });
+            }
+            return response.json();
+          })
           .then(() => {
             cerrarModalEquipo();
             cargarEquipos();
-            alert(
+            showToast(
               id
                 ? "Equipo actualizado correctamente"
                 : "Equipo registrado correctamente",
+              "success"
             );
           })
           .catch((error) => {
             console.error(error);
-            alert("Error al guardar equipo");
+            showToast("Error al guardar equipo: " + error.message, "error");
           });
       }
 
@@ -717,22 +766,20 @@
       }
 
       function eliminarEquipo(id) {
-        const confirmar = confirm("¿Seguro que deseas eliminar este equipo?");
-
-        if (!confirmar) return;
-
-        fetch(`${API_EQUIPOS}/${id}`, {
-          method: "DELETE",
-        })
-          .then((response) => response.text())
-          .then(() => {
-            cargarEquipos();
-            alert("Equipo eliminado correctamente");
+        showConfirm("¿Seguro que deseas eliminar este equipo?", () => {
+          fetch(`${API_EQUIPOS}/${id}`, {
+            method: "DELETE",
           })
-          .catch((error) => {
-            console.error(error);
-            alert("Error al eliminar equipo");
-          });
+            .then((response) => response.text())
+            .then(() => {
+              cargarEquipos();
+              showToast("Equipo eliminado correctamente", "success");
+            })
+            .catch((error) => {
+              console.error(error);
+              showToast("Error al eliminar equipo", "error");
+            });
+        });
       }
 
       function filtrarEquipos() {
@@ -743,7 +790,7 @@
           document.getElementById("filtroInstitucion").value;
         const deporteId = document.getElementById("filtroDeporte").value;
 
-        const filtrados = equiposOriginales.filter((item) => {
+        equiposFiltrados = equiposOriginales.filter((item) => {
           const nombre = item.nombre ? item.nombre.toLowerCase() : "";
           const coincideNombre = nombre.includes(texto);
 
@@ -754,7 +801,8 @@
           return coincideNombre && coincideInstitucion && coincideDeporte;
         });
 
-        renderizarEquipos(filtrados);
+        paginaActual = 1;
+        renderizarEquipos();
       }
     </script>
   </body>
