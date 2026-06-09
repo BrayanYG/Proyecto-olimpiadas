@@ -394,7 +394,8 @@
     </div>
 
     <script>
-      const API_BASE = window.location.port === "8081" ? "" : "http://localhost:8081";
+      const API_BASE =
+        window.location.port === "8081" ? "" : "http://localhost:8081";
       const modal = document.getElementById("registration-modal");
       const openBtn = document.getElementById("open-register-modal");
       const closeBtn = document.getElementById("close-modal");
@@ -553,7 +554,11 @@
           } else if (data.estado === true) {
             localStorage.setItem(
               "usuario",
-              JSON.stringify({ username: data.username, rol: data.rol, email: data.email || "" }),
+              JSON.stringify({
+                username: data.username,
+                rol: data.rol,
+                email: data.email || "",
+              }),
             );
             if (data.rol === "ADMINISTRADOR") {
               window.location.href = "administrador/dashboard.html";

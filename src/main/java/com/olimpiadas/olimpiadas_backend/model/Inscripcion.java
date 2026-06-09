@@ -27,6 +27,10 @@ public class Inscripcion {
     @JoinColumn(name = "deporte_id")
     private Deporte deporte;
 
+    @ManyToOne
+    @JoinColumn(name = "evento_id")
+    private Evento evento;
+
     private String estado;
     private LocalDate fecha;
 }

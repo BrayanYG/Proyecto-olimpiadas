@@ -206,6 +206,8 @@
                   >search</span
                 >
                 <input
+                  id="buscarParticipante"
+                  oninput="filtrarParticipantes()"
                   class="w-full bg-white-smoke border border-outline-variant rounded-lg py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all font-body-md"
                   placeholder="Ej: 72458933"
                   type="text"
@@ -259,114 +261,10 @@
                   </th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-outline-variant/20">
-                <tr
-                  class="hover:bg-surface-container-lowest transition-colors group"
-                >
-                  <td class="px-6 py-4">
-                    <div class="flex items-center gap-4">
-                      <img
-                        alt="Diego"
-                        class="w-10 h-10 rounded-full object-cover border border-outline-variant/30"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCf_SAbf4U7bDJvhq7W2lyyqkucQn7MyFPHFD2Vc2CFSoZV0NwxApPN0sKOmhBOw_r3ak7ZKn-YSMOEPHgI1WFjX5ZfoHAwBoXppU-qXJiU-7dAcaBfIjfqccrIJ1WjcRFLYTEKluBgFKRI2d1Qv29_YUbb16f_trs-U_SMvH9p2eFnvREWz4loXe86AEj35UI2PRupVdW7vegAwfb11Di8TDs7Kxrhf8sN2b4N74fPWLBgTAVv_QfPgmO8aI0DfX0fnEE1KVQvkd0"
-                      />
-                      <div>
-                        <div class="font-bold text-on-surface">
-                          Diego Armando Quispe
-                        </div>
-                        <div class="text-caption text-on-surface-variant">
-                          Pumas Reales
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4">
-                    <span class="font-body-md text-sm text-on-surface"
-                      >71452369</span
-                    >
-                  </td>
-                  <td class="px-6 py-4">
-                    <span class="font-body-md text-sm text-on-surface">24</span>
-                  </td>
-                  <td class="px-6 py-4">
-                    <span
-                      class="px-sm py-1 bg-surface-container-high text-on-surface-variant rounded-full font-caption text-[10px] font-bold uppercase tracking-wider"
-                      >Atletismo</span
-                    >
-                  </td>
-                  <td class="px-6 py-4 text-right">
-                    <div class="flex justify-end gap-2">
-                      <button
-                        class="p-2 text-primary hover:bg-primary/5 rounded-lg transition-colors"
-                      >
-                        <span class="material-symbols-outlined text-xl"
-                          >edit</span
-                        >
-                      </button>
-                      <button
-                        class="p-2 text-error hover:bg-error/5 rounded-lg transition-colors"
-                      >
-                        <span class="material-symbols-outlined text-xl"
-                          >delete</span
-                        >
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr
-                  class="hover:bg-surface-container-lowest transition-colors group"
-                >
-                  <td class="px-6 py-4">
-                    <div class="flex items-center gap-4">
-                      <img
-                        alt="Maria"
-                        class="w-10 h-10 rounded-full object-cover border border-outline-variant/30"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBibGh9HaCIgwTvcfLEY5YFIwGEkbIP5qMW4dzyJNBp8EIBUpHGxtTbX9CHs9wtunRRfzoGL9h7g6M6k0bgOoVymaWokYQTEqHFt7er_DDDzgfx6D-UYSEFYz_xrW5QSPkgRxFJXPvVnYP-UhvBMHK2wOb2_3_u5EVkQhc5eSCti0VMI8maEUzbOmU4bokDBH00EBqHbNf1BZw5yr2jMnRbk0VMMkOcApYw4HmSp4m05iI9bGSsQzVbbf7aDyupQNQ8rZFQDCvuOuI"
-                      />
-                      <div>
-                        <div class="font-bold text-on-surface">
-                          María Elena Torres
-                        </div>
-                        <div class="text-caption text-on-surface-variant">
-                          Delfines Azules
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4">
-                    <span class="font-body-md text-sm text-on-surface"
-                      >45896321</span
-                    >
-                  </td>
-                  <td class="px-6 py-4">
-                    <span class="font-body-md text-sm text-on-surface">22</span>
-                  </td>
-                  <td class="px-6 py-4">
-                    <span
-                      class="px-sm py-1 bg-surface-container-high text-on-surface-variant rounded-full font-caption text-[10px] font-bold uppercase tracking-wider"
-                      >Natación</span
-                    >
-                  </td>
-                  <td class="px-6 py-4 text-right">
-                    <div class="flex justify-end gap-2">
-                      <button
-                        class="p-2 text-primary hover:bg-primary/5 rounded-lg transition-colors"
-                      >
-                        <span class="material-symbols-outlined text-xl"
-                          >edit</span
-                        >
-                      </button>
-                      <button
-                        class="p-2 text-error hover:bg-error/5 rounded-lg transition-colors"
-                      >
-                        <span class="material-symbols-outlined text-xl"
-                          >delete</span
-                        >
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody
+                id="tablaParticipantes"
+                class="divide-y divide-outline-variant/20"
+              ></tbody>
             </table>
           </div>
         </div>
@@ -424,16 +322,37 @@
           </button>
         </div>
         <div class="p-6 md:p-8 flex flex-col gap-md">
+          <input type="hidden" id="participanteId" />
           <div class="space-y-1">
-            <label
-              class="block font-label-md text-sm text-gray-500 uppercase tracking-wide"
-              >Nombre Completo</label
-            >
-            <input
-              class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md"
-              placeholder="Ejem: Juan Pérez"
-              type="text"
-            />
+            <div class="space-y-1">
+              <label
+                class="block font-label-md text-sm text-gray-500 uppercase tracking-wide"
+              >
+                Nombres
+              </label>
+
+              <input
+                id="nombresParticipante"
+                class="w-full border-gray-300 rounded-lg"
+                placeholder="Ej: Juan"
+                type="text"
+              />
+            </div>
+
+            <div class="space-y-1">
+              <label
+                class="block font-label-md text-sm text-gray-500 uppercase tracking-wide"
+              >
+                Apellidos
+              </label>
+
+              <input
+                id="apellidosParticipante"
+                class="w-full border-gray-300 rounded-lg"
+                placeholder="Ej: Pérez"
+                type="text"
+              />
+            </div>
           </div>
           <div class="space-y-1">
             <label
@@ -441,6 +360,7 @@
               >DNI / Documento</label
             >
             <input
+              id="dniParticipante"
               class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md"
               placeholder="8 dígitos"
               type="text"
@@ -452,6 +372,7 @@
               >Edad</label
             >
             <input
+              id="edadParticipante"
               class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md"
               placeholder="Ejem: 25"
               type="number"
@@ -460,16 +381,15 @@
           <div class="space-y-1">
             <label
               class="block font-label-md text-sm text-gray-500 uppercase tracking-wide"
-              >Deporte</label
             >
+              Equipo
+            </label>
+
             <select
-              class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md"
+              id="equipoParticipante"
+              class="w-full border-gray-300 rounded-lg"
             >
-              <option>Atletismo</option>
-              <option>Natación</option>
-              <option>Fútbol</option>
-              <option>Vóley</option>
-              <option>Gimnasia</option>
+              <option value="">Seleccione equipo</option>
             </select>
           </div>
           <div class="flex flex-col sm:flex-row gap-4 pt-4">
@@ -480,6 +400,7 @@
               Cancelar
             </button>
             <button
+              onclick="guardarParticipante()"
               class="w-full px-6 py-3 bg-olympic-red text-white rounded-lg font-bold hover:brightness-110 transition-colors shadow-lg"
             >
               Guardar Participante
@@ -489,7 +410,19 @@
       </div>
     </div>
     <script>
+      const API_PARTICIPANTES = "/api/participantes";
+      const API_EQUIPOS = "/api/equipos";
+
+      let participantesOriginales = [];
+      let equiposOriginales = [];
+
+      document.addEventListener("DOMContentLoaded", () => {
+        cargarEquipos();
+        cargarParticipantes();
+      });
+
       function openModal() {
+        limpiarFormularioParticipante();
         document.getElementById("participantModal").classList.remove("hidden");
         document.body.style.overflow = "hidden";
       }
@@ -497,6 +430,223 @@
       function closeModal() {
         document.getElementById("participantModal").classList.add("hidden");
         document.body.style.overflow = "";
+      }
+
+      function cargarEquipos() {
+        fetch(API_EQUIPOS)
+          .then((response) => response.json())
+          .then((data) => {
+            const institucionParticipante = "UTP";
+
+            const equiposFiltrados = data.filter(
+              (equipo) =>
+                (equipo.institucion?.nombre || "").trim().toLowerCase() ===
+                institucionParticipante.trim().toLowerCase(),
+            );
+
+            equiposOriginales = equiposFiltrados;
+
+            const select = document.getElementById("equipoParticipante");
+            select.innerHTML = `<option value="">Seleccione equipo</option>`;
+
+            equiposFiltrados.forEach((equipo) => {
+              select.innerHTML += `
+          <option value="${equipo.id}">
+            ${equipo.nombre} - ${equipo.deporte?.nombre || ""}
+          </option>
+        `;
+            });
+          });
+      }
+
+      function cargarParticipantes() {
+        fetch(API_PARTICIPANTES)
+          .then((response) => response.json())
+          .then((data) => {
+            const institucionParticipante = "UTP";
+
+            const participantesFiltrados = data.filter(
+              (p) =>
+                (p.equipo?.institucion?.nombre || "").trim().toLowerCase() ===
+                institucionParticipante.trim().toLowerCase(),
+            );
+
+            participantesOriginales = participantesFiltrados;
+            renderizarParticipantes(participantesFiltrados);
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("Error al cargar participantes");
+          });
+      }
+
+      function renderizarParticipantes(data) {
+        const tabla = document.getElementById("tablaParticipantes");
+        tabla.innerHTML = "";
+
+        data.forEach((item) => {
+          tabla.innerHTML += `
+      <tr class="hover:bg-surface-container-lowest transition-colors group">
+        <td class="px-6 py-4">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">
+              ${item.nombres ? item.nombres.charAt(0).toUpperCase() : "P"}
+            </div>
+            <div>
+              <div class="font-bold text-on-surface">
+                ${item.nombres || ""} ${item.apellidos || ""}
+              </div>
+              <div class="text-caption text-on-surface-variant">
+                ${item.equipo?.nombre || "Sin equipo"}
+              </div>
+            </div>
+          </div>
+        </td>
+
+        <td class="px-6 py-4">
+          <span class="font-body-md text-sm text-on-surface">
+            ${item.dni || ""}
+          </span>
+        </td>
+
+        <td class="px-6 py-4">
+          <span class="font-body-md text-sm text-on-surface">
+            ${item.edad || ""}
+          </span>
+        </td>
+
+        <td class="px-6 py-4">
+          <span class="px-sm py-1 bg-surface-container-high text-on-surface-variant rounded-full font-caption text-[10px] font-bold uppercase tracking-wider">
+            ${item.equipo?.deporte?.nombre || "Sin deporte"}
+          </span>
+        </td>
+
+        <td class="px-6 py-4 text-right">
+          <div class="flex justify-end gap-2">
+            <button onclick='editarParticipante(${JSON.stringify(item)})'
+              class="p-2 text-primary hover:bg-primary/5 rounded-lg transition-colors">
+              <span class="material-symbols-outlined text-xl">edit</span>
+            </button>
+
+            <button onclick="eliminarParticipante(${item.id})"
+              class="p-2 text-error hover:bg-error/5 rounded-lg transition-colors">
+              <span class="material-symbols-outlined text-xl">delete</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    `;
+        });
+      }
+
+      function guardarParticipante() {
+        const id = document.getElementById("participanteId").value;
+        const nombres = document
+          .getElementById("nombresParticipante")
+          .value.trim();
+        const apellidos = document
+          .getElementById("apellidosParticipante")
+          .value.trim();
+        const dni = document.getElementById("dniParticipante").value.trim();
+        const edad = document.getElementById("edadParticipante").value;
+        const equipoId = document.getElementById("equipoParticipante").value;
+
+        if (!nombres || !apellidos || !dni || !edad || !equipoId) {
+          alert("Complete todos los campos obligatorios");
+          return;
+        }
+
+        const participante = {
+          nombres,
+          apellidos,
+          dni,
+          edad,
+          equipo: {
+            id: parseInt(equipoId),
+          },
+        };
+
+        const url = id ? `${API_PARTICIPANTES}/${id}` : API_PARTICIPANTES;
+        const metodo = id ? "PUT" : "POST";
+
+        fetch(url, {
+          method: metodo,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(participante),
+        })
+          .then((response) => response.json())
+          .then(() => {
+            closeModal();
+            cargarParticipantes();
+            alert(id ? "Participante actualizado" : "Participante registrado");
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("Error al guardar participante");
+          });
+      }
+
+      function editarParticipante(item) {
+        document.getElementById("participanteId").value = item.id;
+        document.getElementById("nombresParticipante").value =
+          item.nombres || "";
+        document.getElementById("apellidosParticipante").value =
+          item.apellidos || "";
+        document.getElementById("dniParticipante").value = item.dni || "";
+        document.getElementById("edadParticipante").value = item.edad || "";
+        document.getElementById("equipoParticipante").value =
+          item.equipo?.id || "";
+
+        document.getElementById("participantModal").classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+
+      function eliminarParticipante(id) {
+        const confirmar = confirm(
+          "¿Seguro que deseas eliminar este participante?",
+        );
+
+        if (!confirmar) return;
+
+        fetch(`${API_PARTICIPANTES}/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.text())
+          .then(() => {
+            cargarParticipantes();
+            alert("Participante eliminado correctamente");
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("Error al eliminar participante");
+          });
+      }
+
+      function limpiarFormularioParticipante() {
+        document.getElementById("participanteId").value = "";
+        document.getElementById("nombresParticipante").value = "";
+        document.getElementById("apellidosParticipante").value = "";
+        document.getElementById("dniParticipante").value = "";
+        document.getElementById("edadParticipante").value = "";
+        document.getElementById("equipoParticipante").value = "";
+      }
+
+      function filtrarParticipantes() {
+        const texto = document
+          .getElementById("buscarParticipante")
+          .value.toLowerCase();
+
+        const filtrados = participantesOriginales.filter((item) => {
+          const nombreCompleto =
+            `${item.nombres || ""} ${item.apellidos || ""}`.toLowerCase();
+          const dni = (item.dni || "").toLowerCase();
+
+          return nombreCompleto.includes(texto) || dni.includes(texto);
+        });
+
+        renderizarParticipantes(filtrados);
       }
     </script>
   </body>
