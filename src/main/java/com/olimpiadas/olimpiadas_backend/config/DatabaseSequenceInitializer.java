@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Component
+@SuppressWarnings("null")
 public class DatabaseSequenceInitializer implements CommandLineRunner {
 
     private static final Logger logger = LoggerFactory.getLogger(DatabaseSequenceInitializer.class);

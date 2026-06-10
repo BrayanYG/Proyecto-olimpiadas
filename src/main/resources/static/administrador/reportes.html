@@ -1,0 +1,211 @@
+<!doctype html>
+
+<html class="light" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-fixed-dim": "#ffb3ad",
+              "primary-fixed": "#ffdad6",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#f0f0f0",
+              outline: "#926e6b",
+              "tertiary-fixed-dim": "#c6c6c7",
+              "surface-dim": "#dcd9d9",
+              "on-error-container": "#93000a",
+              "surface-bright": "#fcf9f8",
+              "on-primary": "#ffffff",
+              secondary: "#5d5f5f",
+              "surface-tint": "#c0001a",
+              "surface-container-highest": "#e5e2e1",
+              "outline-variant": "#e7bdb9",
+              "inverse-primary": "#ffb3ad",
+              background: "#fcf9f8",
+              "surface-container-high": "#eae7e7",
+              "on-primary-fixed-variant": "#930011",
+              "secondary-container": "#dfe0e0",
+              "on-secondary-fixed-variant": "#454747",
+              "primary-container": "#d91023",
+              primary: "#ad0017",
+              "on-tertiary-fixed-variant": "#454747",
+              "on-tertiary-fixed": "#1a1c1c",
+              "on-primary-fixed": "#410003",
+              "secondary-fixed-dim": "#c6c6c7",
+              "on-surface-variant": "#5d3f3c",
+              "inverse-surface": "#313030",
+              "surface-variant": "#e5e2e1",
+              "on-surface": "#1c1b1b",
+              "inverse-on-surface": "#f3f0ef",
+              "secondary-fixed": "#e2e2e2",
+              tertiary: "#535555",
+              "on-primary-container": "#ffecea",
+              error: "#ba1a1a",
+              "tertiary-fixed": "#e2e2e2",
+              "on-secondary-container": "#616363",
+              "error-container": "#ffdad6",
+              "surface-container-low": "#f6f3f2",
+              "tertiary-container": "#6c6d6d",
+              "on-background": "#1c1b1b",
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed": "#1a1c1c",
+              surface: "#fcf9f8",
+              "surface-container": "#f0eded",
+              "on-error": "#ffffff",
+              "on-secondary": "#ffffff",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              margin: "32px",
+              gutter: "24px",
+              sm: "12px",
+              xs: "4px",
+              md: "24px",
+              xl: "64px",
+              base: "8px",
+              lg: "40px",
+            },
+            fontFamily: {
+              caption: ["Lexend"],
+              "body-md": ["Lexend"],
+              "display-lg": ["Lexend"],
+              "label-md": ["Lexend"],
+              "title-lg": ["Lexend"],
+              "body-lg": ["Lexend"],
+              "headline-xl": ["Lexend"],
+              "headline-md": ["Lexend"],
+            },
+            fontSize: {
+              caption: ["12px", { lineHeight: "1.2", fontWeight: "500" }],
+              "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+              "display-lg": ["64px", { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "800" }],
+              "label-md": ["14px", { lineHeight: "1.2", fontWeight: "600" }],
+              "title-lg": ["20px", { lineHeight: "1.4", fontWeight: "600" }],
+              "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+              "headline-xl": ["48px", { lineHeight: "1.2", letterSpacing: "-0.01em", fontWeight: "700" }],
+              "headline-md": ["32px", { lineHeight: "1.3", fontWeight: "700" }],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+      .textile-pattern {
+        background-image: radial-gradient(var(--tw-colors-primary) 0.5px, transparent 0.5px),
+          radial-gradient(var(--tw-colors-primary) 0.5px, #fcf9f8 0.5px);
+        background-size: 20px 20px;
+        background-position: 0 0, 10px 10px;
+        opacity: 0.03;
+      }
+      #sidebar { transition: width 0.3s ease, transform 0.3s ease; }
+      .sidebar-collapsed { width: 80px !important; }
+      .sidebar-collapsed .nav-label, .sidebar-collapsed .config-text { display: none; }
+      .sidebar-collapsed nav a { justify-content: center; padding-left: 0; padding-right: 0; }
+      .sidebar-collapsed .material-symbols-outlined { margin: 0; }
+
+      @media (max-width: 767px) {
+        #sidebar { transform: translateX(-100%); position: fixed; height: 100vh; top: 0; display: flex !important; }
+        #sidebar.mobile-open { transform: translateX(0); }
+      }
+      @media (min-width: 768px) { #sidebar { transform: none !important; } }
+      .tab-active { border-bottom-color: var(--tw-colors-primary) !important; color: var(--tw-colors-primary) !important; }
+      .tab-inactive { border-bottom-color: transparent !important; color: var(--tw-colors-on-surface-variant) !important; }
+    </style>
+    
+    <script src="../js/sidebar.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="../js/header.js"></script>
+    <script src="../js/auth.js"></script>
+  </head>
+  <body class="admin-theme">
+    <header></header>
+    <div class="flex min-h-screen pt-16">
+      <div class="fixed inset-0 bg-black/50 z-30 hidden md:hidden" id="sidebar-overlay" onclick="toggleMobileMenu()"></div>
+      <aside class="md:sticky top-0 md:top-16 left-0 h-screen md:h-[calc(100vh-64px)] z-40 hidden md:flex flex-col py-lg bg-surface-container w-72 border-r border-outline-variant shrink-0" id="sidebar"></aside>
+      
+      <main class="flex-1 min-h-screen relative overflow-hidden transition-all duration-300 pt-8" id="main-content">
+        <div class="textile-pattern absolute inset-0 -z-10"></div>
+        <div class="px-margin max-w-[1400px] mx-auto space-y-md">
+          
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-xl gap-md">
+            <div>
+              <h3 class="font-headline-md text-headline-md text-on-surface font-bold">Reportes y Estadísticas</h3>
+              <p class="font-body-md text-body-md text-secondary">Visualiza y exporta métricas clave del sistema.</p>
+            </div>
+            <div class="flex gap-2">
+              <button onclick="exportarExcel()" class="bg-surface-container-low text-primary border border-primary/30 px-4 py-2 rounded-lg font-label-md flex items-center gap-2 hover:bg-primary/10 transition-colors">
+                <span class="material-symbols-outlined">table_view</span> Excel
+              </button>
+              <button onclick="exportarPDF()" class="bg-primary text-on-primary px-4 py-2 rounded-lg font-label-md flex items-center gap-2 shadow-md hover:brightness-110 transition-all">
+                <span class="material-symbols-outlined">picture_as_pdf</span> PDF
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
+            
+            <div class="flex border-b border-outline-variant/30 px-md pt-2 overflow-x-auto no-scrollbar gap-4" id="reportes-tabs">
+              <button onclick="cambiarTab('eventos-realizados')" id="tab-eventos-realizados" class="tab-active font-label-md text-label-md px-4 py-3 border-b-2 hover:text-primary transition-colors whitespace-nowrap">
+                Eventos Realizados
+              </button>
+              <button onclick="cambiarTab('equipos-evento')" id="tab-equipos-evento" class="tab-inactive font-label-md text-label-md px-4 py-3 border-b-2 hover:text-primary transition-colors whitespace-nowrap">
+                Equipos por Evento
+              </button>
+              <button onclick="cambiarTab('calendario')" id="tab-calendario" class="tab-inactive font-label-md text-label-md px-4 py-3 border-b-2 hover:text-primary transition-colors whitespace-nowrap">
+                Calendario
+              </button>
+              <button onclick="cambiarTab('resultados')" id="tab-resultados" class="tab-inactive font-label-md text-label-md px-4 py-3 border-b-2 hover:text-primary transition-colors whitespace-nowrap">
+                Resultados
+              </button>
+            </div>
+
+            <!-- Selectores dinámicos (ocultos inicialmente) -->
+            <div id="filtros-container" class="hidden p-md border-b border-outline-variant bg-surface-container-low flex flex-col md:flex-row gap-4">
+              <div class="flex-1 max-w-sm space-y-1">
+                 <label class="font-label-md text-on-surface-variant block">Seleccione un Evento</label>
+                 <select id="select-evento" onchange="cargarDatosReporteActual()" class="w-full px-4 py-2 rounded-lg border border-outline-variant focus:border-primary outline-none transition-all">
+                    <option value="">Seleccionar...</option>
+                 </select>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto min-h-[400px]">
+              <table id="tabla-reporte" class="w-full border-collapse text-left">
+                <thead id="tabla-cabecera" class="bg-surface-container border-b border-outline-variant">
+                  <!-- Llenado dinámico -->
+                </thead>
+                <tbody id="tabla-cuerpo" class="divide-y divide-outline-variant/30">
+                  <!-- Llenado dinámico -->
+                </tbody>
+              </table>
+              <div id="mensaje-vacio" class="py-12 text-center text-on-surface-variant bg-surface-container-low/30 hidden">
+                 <span class="material-symbols-outlined text-4xl mb-2 text-on-surface-variant block">monitoring</span>
+                 <p class="font-body-md text-on-surface-variant" id="texto-vacio">No hay datos para mostrar</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Script de lógica de Reportes -->
+    <script src="../js/reportes.js"></script>
+  </body>
+</html>

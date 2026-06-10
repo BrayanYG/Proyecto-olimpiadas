@@ -18,6 +18,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/encuentros")
 @CrossOrigin(origins = "*")
+@SuppressWarnings("null")
 public class EncuentroController {
 
     private final EncuentroRepository encuentroRepository;

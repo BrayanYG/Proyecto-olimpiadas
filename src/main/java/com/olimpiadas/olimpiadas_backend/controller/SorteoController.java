@@ -16,6 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/sorteos")
 @CrossOrigin(origins = "*")
+@SuppressWarnings("null")
 public class SorteoController {
 
     private final SorteoRepository sorteoRepository;

@@ -22,6 +22,7 @@ public class ResultadoService {
     public Resultado registrarResultado(@NonNull Resultado resultado) {
         Encuentro encuentro = resultado.getEncuentro();
         encuentro.setEstado("FINALIZADO");
+        encuentro.setResultado(resultado); // Sincronizar relación bidireccional en memoria
         encuentroRepository.save(encuentro);
 
         return resultadoRepository.save(resultado);

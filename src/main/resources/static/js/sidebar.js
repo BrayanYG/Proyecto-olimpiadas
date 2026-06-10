@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
     { id: "sorteo.html", label: "Grupos", icon: "apps" },
     { id: "calendario.html", label: "Calendario", icon: "event" },
     { id: "resultados.html", label: "Resultados", icon: "emoji_events" },
+    { id: "reportes.html", label: "Reportes", icon: "analytics" },
   ];
 
   let menuHtml = `<nav class="flex-1 flex flex-col pt-4 overflow-y-auto no-scrollbar">`;

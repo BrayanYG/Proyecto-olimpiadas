@@ -2,6 +2,8 @@ package com.olimpiadas.olimpiadas_backend.service;
 
 import com.olimpiadas.olimpiadas_backend.model.Usuario;
 import com.olimpiadas.olimpiadas_backend.repository.UsuarioRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import java.util.List;
 @Service
 public class UsuarioService {
 
+    private static final Logger logger = LoggerFactory.getLogger(UsuarioService.class);
     private final UsuarioRepository usuarioRepository;
     private final EmailService emailService;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -50,8 +53,19 @@ public class UsuarioService {
             String codigo = String.format("%06d", new java.util.Random().nextInt(999999));
             usuario.setCodigoMfa(codigo);
             usuarioRepository.save(usuario);
+            
+            logger.info("=== [MFA] CÓDIGO GENERADO PARA EL USUARIO '{}': {} ===", username, codigo);
+            
             if (usuario.getEmail() != null && !usuario.getEmail().isEmpty()) {
-                emailService.enviarCorreoMfa(usuario.getEmail(), codigo);
+                try {
+                    emailService.enviarCorreoMfa(usuario.getEmail(), codigo);
+                    logger.info("[MFA] Correo enviado exitosamente a: {}", usuario.getEmail());
+                } catch (Exception e) {
+                    logger.error("[MFA] Error al enviar correo de verificación a {}: {}. Continuando con login...", 
+                                 usuario.getEmail(), e.getMessage());
+                }
+            } else {
+                logger.warn("[MFA] El usuario '{}' no tiene un correo electrónico configurado.", username);
             }
             return usuario;
         }

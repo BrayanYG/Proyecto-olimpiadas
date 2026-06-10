@@ -15,6 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/resultados")
 @CrossOrigin(origins = "*")
+@SuppressWarnings("null")
 public class ResultadoController {
 
     private final ResultadoRepository resultadoRepository;
@@ -56,7 +57,6 @@ public class ResultadoController {
 
         Encuentro encuentro = encuentroOpt.get();
         encuentro.setEstado("FINALIZADO");
-        encuentroRepository.save(encuentro);
 
         // Buscar si ya existe un resultado para este encuentro para actualizarlo
         Resultado resultado = resultadoRepository.findAll().stream()
@@ -71,7 +71,13 @@ public class ResultadoController {
             resultado.setObservaciones(req.getObservaciones());
         }
 
+        // Sincronizar relación bidireccional en memoria
+        encuentro.setResultado(resultado);
+
+        // Guardar ambos
         Resultado guardado = resultadoRepository.save(resultado);
+        encuentroRepository.save(encuentro);
+
         return ResponseEntity.ok(guardado);
     }
 
