@@ -27,6 +27,18 @@ public class EquipoController {
         return equipoService.guardar(equipo);
     }
 
+    @GetMapping("/mis-equipos")
+    public List<Equipo> listarMisEquipos(@RequestParam @org.springframework.lang.NonNull String username) {
+        return equipoService.listarPorCreador(username);
+    }
+
+    @PostMapping("/mis-equipos")
+    public Equipo guardarMisEquipos(
+            @RequestParam @org.springframework.lang.NonNull String username,
+            @RequestBody @org.springframework.lang.NonNull Equipo equipo) {
+        return equipoService.guardarPorParticipante(equipo, username);
+    }
+
     @GetMapping("/{id}")
     public Equipo buscarPorId(@PathVariable @org.springframework.lang.NonNull Long id) {
         return equipoService.buscarPorId(id);

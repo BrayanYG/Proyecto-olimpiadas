@@ -14,4 +14,6 @@ public interface ParticipanteRepository extends JpaRepository<Participante, Long
 
     @Query("SELECT p FROM Participante p WHERE p.id = :creadorId OR p.creador.id = :creadorId")
     List<Participante> findByCreadorIdOrId(@Param("creadorId") Long creadorId);
+
+    List<Participante> findByEquipoId(Long equipoId);
 }

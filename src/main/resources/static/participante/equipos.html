@@ -145,68 +145,72 @@
       <section class="flex flex-col gap-md">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-md">
           <div class="space-y-xs">
-            <h3 class="font-headline-md text-2xl md:text-headline-md text-white">Equipos Registrados</h3>
-            <p class="font-body-md text-white/80">Administra las escuadras oficiales de tu institución.</p>
+            <h3 class="font-headline-md text-2xl md:text-headline-md text-white">Mi Equipo</h3>
+            <p class="font-body-md text-white/80">Administra la escuadra oficial que has registrado.</p>
           </div>
-          <button
-            class="w-full sm:w-auto bg-olympic-red text-on-primary px-lg py-sm rounded-lg font-label-md text-label-md flex items-center justify-center gap-sm shadow-md hover:brightness-110 transition-all active:scale-95"
+          <button id="btnRegistrarEquipo"
+            class="hidden w-full sm:w-auto bg-olympic-red text-on-primary px-lg py-sm rounded-lg font-label-md text-label-md items-center justify-center gap-sm shadow-md hover:brightness-110 transition-all active:scale-95"
             onclick="abrirModalEquipo()">
             <span class="material-symbols-outlined">add</span>
             Registrar Equipo
           </button>
         </div>
-        <!-- Responsive Table -->
-        <div class="bg-white rounded-xl shadow-sm border border-outline-variant overflow-x-auto overflow-y-hidden">
-          <table class="w-full text-left border-collapse min-w-[600px]">
-            <thead class="bg-surface-container-low border-b border-outline-variant">
-              <tr>
-                <th class="px-md py-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
-                  Nombre</th>
-                <th class="px-md py-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
-                  Deporte</th>
-                <th class="px-md py-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">
-                  Categoría</th>
-                <th
-                  class="px-md py-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-center">
-                  Jugadores</th>
-                <th
-                  class="px-md py-md font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-right">
-                  Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="tablaEquipos" class="divide-y divide-outline-variant">
-            </tbody>
-          </table>
+
+        <div id="sinEquipoMessage" class="hidden bg-surface-container-low p-md rounded-xl border border-outline-variant/30 text-on-surface text-center w-full">
+          <span class="material-symbols-outlined text-4xl mb-2 text-on-surface-variant block">group_off</span>
+          <p>No tienes un equipo asignado. Crea uno para comenzar.</p>
         </div>
-      </section>
-      <!-- Member Management Section -->
-      <section class="flex flex-col gap-md pt-lg relative border-t-2 border-outline-variant">
-        <div class="flex flex-col xl:flex-row xl:items-center justify-between gap-md">
-          <div class="space-y-xs">
-            <h3 class="font-title-lg text-white flex flex-wrap items-center gap-sm">
-              <span class="material-symbols-outlined text-white">groups_2</span>
-              Miembros: <span id="nombreEquipoSeleccionado" class="text-primary font-black">Seleccione un equipo</span>
-            </h3>
-            <p class="font-body-md text-white/80">Gestiona la nómina de atletas registrados para esta escuadra.</p>
-          </div>
-          <div
-            class="flex flex-col sm:flex-row items-stretch sm:items-center gap-sm bg-surface-container-low p-2 rounded-xl border border-outline-variant">
-            <div class="relative flex-1 sm:min-w-[300px]">
-              <span
-                class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant">person_search</span>
-              <input id="dniParticipanteEquipo"
-                class="w-full pl-10 pr-4 py-2 bg-transparent border-none focus:ring-0 font-body-md"
-                placeholder="DNI del participante..." type="text" />
+
+        <div id="layoutEquipo" class="hidden flex-col gap-md">
+            
+            <!-- Contenedor Detalles de Equipo (Full width top) -->
+            <div id="contenedorEquipo" class="w-full">
+               <!-- Card 1 rendered here -->
             </div>
-            <button onclick="anexarParticipanteAEquipo()"
-              class="bg-olympic-red text-on-primary px-md py-2 rounded-lg font-label-md text-label-md flex items-center justify-center gap-xs hover:brightness-110">
-              Anexar
-            </button>
-          </div>
+
+            <!-- Grid 2 columns for Members and Add table -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-md items-start w-full">
+
+                <!-- Contenedor Miembros del Equipo -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-outline-variant w-full h-full">
+                   <h4 class="font-title-lg mb-4 text-primary flex items-center gap-2">
+                       <span class="material-symbols-outlined">groups_2</span>
+                       Participantes en el Equipo
+                   </h4>
+                   <div id="listaMiembrosEquipo" class="flex flex-col gap-sm"></div>
+                </div>
+
+                <!-- Tabla de Participantes Disponibles -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-outline-variant w-full h-full">
+                   <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                     <h4 class="font-title-lg text-primary flex items-center gap-2">
+                         <span class="material-symbols-outlined">person_add</span>
+                         Agregar Participantes
+                     </h4>
+                     <p class="font-body-md text-on-surface-variant text-sm">Selecciona participantes de tu lista para añadirlos al equipo.</p>
+                   </div>
+                   
+                   <div class="overflow-x-auto rounded-lg border border-outline-variant/30">
+                       <table class="w-full text-left border-collapse">
+                           <thead>
+                               <tr class="bg-surface-container-low border-b border-outline-variant/30">
+                                   <th class="px-4 py-3 font-label-md text-on-surface-variant uppercase tracking-wider text-sm">Participante</th>
+                                   <th class="px-4 py-3 font-label-md text-on-surface-variant uppercase tracking-wider text-sm">DNI</th>
+                                   <th class="px-4 py-3 font-label-md text-on-surface-variant uppercase tracking-wider text-sm text-center">Acción</th>
+                               </tr>
+                           </thead>
+                           <tbody id="tablaParticipantesDisponibles" class="divide-y divide-outline-variant/20">
+                           </tbody>
+                       </table>
+                   </div>
+                </div>
+
+            </div>
         </div>
-        <div id="listaMiembrosEquipo" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-md">
+
+
         </div>
-      </section>
+    </div>
       <!-- Footer -->
       <footer
         class="w-full border-t border-white/10 px-6 md:px-margin py-8 flex flex-col md:flex-row justify-between items-center gap-md bg-[#1e1e1e] mt-auto">
@@ -278,33 +282,51 @@
         </div>
       </div>
     </div>
+
+    <!-- Custom Alert Modal -->
+    <div class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300 opacity-0" id="custom-alert-modal">
+      <div class="bg-surface w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95 flex flex-col items-center p-lg text-center" id="custom-alert-content">
+        <span class="material-symbols-outlined text-[48px] mb-sm" id="custom-alert-icon"></span>
+        <h3 class="font-headline-md text-title-lg mb-xs text-on-surface" id="custom-alert-title">Mensaje</h3>
+        <p class="font-body-md text-on-surface-variant mb-md" id="custom-alert-message">Aquí va el mensaje.</p>
+        <button class="w-full bg-primary-container text-on-primary-container font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all" onclick="closeCustomAlert()">Aceptar</button>
+      </div>
+    </div>
+
+    <!-- Custom Confirm Modal -->
+    <div class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300 opacity-0" id="custom-confirm-modal">
+      <div class="bg-surface w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95 flex flex-col items-center p-lg text-center" id="custom-confirm-content">
+        <span class="material-symbols-outlined text-[48px] mb-sm text-error">warning</span>
+        <h3 class="font-headline-md text-title-lg mb-xs text-on-surface" id="custom-confirm-title">Confirmar</h3>
+        <p class="font-body-md text-on-surface-variant mb-md" id="custom-confirm-message">Aquí va el mensaje.</p>
+        <div class="flex gap-4 w-full">
+            <button class="w-full bg-surface-container-high text-on-surface-variant font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all" onclick="closeCustomConfirm(false)">Cancelar</button>
+            <button class="w-full bg-error text-on-error font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all" id="btn-custom-confirm-accept">Aceptar</button>
+        </div>
+      </div>
+    </div>
     <script>
       const API_EQUIPOS = "/api/equipos";
       const API_DEPORTES = "/api/deportes";
-      const API_INSTITUCIONES = "/api/instituciones";
 
       let equiposOriginales = [];
-      let institucionSeleccionadaId = null;
       let participantesEquipo = [];
       let equipoSeleccionadoId = null;
       let participantesOriginales = [];
 
+      function getUsername() {
+        const usuarioStr = localStorage.getItem("usuario");
+        if (usuarioStr) {
+          return JSON.parse(usuarioStr).username;
+        }
+        return "";
+      }
+
       document.addEventListener("DOMContentLoaded", () => {
-        cargarInstitucionPorDefecto();
         cargarDeportes();
         cargarParticipantes();
         cargarEquipos();
       });
-
-      function cargarInstitucionPorDefecto() {
-        fetch(API_INSTITUCIONES)
-          .then(response => response.json())
-          .then(data => {
-            if (data.length > 0) {
-              institucionSeleccionadaId = data[0].id;
-            }
-          });
-      }
 
       function cargarDeportes() {
         fetch(API_DEPORTES)
@@ -324,7 +346,7 @@
       }
 
       function cargarParticipantes() {
-        fetch("/api/participantes")
+        fetch(`/api/participantes/mis-participantes?username=${getUsername()}`)
           .then(response => response.json())
           .then(data => {
             participantesOriginales = data;
@@ -337,20 +359,11 @@
       }
 
       function cargarEquipos() {
-        fetch(API_EQUIPOS)
+        fetch(`/api/equipos/mis-equipos?username=${getUsername()}`)
           .then(response => response.json())
           .then(data => {
-
-            const institucionParticipante = "UTP";
-
-            const equiposFiltrados = data.filter(equipo =>
-              (equipo.institucion?.nombre || "").trim().toLowerCase() ===
-              institucionParticipante.trim().toLowerCase()
-            );
-
-            equiposOriginales = equiposFiltrados;
-            renderizarEquipos(equiposFiltrados);
-
+            equiposOriginales = data;
+            renderizarEquipos(data);
           })
           .catch(error => {
             console.error(error);
@@ -359,53 +372,58 @@
       }
 
       function renderizarEquipos(data) {
-        const tabla = document.getElementById("tablaEquipos");
-        tabla.innerHTML = "";
+        const contenedor = document.getElementById("contenedorEquipo");
+        const btnRegistrar = document.getElementById("btnRegistrarEquipo");
+        const layoutEquipo = document.getElementById("layoutEquipo");
+        const sinEquipoMessage = document.getElementById("sinEquipoMessage");
+        
+        contenedor.innerHTML = "";
 
-        data.forEach(item => {
-          tabla.innerHTML += `
-      <tr class="hover:bg-surface-container-low/50 transition-colors group">
-        <td class="px-md py-md font-title-lg text-title-lg text-primary">
-          ${item.nombre}
-        </td>
+        if (data.length === 0) {
+            btnRegistrar.classList.remove("hidden");
+            btnRegistrar.classList.add("flex");
+            layoutEquipo.classList.remove("flex");
+            layoutEquipo.classList.add("hidden");
+            sinEquipoMessage.classList.remove("hidden");
+            sinEquipoMessage.classList.add("block");
+            return;
+        }
 
-        <td class="px-md py-md">
-          <span class="px-sm py-1 bg-surface-container-high text-on-surface-variant rounded-full font-caption text-caption">
-            ${item.deporte?.nombre || "Sin deporte"}
-          </span>
-        </td>
+        btnRegistrar.classList.remove("flex");
+        btnRegistrar.classList.add("hidden");
+        sinEquipoMessage.classList.remove("block");
+        sinEquipoMessage.classList.add("hidden");
+        layoutEquipo.classList.remove("hidden");
+        layoutEquipo.classList.add("flex");
 
-        <td class="px-md py-md font-body-md text-on-surface">
-          ${item.categoria || "Sin categoría"}
-        </td>
-
-        <td class="px-md py-md text-center">
-          <div class="flex items-center justify-center gap-xs">
-            <span class="font-title-lg text-title-lg">
-  ${participantesOriginales.filter(p => p.equipo?.id === item.id).length}
-</span>
-            <span class="material-symbols-outlined text-on-surface-variant text-[18px]">person</span>
+        const equipo = data[0]; // Only 1 team managed
+        equipoSeleccionadoId = equipo.id;
+        
+        contenedor.innerHTML = `
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-outline-variant">
+             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-outline-variant pb-4 mb-4">
+                 <div>
+                     <h4 class="font-headline-md text-primary">${equipo.nombre}</h4>
+                     <p class="font-caption text-on-surface-variant uppercase tracking-wider">${equipo.deporte?.nombre || "Sin deporte"} • ${equipo.categoria || "Sin categoría"}</p>
+                 </div>
+                 <div class="flex flex-wrap gap-2 mt-2 md:mt-0">
+                     <button onclick='editarEquipo(${JSON.stringify(equipo)})' class="px-4 py-2 bg-surface-variant text-on-surface rounded-lg font-bold hover:brightness-110 shadow-sm flex items-center gap-2 text-sm">
+                         <span class="material-symbols-outlined text-[18px]">edit</span> Editar Equipo
+                     </button>
+                     <button onclick='eliminarEquipo(${equipo.id})' class="px-4 py-2 bg-error text-white rounded-lg font-bold hover:brightness-110 shadow-sm flex items-center gap-2 text-sm">
+                         <span class="material-symbols-outlined text-[18px]">delete</span> Eliminar Equipo
+                     </button>
+                 </div>
+             </div>
+             
+             <div class="flex items-center gap-2 text-on-surface">
+                 <span class="material-symbols-outlined text-primary">groups</span>
+                 <span class="font-body-md">Jugadores inscritos: <strong id="jugadoresInscritosCount">${participantesOriginales.filter(p => p.equipo?.id === equipo.id).length}</strong></span>
+             </div>
           </div>
-        </td>
-
-        <td class="px-md py-md text-right">
-          <div class="flex justify-end gap-sm">
-    
-    <button onclick='verMiembrosEquipo(${JSON.stringify(item)})'
-      class="p-2 text-on-surface-variant hover:text-primary transition-colors">
-      <span class="material-symbols-outlined">group_add</span>
-    </button>
-    
-            <button onclick='editarEquipo(${JSON.stringify(item)})'
-      class="p-2 text-on-surface-variant hover:text-primary transition-colors">
-      <span class="material-symbols-outlined">edit</span>
-    </button>
-
-          </div>
-        </td>
-      </tr>
-    `;
-        });
+        `;
+        
+        verMiembrosEquipo(equipo);
       }
 
       function abrirModalEquipo() {
@@ -434,7 +452,7 @@
         const categoria = document.getElementById("categoriaEquipo").value;
 
         if (!nombre || !deporteId || !categoria) {
-          alert("Complete todos los campos obligatorios");
+          showCustomAlert("Campos incompletos", "Complete todos los campos obligatorios", true);
           return;
         }
 
@@ -443,14 +461,16 @@
           categoria,
           deporte: {
             id: parseInt(deporteId)
-          },
-          institucion: {
-            id: institucionSeleccionadaId
           }
         };
 
-        const url = id ? `${API_EQUIPOS}/${id}` : API_EQUIPOS;
-        const metodo = id ? "PUT" : "POST";
+        let url = `/api/equipos/mis-equipos?username=${getUsername()}`;
+        let metodo = "POST";
+
+        if (id) {
+            url = `/api/equipos/${id}`;
+            metodo = "PUT";
+        }
 
         fetch(url, {
           method: metodo,
@@ -463,11 +483,11 @@
           .then(() => {
             closeModal();
             cargarEquipos();
-            alert(id ? "Equipo actualizado correctamente" : "Equipo registrado correctamente");
+            showCustomAlert("Éxito", id ? "Equipo actualizado correctamente" : "Equipo registrado correctamente", false);
           })
           .catch(error => {
             console.error(error);
-            alert("Error al guardar equipo");
+            showCustomAlert("Error", "Error al guardar equipo", true);
           });
       }
 
@@ -483,39 +503,42 @@
       }
 
       function eliminarEquipo(id) {
-        const confirmar = confirm("¿Seguro que deseas eliminar este equipo?");
+        showCustomConfirm("Eliminar Equipo", "¿Seguro que deseas eliminar este equipo?", (confirmar) => {
+          if (!confirmar) return;
 
-        if (!confirmar) return;
-
-        fetch(`${API_EQUIPOS}/${id}`, {
-          method: "DELETE"
-        })
-          .then(response => response.text())
-          .then(() => {
-            cargarEquipos();
-            alert("Equipo eliminado correctamente");
+          fetch(`${API_EQUIPOS}/${id}`, {
+            method: "DELETE"
           })
-          .catch(error => {
-            console.error(error);
-            alert("Error al eliminar equipo");
-          });
+            .then(response => response.text())
+            .then(() => {
+              cargarEquipos();
+              showCustomAlert("Éxito", "Equipo eliminado correctamente", false);
+            })
+            .catch(error => {
+              console.error(error);
+              showCustomAlert("Error", "Error al eliminar equipo", true);
+            });
+        });
       }
 
       function verMiembrosEquipo(equipo) {
         equipoSeleccionadoId = equipo.id;
-
-        document.getElementById("nombreEquipoSeleccionado").textContent =
-          equipo.nombre;
-
-        fetch("/api/participantes")
+        
+        fetch(`/api/participantes/mis-participantes?username=${getUsername()}`)
           .then(response => response.json())
           .then(data => {
+            participantesOriginales = data;
             participantesEquipo = data.filter(p => p.equipo?.id === equipo.id);
+            const participantesDisponibles = data.filter(p => !p.equipo || p.equipo.id === null);
+
             renderizarMiembrosEquipo(participantesEquipo);
+            renderizarParticipantesDisponibles(participantesDisponibles);
+            // Actualizar cuenta en Tarjeta 1
+            const countEl = document.getElementById("jugadoresInscritosCount");
+            if (countEl) countEl.innerText = participantesEquipo.length;
           })
           .catch(error => {
             console.error(error);
-            alert("Error al cargar miembros del equipo");
           });
       }
 
@@ -559,70 +582,67 @@
         });
       }
 
-      function anexarParticipanteAEquipo() {
-        const dni = document.getElementById("dniParticipanteEquipo").value.trim();
+      function renderizarParticipantesDisponibles(data) {
+        const tbody = document.getElementById("tablaParticipantesDisponibles");
+        tbody.innerHTML = "";
 
-        if (!equipoSeleccionadoId) {
-          alert("Primero seleccione un equipo");
+        if (data.length === 0) {
+          tbody.innerHTML = `
+            <tr>
+              <td colspan="3" class="px-4 py-6 text-center text-on-surface-variant">
+                No hay participantes disponibles sin equipo.
+              </td>
+            </tr>
+          `;
           return;
         }
 
-        if (!dni) {
-          alert("Ingrese el DNI del participante");
-          return;
-        }
-
-        fetch("/api/participantes")
-          .then(response => response.json())
-          .then(data => {
-            const participante = data.find(p => p.dni === dni);
-
-            if (!participante) {
-              alert("Participante no encontrado");
-              return;
-            }
-
-            participante.equipo = {
-              id: equipoSeleccionadoId
-            };
-
-            fetch(`/api/participantes/${participante.id}`, {
-              method: "PUT",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify(participante)
-            })
-              .then(response => response.json())
-              .then(() => {
-                document.getElementById("dniParticipanteEquipo").value = "";
-                alert("Participante anexado correctamente");
-
-                const equipo = equiposOriginales.find(e => e.id === equipoSeleccionadoId);
-                verMiembrosEquipo(equipo);
-              });
-          })
-          .catch(error => {
-            console.error(error);
-            alert("Error al anexar participante");
-          });
+        data.forEach(item => {
+          tbody.innerHTML += `
+            <tr class="hover:bg-surface-container-lowest transition-colors group">
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface flex items-center justify-center font-bold text-sm">
+                    ${item.nombres ? item.nombres.charAt(0).toUpperCase() : "P"}
+                  </div>
+                  <span class="font-bold text-on-surface text-sm">
+                    ${item.nombres || ""} ${item.apellidos || ""}
+                  </span>
+                </div>
+              </td>
+              <td class="px-4 py-3">
+                <span class="font-body-md text-sm text-on-surface">
+                  ${item.dni || ""}
+                </span>
+              </td>
+              <td class="px-4 py-3 text-center">
+                <button onclick="agregarParticipanteDesdeTabla(${item.id})"
+                  class="bg-olympic-red/10 text-olympic-red hover:bg-olympic-red hover:text-white px-3 py-1 rounded-lg font-label-md text-xs inline-flex items-center gap-1 transition-colors">
+                  <span class="material-symbols-outlined text-[18px]">add</span>
+                  Agregar
+                </button>
+              </td>
+            </tr>
+          `;
+        });
       }
 
-      function quitarParticipante(id) {
-        const confirmar = confirm("¿Deseas quitar este participante del equipo?");
-
-        if (!confirmar) return;
-
-        const participante = participantesEquipo.find(p => p.id === id);
-
-        if (!participante) {
-          alert("Participante no encontrado");
+      function agregarParticipanteDesdeTabla(participanteId) {
+        if (!equipoSeleccionadoId) {
+          showCustomAlert("Error", "Primero seleccione un equipo", true);
           return;
         }
 
-        participante.equipo = null;
+        const participante = participantesOriginales.find(p => p.id === participanteId);
 
-        fetch(`/api/participantes/${id}`, {
+        if (!participante) {
+          showCustomAlert("Error", "Participante no encontrado", true);
+          return;
+        }
+
+        participante.equipo = { id: equipoSeleccionadoId };
+
+        fetch(`/api/participantes/${participante.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -631,15 +651,116 @@
         })
           .then(response => response.json())
           .then(() => {
-            alert("Participante retirado del equipo");
-
-            const equipo = equiposOriginales.find(e => e.id === equipoSeleccionadoId);
-            verMiembrosEquipo(equipo);
+            showCustomAlert("Éxito", "Participante agregado al equipo", false);
+            const equipo = equiposOriginales[0];
+            if(equipo) verMiembrosEquipo(equipo);
           })
           .catch(error => {
             console.error(error);
-            alert("Error al retirar participante");
+            showCustomAlert("Error", "Error al anexar participante", true);
           });
+      }
+
+      function quitarParticipante(id) {
+        showCustomConfirm("Retirar Participante", "¿Deseas quitar este participante del equipo?", (confirmar) => {
+          if (!confirmar) return;
+
+          const participante = participantesEquipo.find(p => p.id === id);
+
+          if (!participante) {
+            showCustomAlert("Error", "Participante no encontrado", true);
+            return;
+          }
+
+          participante.equipo = null;
+
+          fetch(`/api/participantes/${id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(participante)
+          })
+            .then(response => response.json())
+            .then(() => {
+              showCustomAlert("Éxito", "Participante retirado del equipo", false);
+
+              const equipo = equiposOriginales[0];
+              if(equipo) verMiembrosEquipo(equipo);
+            })
+            .catch(error => {
+              console.error(error);
+              showCustomAlert("Error", "Error al retirar participante", true);
+            });
+        });
+      }
+
+      // UI Utils para Modales
+      let customConfirmCallback = null;
+
+      function showCustomAlert(title, message, isError = false) {
+        document.getElementById("custom-alert-title").innerText = title;
+        document.getElementById("custom-alert-message").innerText = message;
+        const icon = document.getElementById("custom-alert-icon");
+        if (isError) {
+          icon.innerText = "error";
+          icon.classList.add("text-error");
+          icon.classList.remove("text-primary");
+        } else {
+          icon.innerText = "check_circle";
+          icon.classList.add("text-primary");
+          icon.classList.remove("text-error");
+        }
+        const modal = document.getElementById("custom-alert-modal");
+        const content = document.getElementById("custom-alert-content");
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          content.classList.remove("scale-95");
+        }, 10);
+      }
+
+      function closeCustomAlert() {
+        const modal = document.getElementById("custom-alert-modal");
+        const content = document.getElementById("custom-alert-content");
+        modal.classList.add("opacity-0");
+        content.classList.add("scale-95");
+        setTimeout(() => {
+          modal.classList.add("hidden");
+        }, 300);
+      }
+
+      function showCustomConfirm(title, message, callback) {
+        document.getElementById("custom-confirm-title").innerText = title;
+        document.getElementById("custom-confirm-message").innerText = message;
+        customConfirmCallback = callback;
+        const modal = document.getElementById("custom-confirm-modal");
+        const content = document.getElementById("custom-confirm-content");
+        
+        const acceptBtn = document.getElementById("btn-custom-confirm-accept");
+        acceptBtn.onclick = function() {
+            closeCustomConfirm(true);
+        };
+
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          content.classList.remove("scale-95");
+        }, 10);
+      }
+
+      function closeCustomConfirm(result) {
+        const modal = document.getElementById("custom-confirm-modal");
+        const content = document.getElementById("custom-confirm-content");
+        modal.classList.add("opacity-0");
+        content.classList.add("scale-95");
+        setTimeout(() => {
+          modal.classList.add("hidden");
+          if (customConfirmCallback) {
+            customConfirmCallback(result);
+            customConfirmCallback = null;
+          }
+        }, 300);
       }
 
     </script>

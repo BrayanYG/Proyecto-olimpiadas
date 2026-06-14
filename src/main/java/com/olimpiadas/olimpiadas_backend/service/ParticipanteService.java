@@ -20,6 +20,10 @@ public class ParticipanteService {
         this.institucionRepository = institucionRepository;
     }
 
+    public List<Participante> buscarPorEquipo(Long equipoId) {
+        return participanteRepository.findByEquipoId(equipoId);
+    }
+
     public List<Participante> listar() {
         return participanteRepository.findAll();
     }

@@ -32,7 +32,7 @@ public class InstitucionService {
     }
 
     public Map<String, Long> obtenerEstadisticas(Long id) {
-        long equipos = equipoRepository.countByInstitucionId(id);
+        long equipos = equipoRepository.countByCreadorInstitucionId(id);
         long participantes = participanteRepository.countByInstitucionId(id);
         Map<String, Long> stats = new HashMap<>();
         stats.put("equipos", equipos);
@@ -63,8 +63,8 @@ public class InstitucionService {
                     winnerEquipo = encuentro.getEquipoVisitante();
                 }
 
-                if (winnerEquipo != null && winnerEquipo.getInstitucion() != null) {
-                    Long instId = winnerEquipo.getInstitucion().getId();
+                if (winnerEquipo != null && winnerEquipo.getCreador() != null && winnerEquipo.getCreador().getInstitucion() != null) {
+                    Long instId = winnerEquipo.getCreador().getInstitucion().getId();
                     if (instId != null) {
                         pointsMap.put(instId, pointsMap.getOrDefault(instId, 0) + 1);
                     }

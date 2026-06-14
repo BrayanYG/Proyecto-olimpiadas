@@ -11,18 +11,38 @@ import java.util.List;
 public class EquipoService {
 
     private final EquipoRepository equipoRepository;
+    private final ParticipanteService participanteService;
 
-    public EquipoService(EquipoRepository equipoRepository) {
+    public EquipoService(EquipoRepository equipoRepository, ParticipanteService participanteService) {
         this.equipoRepository = equipoRepository;
+        this.participanteService = participanteService;
     }
 
     public List<Equipo> listar() {
         return equipoRepository.findAll();
     }
 
+    public List<Equipo> listarPorCreador(String username) {
+        com.olimpiadas.olimpiadas_backend.model.Participante creador = participanteService.buscarPorUsername(username);
+        if (creador == null) {
+            return List.of();
+        }
+        return equipoRepository.findByCreadorId(creador.getId());
+    }
+
     @NonNull
     public Equipo guardar(@NonNull Equipo equipo) {
         return equipoRepository.save(equipo);
+    }
+
+    @NonNull
+    public Equipo guardarPorParticipante(@NonNull Equipo nuevo, @NonNull String usernameCreador) {
+        com.olimpiadas.olimpiadas_backend.model.Participante creador = participanteService.buscarPorUsername(usernameCreador);
+        if (creador == null) {
+            throw new RuntimeException("Participante logueado no encontrado");
+        }
+        nuevo.setCreador(creador);
+        return equipoRepository.save(nuevo);
     }
 
     public Equipo buscarPorId(@NonNull Long id) {
@@ -48,6 +68,12 @@ public class EquipoService {
 
         if (equipo == null) {
             return false;
+        }
+
+        List<com.olimpiadas.olimpiadas_backend.model.Participante> miembros = participanteService.buscarPorEquipo(id);
+        for (com.olimpiadas.olimpiadas_backend.model.Participante p : miembros) {
+            p.setEquipo(null);
+            participanteService.guardar(p);
         }
 
         equipoRepository.delete(equipo);

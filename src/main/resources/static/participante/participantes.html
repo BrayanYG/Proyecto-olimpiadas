@@ -513,6 +513,14 @@
       let equiposOriginales = [];
       let institucionLogueada = "";
 
+      function getUsername() {
+        const usuarioStr = localStorage.getItem("usuario");
+        if (usuarioStr) {
+          return JSON.parse(usuarioStr).username;
+        }
+        return "";
+      }
+
       document.addEventListener("DOMContentLoaded", async () => {
         const usuarioStr = localStorage.getItem("usuario");
         const username = usuarioStr ? JSON.parse(usuarioStr).username : null;
@@ -568,15 +576,13 @@
       }
 
       function cargarParticipantes() {
-        const usuarioStr = localStorage.getItem("usuario");
-        const username = usuarioStr ? JSON.parse(usuarioStr).username : null;
-        fetch(`${API_PARTICIPANTES}/mis-participantes?username=${username}`)
-          .then((response) => response.json())
-          .then((data) => {
+        fetch(`/api/participantes/mis-participantes?username=${getUsername()}`)
+          .then(response => response.json())
+          .then(data => {
             participantesOriginales = data;
-            renderizarParticipantes(data);
+            renderizarParticipantes(participantesOriginales);
           })
-          .catch((error) => {
+          .catch(error => {
             console.error(error);
             showCustomAlert("Error", "Error al cargar participantes", true);
           });
@@ -672,9 +678,7 @@
           telefono
         };
 
-        const usuarioStr = localStorage.getItem("usuario");
-        const username = usuarioStr ? JSON.parse(usuarioStr).username : null;
-        const url = id ? `${API_PARTICIPANTES}/${id}` : `${API_PARTICIPANTES}/mis-participantes?username=${username}`;
+        const url = id ? `${API_PARTICIPANTES}/${id}` : `/api/participantes/mis-participantes?username=${getUsername()}`;
         const metodo = id ? "PUT" : "POST";
 
         fetch(url, {

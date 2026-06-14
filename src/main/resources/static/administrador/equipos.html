@@ -248,23 +248,7 @@
                 />
               </div>
             </div>
-            <!-- Institution Filter -->
-            <div class="flex-1">
-              <label
-                class="block text-caption font-label-md text-on-surface-variant mb-1"
-                >Filtrar por Institución</label
-              >
-              <select
-                id="filtroInstitucion"
-                onchange="filtrarEquipos()"
-                class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-2 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all font-body-md appearance-none"
-              >
-                <option value="">Todas las instituciones</option>
-                <option value="unmsm">Univ. San Marcos</option>
-                <option value="regatas">Club Regatas</option>
-                <option value="ipd">IPD Nacional</option>
-              </select>
-            </div>
+
             <!-- Sport Filter -->
             <div class="flex-1">
               <label
@@ -294,11 +278,7 @@
                   >
                     Nombre del Equipo
                   </th>
-                  <th
-                    class="text-left py-4 px-6 font-label-md text-on-surface text-sm uppercase tracking-wider"
-                  >
-                    Institución
-                  </th>
+
                   <th
                     class="text-left py-4 px-6 font-label-md text-on-surface text-sm uppercase tracking-wider"
                   >
@@ -410,12 +390,7 @@
             class="w-full border border-outline rounded-lg px-4 py-3"
           />
 
-          <select
-            id="institucionEquipo"
-            class="w-full border border-outline rounded-lg px-4 py-3"
-          >
-            <option value="">Seleccione institución</option>
-          </select>
+
 
           <select
             id="deporteEquipo"
@@ -456,31 +431,9 @@
       let deportesOriginales = [];
 
       document.addEventListener("DOMContentLoaded", () => {
-        cargarInstituciones();
         cargarDeportes();
         cargarEquipos();
       });
-
-      function cargarInstituciones() {
-        fetch(API_INSTITUCIONES)
-          .then((response) => response.json())
-          .then((data) => {
-            institucionesOriginales = data;
-
-            const selectModal = document.getElementById("institucionEquipo");
-            const selectFiltro = document.getElementById("filtroInstitucion");
-
-            selectModal.innerHTML =
-              '<option value="">Seleccione institución</option>';
-            selectFiltro.innerHTML =
-              '<option value="">Todas las instituciones</option>';
-
-            data.forEach((item) => {
-              selectModal.innerHTML += `<option value="${item.id}">${item.nombre}</option>`;
-              selectFiltro.innerHTML += `<option value="${item.id}">${item.nombre}</option>`;
-            });
-          });
-      }
 
       function cargarDeportes() {
         fetch(API_DEPORTES)
@@ -616,9 +569,7 @@
       <tr class="hover:bg-surface-container-low transition-colors">
         <td class="py-4 px-6 font-bold text-on-surface">${item.nombre}</td>
 
-        <td class="py-4 px-6 text-on-surface-variant">
-          ${item.institucion?.nombre || "Sin institución"}
-        </td>
+
 
        <td class="py-4 px-6">
         <span class="px-2 py-1 bg-secondary-container text-on-secondary-container text-xs rounded-full font-bold uppercase">
@@ -650,7 +601,7 @@
                 <div class="flex justify-between items-center gap-4">
                   <div class="flex-1 min-w-0">
                     <h3 class="font-label-md text-label-md text-on-surface truncate" title="${item.nombre}">${item.nombre}</h3>
-                    <p class="font-caption text-caption text-on-surface-variant truncate" title="${item.institucion?.nombre || "Sin institución"} • ${item.deporte?.nombre || "Sin deporte"}">${item.institucion?.nombre || "Sin institución"} • ${item.deporte?.nombre || "Sin deporte"}</p>
+                    <p class="font-caption text-caption text-on-surface-variant truncate" title="${item.deporte?.nombre || "Sin deporte"}">${item.deporte?.nombre || "Sin deporte"}</p>
                     <p class="font-caption text-caption text-primary font-bold mt-1 truncate">${item.categoria || "Sin categoría"}</p>
                   </div>
                   <div class="flex gap-1 shrink-0">
@@ -687,7 +638,6 @@
         document.getElementById("equipoId").value = "";
         document.getElementById("nombreEquipo").value = "";
         document.getElementById("categoriaEquipo").value = "";
-        document.getElementById("institucionEquipo").value = "";
         document.getElementById("deporteEquipo").value = "";
       }
 
@@ -697,11 +647,9 @@
         const categoria = document
           .getElementById("categoriaEquipo")
           .value.trim();
-        const institucionId =
-          document.getElementById("institucionEquipo").value;
         const deporteId = document.getElementById("deporteEquipo").value;
 
-        if (!nombre || !categoria || !institucionId || !deporteId) {
+        if (!nombre || !categoria || !deporteId) {
           showToast("Todos los campos son obligatorios", "warning");
           return;
         }
@@ -709,9 +657,6 @@
         const equipo = {
           nombre,
           categoria,
-          institucion: {
-            id: parseInt(institucionId),
-          },
           deporte: {
             id: parseInt(deporteId),
           },
@@ -755,8 +700,6 @@
         document.getElementById("equipoId").value = item.id;
         document.getElementById("nombreEquipo").value = item.nombre || "";
         document.getElementById("categoriaEquipo").value = item.categoria || "";
-        document.getElementById("institucionEquipo").value =
-          item.institucion?.id || "";
         document.getElementById("deporteEquipo").value = item.deporte?.id || "";
         document.getElementById("tituloModalEquipo").textContent =
           "Editar equipo";
@@ -786,19 +729,15 @@
         const texto = document
           .getElementById("buscarEquipo")
           .value.toLowerCase();
-        const institucionId =
-          document.getElementById("filtroInstitucion").value;
         const deporteId = document.getElementById("filtroDeporte").value;
 
         equiposFiltrados = equiposOriginales.filter((item) => {
           const nombre = item.nombre ? item.nombre.toLowerCase() : "";
           const coincideNombre = nombre.includes(texto);
 
-          const coincideInstitucion =
-            !institucionId || item.institucion?.id == institucionId;
           const coincideDeporte = !deporteId || item.deporte?.id == deporteId;
 
-          return coincideNombre && coincideInstitucion && coincideDeporte;
+          return coincideNombre && coincideDeporte;
         });
 
         paginaActual = 1;
