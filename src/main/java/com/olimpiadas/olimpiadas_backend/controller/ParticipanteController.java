@@ -32,6 +32,18 @@ public class ParticipanteController {
         return participanteService.buscarPorId(id);
     }
 
+    @GetMapping("/mis-participantes")
+    public List<Participante> listarMisParticipantes(@RequestParam @org.springframework.lang.NonNull String username) {
+        return participanteService.listarPorCreadorOElMismo(username);
+    }
+
+    @PostMapping("/mis-participantes")
+    public Participante guardarMisParticipantes(
+            @RequestParam @org.springframework.lang.NonNull String username,
+            @RequestBody @org.springframework.lang.NonNull Participante participante) {
+        return participanteService.guardarPorParticipante(participante, username);
+    }
+
     @PutMapping("/{id}")
     public Participante actualizar(@PathVariable @org.springframework.lang.NonNull Long id,
             @RequestBody @org.springframework.lang.NonNull Participante participante) {

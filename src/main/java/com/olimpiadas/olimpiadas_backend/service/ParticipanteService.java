@@ -24,9 +24,28 @@ public class ParticipanteService {
         return participanteRepository.findAll();
     }
 
+    public List<Participante> listarPorCreadorOElMismo(@NonNull String username) {
+        Participante p = buscarPorUsername(username);
+        if (p == null) {
+            return List.of();
+        }
+        return participanteRepository.findByCreadorIdOrId(p.getId());
+    }
+
     @NonNull
     public Participante guardar(@NonNull Participante participante) {
         return participanteRepository.save(participante);
+    }
+
+    @NonNull
+    public Participante guardarPorParticipante(@NonNull Participante nuevo, @NonNull String usernameCreador) {
+        Participante creador = buscarPorUsername(usernameCreador);
+        if (creador == null) {
+            throw new RuntimeException("Participante logueado no encontrado");
+        }
+        nuevo.setCreador(creador);
+        nuevo.setInstitucion(creador.getInstitucion());
+        return participanteRepository.save(nuevo);
     }
 
     public Participante buscarPorId(@NonNull Long id) {
@@ -49,7 +68,10 @@ public class ParticipanteService {
         participante.setApellidos(datos.getApellidos());
         participante.setDni(datos.getDni());
         participante.setEdad(datos.getEdad());
+        participante.setCorreo(datos.getCorreo());
+        participante.setTelefono(datos.getTelefono());
         participante.setEquipo(datos.getEquipo());
+        participante.setInstitucion(datos.getInstitucion());
 
         return participanteRepository.save(participante);
     }

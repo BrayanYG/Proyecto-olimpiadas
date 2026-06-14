@@ -252,7 +252,12 @@
                   <th
                     class="px-6 py-4 font-label-md text-on-surface-variant text-sm uppercase tracking-wider"
                   >
-                    Deporte
+                    Correo
+                  </th>
+                  <th
+                    class="px-6 py-4 font-label-md text-on-surface-variant text-sm uppercase tracking-wider"
+                  >
+                    Teléfono
                   </th>
                   <th
                     class="px-6 py-4 font-label-md text-on-surface-variant text-sm uppercase tracking-wider text-right"
@@ -382,15 +387,27 @@
             <label
               class="block font-label-md text-sm text-gray-500 uppercase tracking-wide"
             >
-              Equipo
+              Correo Electrónico
             </label>
-
-            <select
-              id="equipoParticipante"
-              class="w-full border-gray-300 rounded-lg"
+            <input
+              id="correoParticipante"
+              class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md"
+              placeholder="Ej: correo@ejemplo.com"
+              type="email"
+            />
+          </div>
+          <div class="space-y-1">
+            <label
+              class="block font-label-md text-sm text-gray-500 uppercase tracking-wide"
             >
-              <option value="">Seleccione equipo</option>
-            </select>
+              Teléfono
+            </label>
+            <input
+              id="telefonoParticipante"
+              class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md"
+              placeholder="Ej: 987654321"
+              type="tel"
+            />
           </div>
           <div class="flex flex-col sm:flex-row gap-4 pt-4">
             <button
@@ -409,15 +426,107 @@
         </div>
       </div>
     </div>
+
+    <!-- Custom Alert Modal -->
+    <div class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300 opacity-0" id="custom-alert-modal">
+      <div class="bg-surface w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95 flex flex-col items-center p-lg text-center" id="custom-alert-content">
+        <span class="material-symbols-outlined text-[48px] mb-sm" id="custom-alert-icon"></span>
+        <h3 class="font-headline-md text-title-lg mb-xs text-on-surface" id="custom-alert-title">Mensaje</h3>
+        <p class="font-body-md text-on-surface-variant mb-md" id="custom-alert-message">Aquí va el mensaje.</p>
+        <button class="w-full bg-primary-container text-on-primary-container font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all" onclick="closeCustomAlert()">Aceptar</button>
+      </div>
+    </div>
+
+    <!-- Custom Confirm Modal -->
+    <div class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300 opacity-0" id="custom-confirm-modal">
+      <div class="bg-surface w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95 flex flex-col items-center p-lg text-center" id="custom-confirm-content">
+        <span class="material-symbols-outlined text-[48px] mb-sm text-error">warning</span>
+        <h3 class="font-headline-md text-title-lg mb-xs text-on-surface" id="custom-confirm-title">Confirmar</h3>
+        <p class="font-body-md text-on-surface-variant mb-md" id="custom-confirm-message">Aquí va el mensaje.</p>
+        <div class="flex gap-4 w-full">
+            <button class="w-full bg-surface-container-high text-on-surface-variant font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all" onclick="closeCustomConfirm(false)">Cancelar</button>
+            <button class="w-full bg-error text-on-error font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all" onclick="closeCustomConfirm(true)">Aceptar</button>
+        </div>
+      </div>
+    </div>
+
     <script>
+      function showCustomAlert(title, message, isError = false) {
+        document.getElementById("custom-alert-title").innerText = title;
+        document.getElementById("custom-alert-message").innerText = message;
+        const icon = document.getElementById("custom-alert-icon");
+        if (isError) {
+          icon.innerText = "error";
+          icon.classList.add("text-error");
+          icon.classList.remove("text-primary");
+        } else {
+          icon.innerText = "check_circle";
+          icon.classList.add("text-primary");
+          icon.classList.remove("text-error");
+        }
+        const modal = document.getElementById("custom-alert-modal");
+        const content = document.getElementById("custom-alert-content");
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          content.classList.remove("scale-95");
+        }, 10);
+      }
+
+      function closeCustomAlert() {
+        const modal = document.getElementById("custom-alert-modal");
+        const content = document.getElementById("custom-alert-content");
+        modal.classList.add("opacity-0");
+        content.classList.add("scale-95");
+        setTimeout(() => modal.classList.add("hidden"), 300);
+      }
+
+      let confirmCallback = null;
+      function showCustomConfirm(title, message, callback) {
+        document.getElementById("custom-confirm-title").innerText = title;
+        document.getElementById("custom-confirm-message").innerText = message;
+        confirmCallback = callback;
+        const modal = document.getElementById("custom-confirm-modal");
+        const content = document.getElementById("custom-confirm-content");
+        modal.classList.remove("hidden");
+        setTimeout(() => {
+          modal.classList.remove("opacity-0");
+          content.classList.remove("scale-95");
+        }, 10);
+      }
+
+      function closeCustomConfirm(result) {
+        const modal = document.getElementById("custom-confirm-modal");
+        const content = document.getElementById("custom-confirm-content");
+        modal.classList.add("opacity-0");
+        content.classList.add("scale-95");
+        setTimeout(() => modal.classList.add("hidden"), 300);
+        if (confirmCallback) {
+          confirmCallback(result);
+          confirmCallback = null;
+        }
+      }
       const API_PARTICIPANTES = "/api/participantes";
       const API_EQUIPOS = "/api/equipos";
 
       let participantesOriginales = [];
       let equiposOriginales = [];
+      let institucionLogueada = "";
 
-      document.addEventListener("DOMContentLoaded", () => {
-        cargarEquipos();
+      document.addEventListener("DOMContentLoaded", async () => {
+        const usuarioStr = localStorage.getItem("usuario");
+        const username = usuarioStr ? JSON.parse(usuarioStr).username : null;
+        
+        if (!username) return; // auth.js ya redirige
+        
+        try {
+            const res = await fetch(`/api/participantes/perfil?username=${username}`);
+            const perfil = await res.json();
+            institucionLogueada = perfil.institucion?.nombre || "";
+        } catch (error) {
+            console.error("Error al cargar perfil:", error);
+        }
+
         cargarParticipantes();
       });
 
@@ -436,12 +545,11 @@
         fetch(API_EQUIPOS)
           .then((response) => response.json())
           .then((data) => {
-            const institucionParticipante = "UTP";
-
             const equiposFiltrados = data.filter(
               (equipo) =>
+                institucionLogueada &&
                 (equipo.institucion?.nombre || "").trim().toLowerCase() ===
-                institucionParticipante.trim().toLowerCase(),
+                institucionLogueada.trim().toLowerCase(),
             );
 
             equiposOriginales = equiposFiltrados;
@@ -460,23 +568,17 @@
       }
 
       function cargarParticipantes() {
-        fetch(API_PARTICIPANTES)
+        const usuarioStr = localStorage.getItem("usuario");
+        const username = usuarioStr ? JSON.parse(usuarioStr).username : null;
+        fetch(`${API_PARTICIPANTES}/mis-participantes?username=${username}`)
           .then((response) => response.json())
           .then((data) => {
-            const institucionParticipante = "UTP";
-
-            const participantesFiltrados = data.filter(
-              (p) =>
-                (p.equipo?.institucion?.nombre || "").trim().toLowerCase() ===
-                institucionParticipante.trim().toLowerCase(),
-            );
-
-            participantesOriginales = participantesFiltrados;
-            renderizarParticipantes(participantesFiltrados);
+            participantesOriginales = data;
+            renderizarParticipantes(data);
           })
           .catch((error) => {
             console.error(error);
-            alert("Error al cargar participantes");
+            showCustomAlert("Error", "Error al cargar participantes", true);
           });
       }
 
@@ -496,8 +598,6 @@
               <div class="font-bold text-on-surface">
                 ${item.nombres || ""} ${item.apellidos || ""}
               </div>
-              <div class="text-caption text-on-surface-variant">
-                ${item.equipo?.nombre || "Sin equipo"}
               </div>
             </div>
           </div>
@@ -516,8 +616,14 @@
         </td>
 
         <td class="px-6 py-4">
-          <span class="px-sm py-1 bg-surface-container-high text-on-surface-variant rounded-full font-caption text-[10px] font-bold uppercase tracking-wider">
-            ${item.equipo?.deporte?.nombre || "Sin deporte"}
+          <span class="font-body-md text-sm text-on-surface">
+            ${item.correo || ""}
+          </span>
+        </td>
+
+        <td class="px-6 py-4">
+          <span class="font-body-md text-sm text-on-surface">
+            ${item.telefono || ""}
           </span>
         </td>
 
@@ -549,10 +655,11 @@
           .value.trim();
         const dni = document.getElementById("dniParticipante").value.trim();
         const edad = document.getElementById("edadParticipante").value;
-        const equipoId = document.getElementById("equipoParticipante").value;
+        const correo = document.getElementById("correoParticipante").value.trim();
+        const telefono = document.getElementById("telefonoParticipante").value.trim();
 
-        if (!nombres || !apellidos || !dni || !edad || !equipoId) {
-          alert("Complete todos los campos obligatorios");
+        if (!nombres || !apellidos || !dni || !edad) {
+          showCustomAlert("Campos incompletos", "Complete todos los campos obligatorios", true);
           return;
         }
 
@@ -561,12 +668,13 @@
           apellidos,
           dni,
           edad,
-          equipo: {
-            id: parseInt(equipoId),
-          },
+          correo,
+          telefono
         };
 
-        const url = id ? `${API_PARTICIPANTES}/${id}` : API_PARTICIPANTES;
+        const usuarioStr = localStorage.getItem("usuario");
+        const username = usuarioStr ? JSON.parse(usuarioStr).username : null;
+        const url = id ? `${API_PARTICIPANTES}/${id}` : `${API_PARTICIPANTES}/mis-participantes?username=${username}`;
         const metodo = id ? "PUT" : "POST";
 
         fetch(url, {
@@ -580,11 +688,11 @@
           .then(() => {
             closeModal();
             cargarParticipantes();
-            alert(id ? "Participante actualizado" : "Participante registrado");
+            showCustomAlert("Éxito", id ? "Participante actualizado" : "Participante registrado", false);
           })
           .catch((error) => {
             console.error(error);
-            alert("Error al guardar participante");
+            showCustomAlert("Error", "Error al guardar participante", true);
           });
       }
 
@@ -596,32 +704,30 @@
           item.apellidos || "";
         document.getElementById("dniParticipante").value = item.dni || "";
         document.getElementById("edadParticipante").value = item.edad || "";
-        document.getElementById("equipoParticipante").value =
-          item.equipo?.id || "";
+        document.getElementById("correoParticipante").value = item.correo || "";
+        document.getElementById("telefonoParticipante").value = item.telefono || "";
 
         document.getElementById("participantModal").classList.remove("hidden");
         document.body.style.overflow = "hidden";
       }
 
       function eliminarParticipante(id) {
-        const confirmar = confirm(
-          "¿Seguro que deseas eliminar este participante?",
-        );
+        showCustomConfirm("Eliminar Participante", "¿Seguro que deseas eliminar este participante?", (confirmar) => {
+          if (!confirmar) return;
 
-        if (!confirmar) return;
-
-        fetch(`${API_PARTICIPANTES}/${id}`, {
-          method: "DELETE",
-        })
-          .then((response) => response.text())
-          .then(() => {
-            cargarParticipantes();
-            alert("Participante eliminado correctamente");
+          fetch(`${API_PARTICIPANTES}/${id}`, {
+            method: "DELETE",
           })
-          .catch((error) => {
-            console.error(error);
-            alert("Error al eliminar participante");
-          });
+            .then((response) => response.text())
+            .then(() => {
+              cargarParticipantes();
+              showCustomAlert("Éxito", "Participante eliminado correctamente", false);
+            })
+            .catch((error) => {
+              console.error(error);
+              showCustomAlert("Error", "Error al eliminar participante", true);
+            });
+        });
       }
 
       function limpiarFormularioParticipante() {
@@ -630,7 +736,8 @@
         document.getElementById("apellidosParticipante").value = "";
         document.getElementById("dniParticipante").value = "";
         document.getElementById("edadParticipante").value = "";
-        document.getElementById("equipoParticipante").value = "";
+        document.getElementById("correoParticipante").value = "";
+        document.getElementById("telefonoParticipante").value = "";
       }
 
       function filtrarParticipantes() {

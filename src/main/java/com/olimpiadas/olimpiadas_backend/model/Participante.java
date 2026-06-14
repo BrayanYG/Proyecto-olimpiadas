@@ -33,4 +33,9 @@ public class Participante {
     @OneToOne
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
+
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "creador_id")
+    private Participante creador;
 }
