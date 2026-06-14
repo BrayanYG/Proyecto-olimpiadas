@@ -271,7 +271,7 @@
       id="registration-modal"
     >
       <div
-        class="bg-surface w-full max-w-md rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95"
+        class="bg-surface w-full max-w-2xl rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95"
       >
         <div
           class="p-md flex justify-between items-center border-b border-outline-variant bg-surface-container-low"
@@ -292,68 +292,49 @@
           <p class="font-body-md text-on-surface-variant mb-md">
             Crea tu cuenta para vivir la pasión del deporte nacional.
           </p>
-          <form id="reg-form" class="space-y-md">
+          <form id="reg-form" class="grid grid-cols-1 sm:grid-cols-2 gap-4" novalidate>
             <div>
-              <label
-                class="block font-label-md text-label-md text-on-surface mb-xs"
-                for="reg-email"
-                >Correo electrónico</label
-              >
-              <input
-                class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md"
-                id="reg-email"
-                placeholder="ejemplo@correo.com"
-                required=""
-                type="email"
-              />
+              <label class="block font-label-md text-label-md text-on-surface mb-xs" for="reg-nombres">Nombres</label>
+              <input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md" id="reg-nombres" placeholder="Tus nombres" required type="text" />
             </div>
             <div>
-              <label
-                class="block font-label-md text-label-md text-on-surface mb-xs"
-                for="reg-user"
-                >Usuario</label
-              >
-              <input
-                class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md"
-                id="reg-user"
-                placeholder="Nombre de usuario"
-                required=""
-                type="text"
-              />
+              <label class="block font-label-md text-label-md text-on-surface mb-xs" for="reg-apellidos">Apellidos</label>
+              <input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md" id="reg-apellidos" placeholder="Tus apellidos" required type="text" />
             </div>
             <div>
-              <label
-                class="block font-label-md text-label-md text-on-surface mb-xs"
-                for="reg-password"
-                >Contraseña</label
-              >
+              <label class="block font-label-md text-label-md text-on-surface mb-xs" for="reg-dni">DNI</label>
+              <input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md" id="reg-dni" placeholder="Tu DNI" required type="text" />
+            </div>
+            <div>
+              <label class="block font-label-md text-label-md text-on-surface mb-xs" for="reg-edad">Edad</label>
+              <input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md" id="reg-edad" placeholder="Tu edad" required type="number" min="5" max="100" />
+            </div>
+            <div>
+              <label class="block font-label-md text-label-md text-on-surface mb-xs" for="reg-telefono">Teléfono</label>
+              <input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md" id="reg-telefono" placeholder="Tu teléfono" required type="text" />
+            </div>
+            <div>
+              <label class="block font-label-md text-label-md text-on-surface mb-xs" for="reg-email">Correo electrónico</label>
+              <input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md" id="reg-email" placeholder="ejemplo@correo.com" required type="email" />
+            </div>
+            <div>
+              <label class="block font-label-md text-label-md text-on-surface mb-xs" for="reg-user">Usuario</label>
+              <input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md" id="reg-user" placeholder="Nombre de usuario" required type="text" />
+            </div>
+            <div>
+              <label class="block font-label-md text-label-md text-on-surface mb-xs" for="reg-password">Contraseña</label>
               <div class="relative">
-                <input
-                  class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md pr-12"
-                  id="reg-password"
-                  placeholder="••••••••"
-                  required=""
-                  type="password"
-                />
-                <button
-                  type="button"
-                  class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-primary transition-colors"
-                  onclick="
-                    togglePasswordVisibility('reg-password', 'reg-eye-icon')
-                  "
-                >
-                  <span class="material-symbols-outlined" id="reg-eye-icon"
-                    >visibility</span
-                  >
+                <input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md pr-12" id="reg-password" placeholder="••••••••" required type="password" />
+                <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-primary transition-colors" onclick="togglePasswordVisibility('reg-password', 'reg-eye-icon')">
+                  <span class="material-symbols-outlined" id="reg-eye-icon">visibility</span>
                 </button>
               </div>
             </div>
-            <button
-              class="w-full bg-primary-container text-on-primary-container font-title-lg text-title-lg py-md rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-md mt-lg"
-              type="submit"
-            >
-              Registrarse
-            </button>
+            <div class="sm:col-span-2 mt-4">
+              <button class="w-full bg-primary-container text-on-primary-container font-title-lg text-title-lg py-md rounded-xl hover:opacity-90 active:scale-95 transition-all shadow-md" type="submit">
+                Registrarse
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -473,9 +454,23 @@
       const regForm = document.getElementById("reg-form");
       regForm.addEventListener("submit", async (e) => {
         e.preventDefault();
-        const email = document.getElementById("reg-email").value;
-        const username = document.getElementById("reg-user").value;
+        const nombres = document.getElementById("reg-nombres").value;
+        const apellidos = document.getElementById("reg-apellidos").value;
+        const dni = document.getElementById("reg-dni").value;
+        const edad = document.getElementById("reg-edad").value;
+        const telefono = document.getElementById("reg-telefono").value;
+        const email = document.getElementById("reg-email").value.trim();
+        const username = document.getElementById("reg-user").value.trim();
         const password = document.getElementById("reg-password").value;
+
+        if (!nombres || !apellidos || !dni || !edad || !telefono || !email || !username || !password) {
+          showCustomAlert(
+            "Campos incompletos",
+            "Por favor, completa todos los campos del formulario para poder registrarte.",
+            true
+          );
+          return;
+        }
 
         // Validación de contraseña segura
         const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
@@ -492,7 +487,7 @@
           const response = await fetch(`${API_BASE}/api/auth/registro`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, username, password }),
+            body: JSON.stringify({ nombres, apellidos, dni, edad, telefono, email, username, password }),
           });
 
           if (response.ok) {

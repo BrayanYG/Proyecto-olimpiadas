@@ -6,6 +6,8 @@ import com.olimpiadas.olimpiadas_backend.model.Institucion;
 import com.olimpiadas.olimpiadas_backend.model.InstitucionRankingDTO;
 import com.olimpiadas.olimpiadas_backend.repository.EncuentroRepository;
 import com.olimpiadas.olimpiadas_backend.repository.InstitucionRepository;
+import com.olimpiadas.olimpiadas_backend.repository.EquipoRepository;
+import com.olimpiadas.olimpiadas_backend.repository.ParticipanteRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -19,10 +21,23 @@ public class InstitucionService {
 
     private final InstitucionRepository institucionRepository;
     private final EncuentroRepository encuentroRepository;
+    private final EquipoRepository equipoRepository;
+    private final ParticipanteRepository participanteRepository;
 
-    public InstitucionService(InstitucionRepository institucionRepository, EncuentroRepository encuentroRepository) {
+    public InstitucionService(InstitucionRepository institucionRepository, EncuentroRepository encuentroRepository, EquipoRepository equipoRepository, ParticipanteRepository participanteRepository) {
         this.institucionRepository = institucionRepository;
         this.encuentroRepository = encuentroRepository;
+        this.equipoRepository = equipoRepository;
+        this.participanteRepository = participanteRepository;
+    }
+
+    public Map<String, Long> obtenerEstadisticas(Long id) {
+        long equipos = equipoRepository.countByInstitucionId(id);
+        long participantes = participanteRepository.countByInstitucionId(id);
+        Map<String, Long> stats = new HashMap<>();
+        stats.put("equipos", equipos);
+        stats.put("participantes", participantes);
+        return stats;
     }
 
     public List<InstitucionRankingDTO> obtenerRanking() {
@@ -107,6 +122,7 @@ public class InstitucionService {
         institucion.setNombre(datos.getNombre());
         institucion.setDireccion(datos.getDireccion());
         institucion.setTelefono(datos.getTelefono());
+        institucion.setSiglas(datos.getSiglas());
 
         return institucionRepository.save(institucion);
     }

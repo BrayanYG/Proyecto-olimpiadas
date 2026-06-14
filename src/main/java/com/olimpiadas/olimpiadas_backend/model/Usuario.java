@@ -20,4 +20,8 @@ public class Usuario {
     private String email;
     private String rol;
     private String codigoMfa;
+
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private Participante participante;
 }

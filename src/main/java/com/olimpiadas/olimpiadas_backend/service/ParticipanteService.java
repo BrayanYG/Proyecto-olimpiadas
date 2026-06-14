@@ -1,7 +1,9 @@
 package com.olimpiadas.olimpiadas_backend.service;
 
 import com.olimpiadas.olimpiadas_backend.model.Participante;
+import com.olimpiadas.olimpiadas_backend.model.Institucion;
 import com.olimpiadas.olimpiadas_backend.repository.ParticipanteRepository;
+import com.olimpiadas.olimpiadas_backend.repository.InstitucionRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,11 @@ import java.util.List;
 public class ParticipanteService {
 
     private final ParticipanteRepository participanteRepository;
+    private final InstitucionRepository institucionRepository;
 
-    public ParticipanteService(ParticipanteRepository participanteRepository) {
+    public ParticipanteService(ParticipanteRepository participanteRepository, InstitucionRepository institucionRepository) {
         this.participanteRepository = participanteRepository;
+        this.institucionRepository = institucionRepository;
     }
 
     public List<Participante> listar() {
@@ -29,6 +33,10 @@ public class ParticipanteService {
         return participanteRepository.findById(id).orElse(null);
     }
 
+    public Participante buscarPorUsername(@NonNull String username) {
+        return participanteRepository.findByUsuarioUsername(username).orElse(null);
+    }
+
     @NonNull
     public Participante actualizar(@NonNull Long id, @NonNull Participante datos) {
         Participante participante = buscarPorId(id);
@@ -42,6 +50,25 @@ public class ParticipanteService {
         participante.setDni(datos.getDni());
         participante.setEdad(datos.getEdad());
         participante.setEquipo(datos.getEquipo());
+
+        return participanteRepository.save(participante);
+    }
+
+    @NonNull
+    public Participante actualizarInstitucion(@NonNull String username, Long institucionId) {
+        Participante participante = buscarPorUsername(username);
+
+        if (participante == null) {
+            throw new RuntimeException("Participante no encontrado para el usuario: " + username);
+        }
+
+        if (institucionId == null) {
+            participante.setInstitucion(null);
+        } else {
+            Institucion institucion = institucionRepository.findById(institucionId)
+                .orElseThrow(() -> new RuntimeException("Institución no encontrada"));
+            participante.setInstitucion(institucion);
+        }
 
         return participanteRepository.save(participante);
     }

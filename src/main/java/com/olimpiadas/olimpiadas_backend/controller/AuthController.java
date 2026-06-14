@@ -20,9 +20,28 @@ public class AuthController {
     }
 
     @PostMapping("/registro")
-    public ResponseEntity<?> registrar(@RequestBody @org.springframework.lang.NonNull Usuario usuario) {
+    public ResponseEntity<?> registrar(@RequestBody Map<String, String> payload) {
         try {
-            Usuario nuevoUsuario = usuarioService.registrar(usuario);
+            Usuario usuario = new Usuario();
+            usuario.setEmail(payload.get("email"));
+            usuario.setUsername(payload.get("username"));
+            usuario.setPassword(payload.get("password"));
+
+            com.olimpiadas.olimpiadas_backend.model.Participante participante = new com.olimpiadas.olimpiadas_backend.model.Participante();
+            participante.setNombres(payload.get("nombres"));
+            participante.setApellidos(payload.get("apellidos"));
+            if (payload.get("dni") != null && !payload.get("dni").trim().isEmpty()) {
+                participante.setDni(payload.get("dni").trim());
+            }
+            if (payload.get("edad") != null && !payload.get("edad").trim().isEmpty()) {
+                participante.setEdad(Integer.parseInt(payload.get("edad").trim()));
+            }
+            if (payload.get("telefono") != null && !payload.get("telefono").trim().isEmpty()) {
+                participante.setTelefono(payload.get("telefono").trim());
+            }
+            // La institución queda nula por defecto
+
+            Usuario nuevoUsuario = usuarioService.registrarConParticipante(usuario, participante);
             return ResponseEntity.ok(nuevoUsuario);
         } catch (IllegalArgumentException e) {
             Map<String, String> response = new HashMap<>();

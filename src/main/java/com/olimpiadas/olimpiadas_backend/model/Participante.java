@@ -24,4 +24,13 @@ public class Participante {
     @ManyToOne
     @JoinColumn(name = "equipo_id")
     private Equipo equipo;
+
+    @ManyToOne
+    @JoinColumn(name = "institucion_id")
+    private Institucion institucion;
+
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 }

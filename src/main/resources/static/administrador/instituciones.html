@@ -309,6 +309,13 @@
           />
 
           <input
+            id="siglasInstitucion"
+            type="text"
+            placeholder="Siglas (ej. UNI)"
+            class="w-full border border-outline rounded-lg px-4 py-3 uppercase"
+          />
+
+          <input
             id="direccionInstitucion"
             type="text"
             placeholder="Dirección"
@@ -452,7 +459,7 @@
             <div class="bg-surface-container-low p-md rounded-xl border-l-4 border-primary shadow-sm hover:shadow-md transition-shadow">
               <div class="flex justify-between items-center gap-4">
                 <div class="flex-1 min-w-0">
-                  <h3 class="font-label-md text-label-md text-on-surface truncate" title="${item.nombre}">${item.nombre}</h3>
+                  <h3 class="font-label-md text-label-md text-on-surface truncate" title="${item.nombre} (${item.siglas || 'Sin siglas'})">${item.nombre} <span class="text-on-surface-variant font-normal">(${item.siglas || 'Sin siglas'})</span></h3>
                   <p class="font-caption text-caption text-on-surface-variant truncate" title="${item.telefono || "Sin teléfono"} • ${item.direccion || "Sin dirección"}">${item.telefono || "Sin teléfono"} • ${item.direccion || "Sin dirección"}</p>
                 </div>
                 <div class="flex gap-1 md:gap-2 shrink-0">
@@ -487,6 +494,7 @@
       function limpiarFormularioInstitucion() {
         document.getElementById("institucionId").value = "";
         document.getElementById("nombreInstitucion").value = "";
+        document.getElementById("siglasInstitucion").value = "";
         document.getElementById("direccionInstitucion").value = "";
         document.getElementById("telefonoInstitucion").value = "";
       }
@@ -496,6 +504,9 @@
         const nombre = document
           .getElementById("nombreInstitucion")
           .value.trim();
+        const siglas = document
+          .getElementById("siglasInstitucion")
+          .value.trim().toUpperCase();
         const direccion = document
           .getElementById("direccionInstitucion")
           .value.trim();
@@ -503,7 +514,7 @@
           .getElementById("telefonoInstitucion")
           .value.trim();
 
-        if (!nombre || !direccion || !telefono) {
+        if (!nombre || !direccion || !telefono || !siglas) {
           showToast("Todos los campos son obligatorios", "warning");
           return;
         }
@@ -515,6 +526,7 @@
 
         const institucion = {
           nombre,
+          siglas,
           direccion,
           telefono,
         };
@@ -561,6 +573,7 @@
           "Editar institución";
         document.getElementById("institucionId").value = item.id;
         document.getElementById("nombreInstitucion").value = item.nombre || "";
+        document.getElementById("siglasInstitucion").value = item.siglas || "";
         document.getElementById("direccionInstitucion").value =
           item.direccion || "";
         document.getElementById("telefonoInstitucion").value =

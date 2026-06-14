@@ -116,20 +116,22 @@
         >
           <div>
             <h1
+              id="inst-title"
               class="font-headline-md text-3xl md:text-headline-md text-white font-bold"
             >
-              Universidad Nacional de Ingeniería
+              Sin institución seleccionada
             </h1>
-            <p class="font-body-md text-white/70">
-              Sede Principal - Lima, Perúú
+            <p id="inst-subtitle" class="font-body-md text-white/70">
+              -
             </p>
           </div>
           <button
+            id="action-button"
             class="bg-olympic-red text-white px-6 py-3 rounded-lg font-bold flex items-center gap-2 hover:brightness-110 transition-all active:scale-95 shadow-lg"
-            onclick="openModal()"
+            onclick="handleActionClick()"
           >
-            <span class="material-symbols-outlined text-[20px]">edit</span>
-            <span class="font-label-md">Editar Información</span>
+            <span id="action-icon" class="material-symbols-outlined text-[20px]">add_circle</span>
+            <span id="action-text" class="font-label-md">Seleccionar Institución</span>
           </button>
         </div>
 
@@ -153,24 +155,24 @@
                   class="font-label-md text-white/50 uppercase tracking-wider text-xs"
                   >Siglas</span
                 >
-                <span class="font-body-lg text-white font-bold">UNI</span>
+                <span id="inst-siglas" class="font-body-lg text-white font-bold text-white/50 italic">No hay institución seleccionada</span>
               </div>
               <div class="flex flex-col gap-1">
                 <span
                   class="font-label-md text-white/50 uppercase tracking-wider text-xs"
                   >Dirección</span
                 >
-                <span class="font-body-lg text-white"
-                  >Av. Túpac Amaru 210, Rímac 15333, Lima</span
+                <span id="inst-address" class="font-body-lg text-white text-white/50 italic"
+                  >No hay institución seleccionada</span
                 >
               </div>
               <div class="flex flex-col gap-1">
                 <span
                   class="font-label-md text-white/50 uppercase tracking-wider text-xs"
-                  >Correo Electrónico Institucional</span
+                  >Teléfono Institucional</span
                 >
-                <span class="font-body-lg text-olympic-red font-medium"
-                  >contacto@uni.edu.pe</span
+                <span id="inst-email" class="font-body-lg text-white/50 italic font-medium"
+                  >No hay institución seleccionada</span
                 >
               </div>
             </div>
@@ -204,8 +206,8 @@
                       >Equipos Registrados</span
                     >
                   </div>
-                  <span class="font-headline-md text-primary font-extrabold"
-                    >12</span
+                  <span id="inst-teams" class="font-headline-md text-primary font-extrabold"
+                    >0</span
                   >
                 </div>
                 <!-- Stat 2 -->
@@ -224,8 +226,8 @@
                       >Participantes Totales</span
                     >
                   </div>
-                  <span class="font-headline-md text-primary font-extrabold"
-                    >158</span
+                  <span id="inst-participants" class="font-headline-md text-primary font-extrabold"
+                    >0</span
                   >
                 </div>
               </div>
@@ -251,7 +253,7 @@
                 Excelencia Académica y Deportiva
               </h3>
               <p class="font-body-md text-white/90">
-                Potenciando el talento de los futuros ingenieros en la arena
+                Potenciando el talento de los futuros profesionales en la arena
                 competitiva nacional.
               </p>
             </div>
@@ -290,10 +292,10 @@
       </footer>
     </div>
 
-    <!-- Modal Edit Form -->
+    <!-- Modal Select Form -->
     <div
       class="fixed inset-0 z-[60] hidden flex items-center justify-center p-4"
-      id="edit-modal"
+      id="select-modal"
     >
       <div
         class="fixed inset-0 bg-black/80 backdrop-blur-sm"
@@ -305,7 +307,7 @@
         <div
           class="bg-olympic-red p-6 text-white flex justify-between items-center"
         >
-          <h3 class="font-title-lg">Editar Información Institucional</h3>
+          <h3 class="font-title-lg">Seleccionar Institución</h3>
           <button
             class="hover:bg-white/10 p-1 rounded-full transition-colors"
             onclick="closeModal()"
@@ -313,40 +315,22 @@
             <span class="material-symbols-outlined">close</span>
           </button>
         </div>
-        <form class="p-8 space-y-6 text-olympic-black">
+        <form class="p-8 space-y-6 text-olympic-black" onsubmit="saveInstitution(event)">
           <div class="space-y-1">
             <label
               class="block font-label-md text-sm text-gray-500 uppercase tracking-wide"
-              >Siglas</label
+              >Institución</label
             >
-            <input
-              class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md"
-              type="text"
-              value="UNI"
-            />
-          </div>
-          <div class="space-y-1">
-            <label
-              class="block font-label-md text-sm text-gray-500 uppercase tracking-wide"
-              >Dirección</label
+            <select
+              id="institution-select"
+              class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md bg-white p-2 border"
+              required
             >
-            <input
-              class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md"
-              type="text"
-              value="Av. Túpac Amaru 210, Rímac 15333, Lima"
-            />
+              <option value="" disabled selected>Elige tu institución...</option>
+            </select>
+            <p class="text-xs text-gray-400 mt-2">No puedes modificar o eliminar tu institución una vez seleccionada. Solo podrás salir y volver a seleccionar.</p>
           </div>
-          <div class="space-y-1">
-            <label
-              class="block font-label-md text-sm text-gray-500 uppercase tracking-wide"
-              >Correo Institucional</label
-            >
-            <input
-              class="w-full border-gray-300 rounded-lg focus:ring-olympic-red focus:border-olympic-red font-body-md"
-              type="email"
-              value="contacto@uni.edu.pe"
-            />
-          </div>
+          
           <div class="flex gap-4 pt-4">
             <button
               class="flex-1 px-6 py-3 border border-gray-300 rounded-lg font-bold text-gray-600 hover:bg-gray-50 transition-colors"
@@ -359,7 +343,7 @@
               class="flex-1 px-6 py-3 bg-olympic-red text-white rounded-lg font-bold hover:brightness-110 transition-colors shadow-lg"
               type="submit"
             >
-              Guardar Cambios
+              Guardar Selección
             </button>
           </div>
         </form>
@@ -367,14 +351,244 @@
     </div>
 
     <script>
+      let currentInstitution = null;
+      const API_BASE = "http://localhost:8081/api";
+      
+      function getSessionUsername() {
+        const usuarioStr = localStorage.getItem("usuario");
+        if (usuarioStr) {
+          const usuario = JSON.parse(usuarioStr);
+          return usuario.username;
+        }
+        return null;
+      }
+
+      async function loadInstitutions() {
+        try {
+          const res = await fetch(`${API_BASE}/instituciones`);
+          if (res.ok) {
+            const data = await res.json();
+            const select = document.getElementById('institution-select');
+            data.forEach(inst => {
+              const opt = document.createElement('option');
+              opt.value = inst.id;
+              opt.textContent = inst.nombre;
+              select.appendChild(opt);
+            });
+          }
+        } catch (error) {
+          console.error("Error cargando instituciones:", error);
+        }
+      }
+
+      async function loadProfile() {
+        const username = getSessionUsername();
+        if (!username) return;
+
+        try {
+          const res = await fetch(`${API_BASE}/participantes/perfil?username=${username}`);
+          if (res.ok) {
+            const participante = await res.json();
+            if (participante && participante.institucion) {
+              currentInstitution = participante.institucion;
+            } else {
+              currentInstitution = null;
+            }
+            updateUI();
+          }
+        } catch (error) {
+          console.error("Error cargando perfil:", error);
+        }
+      }
+
+      function updateUI() {
+        if (currentInstitution) {
+          const data = currentInstitution;
+          
+          // Update Header
+          document.getElementById('inst-title').textContent = data.nombre;
+          document.getElementById('inst-subtitle').textContent = data.direccion;
+          
+          // Update Button
+          document.getElementById('action-button').classList.remove('bg-olympic-red');
+          document.getElementById('action-button').classList.add('bg-gray-700');
+          document.getElementById('action-icon').textContent = 'logout';
+          document.getElementById('action-text').textContent = 'Salir de la institución';
+          
+          // Update Datos Generales
+          const styleValue = "font-body-lg text-white font-bold";
+          const styleEmail = "font-body-lg text-olympic-red font-medium";
+          
+          const elSiglas = document.getElementById('inst-siglas');
+          elSiglas.textContent = data.siglas || "-";
+          elSiglas.className = styleValue;
+          
+          const elAddress = document.getElementById('inst-address');
+          elAddress.textContent = data.direccion;
+          elAddress.className = "font-body-lg text-white";
+          
+          const elEmail = document.getElementById('inst-email');
+          elEmail.textContent = data.telefono || "-"; // Backend does not have email in Institucion, using telefono
+          elEmail.className = styleEmail;
+
+          // Update Stats
+          fetch(`${API_BASE}/instituciones/${data.id}/estadisticas`)
+            .then(r => {
+              if (!r.ok) throw new Error("Backend devolvió error " + r.status);
+              return r.json();
+            })
+            .then(stats => {
+               document.getElementById('inst-teams').textContent = stats.equipos !== undefined ? stats.equipos : "0";
+               document.getElementById('inst-participants').textContent = stats.participantes !== undefined ? stats.participantes : "0";
+            }).catch(e => {
+               console.error("Error stats:", e);
+               document.getElementById('inst-teams').textContent = "0";
+               document.getElementById('inst-participants').textContent = "0";
+            });
+
+        } else {
+          // Empty State
+          document.getElementById('inst-title').textContent = "Sin institución seleccionada";
+          document.getElementById('inst-subtitle').textContent = "-";
+          
+          // Update Button
+          document.getElementById('action-button').classList.add('bg-olympic-red');
+          document.getElementById('action-button').classList.remove('bg-gray-700');
+          document.getElementById('action-icon').textContent = 'add_circle';
+          document.getElementById('action-text').textContent = 'Seleccionar Institución';
+          
+          // Update Datos Generales
+          const emptyStyle = "font-body-lg text-white/50 italic";
+          
+          const elSiglas = document.getElementById('inst-siglas');
+          elSiglas.textContent = "No hay institución seleccionada";
+          elSiglas.className = emptyStyle;
+          
+          const elAddress = document.getElementById('inst-address');
+          elAddress.textContent = "No hay institución seleccionada";
+          elAddress.className = emptyStyle;
+          
+          const elEmail = document.getElementById('inst-email');
+          elEmail.textContent = "No hay institución seleccionada";
+          elEmail.className = emptyStyle;
+
+          // Update Stats
+          document.getElementById('inst-teams').textContent = "0";
+          document.getElementById('inst-participants').textContent = "0";
+        }
+      }
+
       function openModal() {
-        document.getElementById("edit-modal").classList.remove("hidden");
+        document.getElementById("institution-select").value = "";
+        document.getElementById("select-modal").classList.remove("hidden");
         document.body.style.overflow = "hidden";
       }
+
       function closeModal() {
-        document.getElementById("edit-modal").classList.add("hidden");
+        document.getElementById("select-modal").classList.add("hidden");
         document.body.style.overflow = "";
       }
+
+      function showSuccessAlert(title, message) {
+        document.getElementById('alert-title').textContent = title;
+        document.getElementById('alert-message').textContent = message;
+        document.getElementById('success-modal').classList.remove('hidden');
+        document.body.style.overflow = "hidden";
+        
+        // Auto close after 3 seconds
+        setTimeout(() => {
+          closeSuccessAlert();
+        }, 3000);
+      }
+
+      function closeSuccessAlert() {
+        document.getElementById('success-modal').classList.add('hidden');
+        document.body.style.overflow = "";
+      }
+
+      async function handleActionClick() {
+        if (currentInstitution) {
+          // Salir de la institución
+          const username = getSessionUsername();
+          if (username) {
+            try {
+              const res = await fetch(`${API_BASE}/participantes/perfil/institucion`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: username, institucionId: null })
+              });
+              if (res.ok) {
+                currentInstitution = null;
+                updateUI();
+                showSuccessAlert("¡Has salido!", "Te has desvinculado de la institución correctamente.");
+              }
+            } catch (error) {
+              console.error("Error al salir de institución:", error);
+            }
+          }
+        } else {
+          // Seleccionar institución
+          openModal();
+        }
+      }
+
+      async function saveInstitution(event) {
+        event.preventDefault();
+        const select = document.getElementById('institution-select');
+        const instId = select.value;
+        const username = getSessionUsername();
+
+        if (instId && username) {
+          try {
+            const res = await fetch(`${API_BASE}/participantes/perfil/institucion`, {
+              method: "PUT",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username: username, institucionId: instId })
+            });
+            if (res.ok) {
+              const participante = await res.json();
+              currentInstitution = participante.institucion;
+              updateUI();
+              closeModal();
+              showSuccessAlert("¡Felicidades!", "Ya perteneces a esta institución. ¡A representar con orgullo!");
+            }
+          } catch (error) {
+            console.error("Error guardando institución:", error);
+          }
+        }
+      }
+
+      // Initialize UI on load
+      document.addEventListener('DOMContentLoaded', () => {
+        loadInstitutions();
+        loadProfile();
+      });
     </script>
+
+    <!-- Modal Success Alert -->
+    <div
+      class="fixed inset-0 z-[70] hidden flex items-center justify-center p-4"
+      id="success-modal"
+    >
+      <div
+        class="fixed inset-0 bg-black/80 backdrop-blur-sm"
+        onclick="closeSuccessAlert()"
+      ></div>
+      <div
+        class="relative bg-white rounded-xl shadow-2xl w-full max-w-sm overflow-hidden animate-in fade-in zoom-in duration-300 flex flex-col items-center text-center p-8"
+      >
+        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+          <span class="material-symbols-outlined text-green-600 text-4xl">check_circle</span>
+        </div>
+        <h3 id="alert-title" class="font-title-lg text-olympic-black mb-2">¡Éxito!</h3>
+        <p id="alert-message" class="text-gray-600 font-body-md mb-6">Operación realizada con éxito.</p>
+        <button
+          class="w-full px-6 py-3 bg-olympic-red text-white rounded-lg font-bold hover:brightness-110 transition-colors shadow-lg"
+          onclick="closeSuccessAlert()"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
   </body>
 </html>

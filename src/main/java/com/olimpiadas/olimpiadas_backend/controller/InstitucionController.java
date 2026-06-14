@@ -23,6 +23,11 @@ public class InstitucionController {
         return institucionService.obtenerRanking();
     }
 
+    @GetMapping("/{id}/estadisticas")
+    public java.util.Map<String, Long> obtenerEstadisticas(@PathVariable Long id) {
+        return institucionService.obtenerEstadisticas(id);
+    }
+
     @GetMapping
     public List<Institucion> listar() {
         return institucionService.listar();

@@ -48,4 +48,20 @@ public class ParticipanteController {
 
         return "Participante no encontrado";
     }
+
+    @GetMapping("/perfil")
+    public Participante obtenerPerfil(@RequestParam @org.springframework.lang.NonNull String username) {
+        return participanteService.buscarPorUsername(username);
+    }
+
+    @PutMapping("/perfil/institucion")
+    public Participante actualizarInstitucion(@RequestBody java.util.Map<String, Object> payload) {
+        String username = (String) payload.get("username");
+        Object institucionIdObj = payload.get("institucionId");
+        Long institucionId = null;
+        if (institucionIdObj != null) {
+            institucionId = Long.valueOf(institucionIdObj.toString());
+        }
+        return participanteService.actualizarInstitucion(username, institucionId);
+    }
 }

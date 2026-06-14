@@ -9,17 +9,39 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
+import com.olimpiadas.olimpiadas_backend.model.Participante;
+import com.olimpiadas.olimpiadas_backend.repository.ParticipanteRepository;
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
 public class UsuarioService {
 
     private static final Logger logger = LoggerFactory.getLogger(UsuarioService.class);
     private final UsuarioRepository usuarioRepository;
     private final EmailService emailService;
+    private final ParticipanteRepository participanteRepository;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public UsuarioService(UsuarioRepository usuarioRepository, EmailService emailService) {
+    public UsuarioService(UsuarioRepository usuarioRepository, EmailService emailService, ParticipanteRepository participanteRepository) {
         this.usuarioRepository = usuarioRepository;
         this.emailService = emailService;
+        this.participanteRepository = participanteRepository;
+    }
+
+    @Transactional
+    public Usuario registrarConParticipante(@NonNull Usuario usuario, @NonNull Participante participante) {
+        if (usuarioRepository.findByUsername(usuario.getUsername()).isPresent()) {
+            throw new IllegalArgumentException("El nombre de usuario ya está en uso. Por favor, escoge otro.");
+        }
+        usuario.setRol("PARTICIPANTE");
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        Usuario savedUser = usuarioRepository.save(usuario);
+
+        participante.setUsuario(savedUser);
+        participante.setCorreo(savedUser.getEmail());
+        participanteRepository.save(participante);
+
+        return savedUser;
     }
 
     @NonNull
