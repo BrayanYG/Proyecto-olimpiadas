@@ -43,11 +43,13 @@ public class ReporteController {
     }
 
     @GetMapping("/exportar/excel")
-    public ResponseEntity<byte[]> exportarExcel(@RequestParam String tipo, @RequestParam(required = false) Long eventoId) {
+    public ResponseEntity<byte[]> exportarExcel(@RequestParam String tipo,
+            @RequestParam(required = false) Long eventoId) {
         byte[] excelBytes = reporteService.exportarExcel(tipo, eventoId);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        headers.setContentType(
+                MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
         headers.setContentDispositionFormData("attachment", "Reporte_" + tipo + ".xlsx");
 
         return ResponseEntity.ok()
@@ -56,7 +58,8 @@ public class ReporteController {
     }
 
     @GetMapping("/exportar/pdf")
-    public ResponseEntity<byte[]> exportarPDF(@RequestParam String tipo, @RequestParam(required = false) Long eventoId) {
+    public ResponseEntity<byte[]> exportarPDF(@RequestParam String tipo,
+            @RequestParam(required = false) Long eventoId) {
         byte[] pdfBytes = reporteService.exportarPDF(tipo, eventoId);
 
         HttpHeaders headers = new HttpHeaders();

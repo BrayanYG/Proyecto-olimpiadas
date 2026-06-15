@@ -428,24 +428,76 @@
     </div>
 
     <!-- Custom Alert Modal -->
-    <div class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300 opacity-0" id="custom-alert-modal">
-      <div class="bg-surface w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95 flex flex-col items-center p-lg text-center" id="custom-alert-content">
-        <span class="material-symbols-outlined text-[48px] mb-sm" id="custom-alert-icon"></span>
-        <h3 class="font-headline-md text-title-lg mb-xs text-on-surface" id="custom-alert-title">Mensaje</h3>
-        <p class="font-body-md text-on-surface-variant mb-md" id="custom-alert-message">Aquí va el mensaje.</p>
-        <button class="w-full bg-primary-container text-on-primary-container font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all" onclick="closeCustomAlert()">Aceptar</button>
+    <div
+      class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300 opacity-0"
+      id="custom-alert-modal"
+    >
+      <div
+        class="bg-surface w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95 flex flex-col items-center p-lg text-center"
+        id="custom-alert-content"
+      >
+        <span
+          class="material-symbols-outlined text-[48px] mb-sm"
+          id="custom-alert-icon"
+        ></span>
+        <h3
+          class="font-headline-md text-title-lg mb-xs text-on-surface"
+          id="custom-alert-title"
+        >
+          Mensaje
+        </h3>
+        <p
+          class="font-body-md text-on-surface-variant mb-md"
+          id="custom-alert-message"
+        >
+          Aquí va el mensaje.
+        </p>
+        <button
+          class="w-full bg-primary-container text-on-primary-container font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all"
+          onclick="closeCustomAlert()"
+        >
+          Aceptar
+        </button>
       </div>
     </div>
 
     <!-- Custom Confirm Modal -->
-    <div class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300 opacity-0" id="custom-confirm-modal">
-      <div class="bg-surface w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95 flex flex-col items-center p-lg text-center" id="custom-confirm-content">
-        <span class="material-symbols-outlined text-[48px] mb-sm text-error">warning</span>
-        <h3 class="font-headline-md text-title-lg mb-xs text-on-surface" id="custom-confirm-title">Confirmar</h3>
-        <p class="font-body-md text-on-surface-variant mb-md" id="custom-confirm-message">Aquí va el mensaje.</p>
+    <div
+      class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/50 hidden transition-opacity duration-300 opacity-0"
+      id="custom-confirm-modal"
+    >
+      <div
+        class="bg-surface w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-transform duration-300 scale-95 flex flex-col items-center p-lg text-center"
+        id="custom-confirm-content"
+      >
+        <span class="material-symbols-outlined text-[48px] mb-sm text-error"
+          >warning</span
+        >
+        <h3
+          class="font-headline-md text-title-lg mb-xs text-on-surface"
+          id="custom-confirm-title"
+        >
+          Confirmar
+        </h3>
+        <p
+          class="font-body-md text-on-surface-variant mb-md"
+          id="custom-confirm-message"
+        >
+          Aquí va el mensaje.
+        </p>
         <div class="flex gap-4 w-full">
-            <button class="w-full bg-surface-container-high text-on-surface-variant font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all" onclick="closeCustomConfirm(false)">Cancelar</button>
-            <button class="w-full bg-error text-on-error font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all" onclick="closeCustomConfirm(true)">Aceptar</button>
+          <button
+            class="w-full bg-surface-container-high text-on-surface-variant font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all"
+            onclick="closeCustomConfirm(false)"
+          >
+            Cancelar
+          </button>
+          <button
+            class="w-full bg-error text-on-error font-label-md py-sm rounded-lg hover:opacity-90 active:scale-95 transition-all"
+            onclick="closeCustomConfirm(true)"
+          >
+            Aceptar
+          </button>
         </div>
       </div>
     </div>
@@ -524,15 +576,17 @@
       document.addEventListener("DOMContentLoaded", async () => {
         const usuarioStr = localStorage.getItem("usuario");
         const username = usuarioStr ? JSON.parse(usuarioStr).username : null;
-        
+
         if (!username) return; // auth.js ya redirige
-        
+
         try {
-            const res = await fetch(`/api/participantes/perfil?username=${username}`);
-            const perfil = await res.json();
-            institucionLogueada = perfil.institucion?.nombre || "";
+          const res = await fetch(
+            `/api/participantes/perfil?username=${username}`,
+          );
+          const perfil = await res.json();
+          institucionLogueada = perfil.institucion?.nombre || "";
         } catch (error) {
-            console.error("Error al cargar perfil:", error);
+          console.error("Error al cargar perfil:", error);
         }
 
         cargarParticipantes();
@@ -557,7 +611,7 @@
               (equipo) =>
                 institucionLogueada &&
                 (equipo.institucion?.nombre || "").trim().toLowerCase() ===
-                institucionLogueada.trim().toLowerCase(),
+                  institucionLogueada.trim().toLowerCase(),
             );
 
             equiposOriginales = equiposFiltrados;
@@ -577,12 +631,12 @@
 
       function cargarParticipantes() {
         fetch(`/api/participantes/mis-participantes?username=${getUsername()}`)
-          .then(response => response.json())
-          .then(data => {
+          .then((response) => response.json())
+          .then((data) => {
             participantesOriginales = data;
             renderizarParticipantes(participantesOriginales);
           })
-          .catch(error => {
+          .catch((error) => {
             console.error(error);
             showCustomAlert("Error", "Error al cargar participantes", true);
           });
@@ -603,8 +657,6 @@
             <div>
               <div class="font-bold text-on-surface">
                 ${item.nombres || ""} ${item.apellidos || ""}
-              </div>
-              </div>
             </div>
           </div>
         </td>
@@ -661,11 +713,19 @@
           .value.trim();
         const dni = document.getElementById("dniParticipante").value.trim();
         const edad = document.getElementById("edadParticipante").value;
-        const correo = document.getElementById("correoParticipante").value.trim();
-        const telefono = document.getElementById("telefonoParticipante").value.trim();
+        const correo = document
+          .getElementById("correoParticipante")
+          .value.trim();
+        const telefono = document
+          .getElementById("telefonoParticipante")
+          .value.trim();
 
         if (!nombres || !apellidos || !dni || !edad) {
-          showCustomAlert("Campos incompletos", "Complete todos los campos obligatorios", true);
+          showCustomAlert(
+            "Campos incompletos",
+            "Complete todos los campos obligatorios",
+            true,
+          );
           return;
         }
 
@@ -675,10 +735,12 @@
           dni,
           edad,
           correo,
-          telefono
+          telefono,
         };
 
-        const url = id ? `${API_PARTICIPANTES}/${id}` : `/api/participantes/mis-participantes?username=${getUsername()}`;
+        const url = id
+          ? `${API_PARTICIPANTES}/${id}`
+          : `/api/participantes/mis-participantes?username=${getUsername()}`;
         const metodo = id ? "PUT" : "POST";
 
         fetch(url, {
@@ -692,7 +754,11 @@
           .then(() => {
             closeModal();
             cargarParticipantes();
-            showCustomAlert("Éxito", id ? "Participante actualizado" : "Participante registrado", false);
+            showCustomAlert(
+              "Éxito",
+              id ? "Participante actualizado" : "Participante registrado",
+              false,
+            );
           })
           .catch((error) => {
             console.error(error);
@@ -709,29 +775,42 @@
         document.getElementById("dniParticipante").value = item.dni || "";
         document.getElementById("edadParticipante").value = item.edad || "";
         document.getElementById("correoParticipante").value = item.correo || "";
-        document.getElementById("telefonoParticipante").value = item.telefono || "";
+        document.getElementById("telefonoParticipante").value =
+          item.telefono || "";
 
         document.getElementById("participantModal").classList.remove("hidden");
         document.body.style.overflow = "hidden";
       }
 
       function eliminarParticipante(id) {
-        showCustomConfirm("Eliminar Participante", "¿Seguro que deseas eliminar este participante?", (confirmar) => {
-          if (!confirmar) return;
+        showCustomConfirm(
+          "Eliminar Participante",
+          "¿Seguro que deseas eliminar este participante?",
+          (confirmar) => {
+            if (!confirmar) return;
 
-          fetch(`${API_PARTICIPANTES}/${id}`, {
-            method: "DELETE",
-          })
-            .then((response) => response.text())
-            .then(() => {
-              cargarParticipantes();
-              showCustomAlert("Éxito", "Participante eliminado correctamente", false);
+            fetch(`${API_PARTICIPANTES}/${id}`, {
+              method: "DELETE",
             })
-            .catch((error) => {
-              console.error(error);
-              showCustomAlert("Error", "Error al eliminar participante", true);
-            });
-        });
+              .then((response) => response.text())
+              .then(() => {
+                cargarParticipantes();
+                showCustomAlert(
+                  "Éxito",
+                  "Participante eliminado correctamente",
+                  false,
+                );
+              })
+              .catch((error) => {
+                console.error(error);
+                showCustomAlert(
+                  "Error",
+                  "Error al eliminar participante",
+                  true,
+                );
+              });
+          },
+        );
       }
 
       function limpiarFormularioParticipante() {

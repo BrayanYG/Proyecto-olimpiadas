@@ -23,7 +23,8 @@ public class SorteoController {
     private final EventoRepository eventoRepository;
     private final EquipoRepository equipoRepository;
 
-    public SorteoController(SorteoRepository sorteoRepository, EventoRepository eventoRepository, EquipoRepository equipoRepository) {
+    public SorteoController(SorteoRepository sorteoRepository, EventoRepository eventoRepository,
+            EquipoRepository equipoRepository) {
         this.sorteoRepository = sorteoRepository;
         this.eventoRepository = eventoRepository;
         this.equipoRepository = equipoRepository;
@@ -40,7 +41,8 @@ public class SorteoController {
             return ResponseEntity.badRequest().body(Map.of("message", "La lista de asignaciones está vacía"));
         }
 
-        // Limpiar sorteos anteriores para los eventos referenciados en la petición para evitar duplicados
+        // Limpiar sorteos anteriores para los eventos referenciados en la petición para
+        // evitar duplicados
         Long eventoId = requests.get(0).getEventoId();
         List<Sorteo> existentes = sorteoRepository.findByEventoId(eventoId);
         sorteoRepository.deleteAll(existentes);
@@ -55,7 +57,7 @@ public class SorteoController {
             Sorteo sorteo = new Sorteo();
             sorteo.setEvento(evento);
             sorteo.setEquipo(equipo);
-            
+
             // Si viene como "Grupo A", extraer solo "A", o guardar completo.
             String grupoLimpio = req.getGrupo();
             if (grupoLimpio != null && grupoLimpio.toUpperCase().startsWith("GRUPO ")) {
@@ -74,11 +76,28 @@ public class SorteoController {
         private Long equipoId;
         private String grupo;
 
-        public Long getEventoId() { return eventoId; }
-        public void setEventoId(Long eventoId) { this.eventoId = eventoId; }
-        public Long getEquipoId() { return equipoId; }
-        public void setEquipoId(Long equipoId) { this.equipoId = equipoId; }
-        public String getGrupo() { return grupo; }
-        public void setGrupo(String grupo) { this.grupo = grupo; }
+        public Long getEventoId() {
+            return eventoId;
+        }
+
+        public void setEventoId(Long eventoId) {
+            this.eventoId = eventoId;
+        }
+
+        public Long getEquipoId() {
+            return equipoId;
+        }
+
+        public void setEquipoId(Long equipoId) {
+            this.equipoId = equipoId;
+        }
+
+        public String getGrupo() {
+            return grupo;
+        }
+
+        public void setGrupo(String grupo) {
+            this.grupo = grupo;
+        }
     }
 }

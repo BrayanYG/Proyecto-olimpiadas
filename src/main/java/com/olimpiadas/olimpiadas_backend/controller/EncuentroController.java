@@ -26,7 +26,8 @@ public class EncuentroController {
     private final EquipoRepository equipoRepository;
     private final ProgramacionService programacionService;
 
-    public EncuentroController(EncuentroRepository encuentroRepository, EventoRepository eventoRepository, EquipoRepository equipoRepository, ProgramacionService programacionService) {
+    public EncuentroController(EncuentroRepository encuentroRepository, EventoRepository eventoRepository,
+            EquipoRepository equipoRepository, ProgramacionService programacionService) {
         this.encuentroRepository = encuentroRepository;
         this.eventoRepository = eventoRepository;
         this.equipoRepository = equipoRepository;
@@ -45,7 +46,8 @@ public class EncuentroController {
 
     @PostMapping
     public ResponseEntity<?> guardar(@RequestBody EncuentroRequest req) {
-        if (req.getEventoId() == null || req.getEquipoLocalId() == null || req.getEquipoVisitanteId() == null || req.getFechaHora() == null || req.getLugar() == null) {
+        if (req.getEventoId() == null || req.getEquipoLocalId() == null || req.getEquipoVisitanteId() == null
+                || req.getFechaHora() == null || req.getLugar() == null) {
             return ResponseEntity.badRequest().body(Map.of("message", "Faltan campos obligatorios"));
         }
 
@@ -83,23 +85,29 @@ public class EncuentroController {
     public ResponseEntity<?> actualizar(@PathVariable @NonNull Long id, @RequestBody EncuentroRequest req) {
         return encuentroRepository.findById(id)
                 .map(encuentro -> {
-                    if (req.getFechaHora() != null) encuentro.setFechaHora(req.getFechaHora());
-                    if (req.getLugar() != null) encuentro.setLugar(req.getLugar());
-                    if (req.getEstado() != null) encuentro.setEstado(req.getEstado());
-                    
+                    if (req.getFechaHora() != null)
+                        encuentro.setFechaHora(req.getFechaHora());
+                    if (req.getLugar() != null)
+                        encuentro.setLugar(req.getLugar());
+                    if (req.getEstado() != null)
+                        encuentro.setEstado(req.getEstado());
+
                     if (req.getEquipoLocalId() != null) {
                         Equipo local = equipoRepository.findById(req.getEquipoLocalId()).orElse(null);
-                        if (local != null) encuentro.setEquipoLocal(local);
+                        if (local != null)
+                            encuentro.setEquipoLocal(local);
                     }
                     if (req.getEquipoVisitanteId() != null) {
                         Equipo visitante = equipoRepository.findById(req.getEquipoVisitanteId()).orElse(null);
-                        if (visitante != null) encuentro.setEquipoVisitante(visitante);
+                        if (visitante != null)
+                            encuentro.setEquipoVisitante(visitante);
                     }
                     if (req.getEventoId() != null) {
                         Evento ev = eventoRepository.findById(req.getEventoId()).orElse(null);
-                        if (ev != null) encuentro.setEvento(ev);
+                        if (ev != null)
+                            encuentro.setEvento(ev);
                     }
-                    
+
                     return ResponseEntity.ok(encuentroRepository.save(encuentro));
                 })
                 .orElse(ResponseEntity.notFound().build());
@@ -133,7 +141,8 @@ public class EncuentroController {
             List<Encuentro> generados = programacionService.generarProgramacion(evento);
             return ResponseEntity.ok(generados);
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(Map.of("message", "Error al generar la programación: " + e.getMessage()));
+            return ResponseEntity.internalServerError()
+                    .body(Map.of("message", "Error al generar la programación: " + e.getMessage()));
         }
     }
 
@@ -145,27 +154,73 @@ public class EncuentroController {
         private String lugar;
         private String estado;
 
-        public Long getEventoId() { return eventoId; }
-        public void setEventoId(Long eventoId) { this.eventoId = eventoId; }
-        public Long getEquipoLocalId() { return equipoLocalId; }
-        public void setEquipoLocalId(Long equipoLocalId) { this.equipoLocalId = equipoLocalId; }
-        public Long getEquipoVisitanteId() { return equipoVisitanteId; }
-        public void setEquipoVisitanteId(Long equipoVisitanteId) { this.equipoVisitanteId = equipoVisitanteId; }
-        public LocalDateTime getFechaHora() { return fechaHora; }
-        public void setFechaHora(LocalDateTime fechaHora) { this.fechaHora = fechaHora; }
-        public String getLugar() { return lugar; }
-        public void setLugar(String lugar) { this.lugar = lugar; }
-        public String getEstado() { return estado; }
-        public void setEstado(String estado) { this.estado = estado; }
+        public Long getEventoId() {
+            return eventoId;
+        }
+
+        public void setEventoId(Long eventoId) {
+            this.eventoId = eventoId;
+        }
+
+        public Long getEquipoLocalId() {
+            return equipoLocalId;
+        }
+
+        public void setEquipoLocalId(Long equipoLocalId) {
+            this.equipoLocalId = equipoLocalId;
+        }
+
+        public Long getEquipoVisitanteId() {
+            return equipoVisitanteId;
+        }
+
+        public void setEquipoVisitanteId(Long equipoVisitanteId) {
+            this.equipoVisitanteId = equipoVisitanteId;
+        }
+
+        public LocalDateTime getFechaHora() {
+            return fechaHora;
+        }
+
+        public void setFechaHora(LocalDateTime fechaHora) {
+            this.fechaHora = fechaHora;
+        }
+
+        public String getLugar() {
+            return lugar;
+        }
+
+        public void setLugar(String lugar) {
+            this.lugar = lugar;
+        }
+
+        public String getEstado() {
+            return estado;
+        }
+
+        public void setEstado(String estado) {
+            this.estado = estado;
+        }
     }
 
     public static class GenerarRequest {
         private Long eventoId;
         private LocalDateTime fechaInicio;
 
-        public Long getEventoId() { return eventoId; }
-        public void setEventoId(Long eventoId) { this.eventoId = eventoId; }
-        public LocalDateTime getFechaInicio() { return fechaInicio; }
-        public void setFechaInicio(LocalDateTime fechaInicio) { this.fechaInicio = fechaInicio; }
+        public Long getEventoId() {
+            return eventoId;
+        }
+
+        public void setEventoId(Long eventoId) {
+            this.eventoId = eventoId;
+        }
+
+        public LocalDateTime getFechaInicio() {
+            return fechaInicio;
+        }
+
+        public void setFechaInicio(LocalDateTime fechaInicio) {
+            this.fechaInicio = fechaInicio;
+        }
     }
 }

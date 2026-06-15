@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Getter
 @Setter
 @NoArgsConstructor
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Equipo {
 
     @Id
@@ -25,6 +25,9 @@ public class Equipo {
     @JoinColumn(name = "deporte_id")
     private Deporte deporte;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "institucion_id")
+    private Institucion institucion;
 
     @com.fasterxml.jackson.annotation.JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)

@@ -15,7 +15,8 @@ public class ParticipanteService {
     private final ParticipanteRepository participanteRepository;
     private final InstitucionRepository institucionRepository;
 
-    public ParticipanteService(ParticipanteRepository participanteRepository, InstitucionRepository institucionRepository) {
+    public ParticipanteService(ParticipanteRepository participanteRepository,
+            InstitucionRepository institucionRepository) {
         this.participanteRepository = participanteRepository;
         this.institucionRepository = institucionRepository;
     }
@@ -30,25 +31,39 @@ public class ParticipanteService {
 
     public List<Participante> listarPorCreadorOElMismo(@NonNull String username) {
         Participante p = buscarPorUsername(username);
-        if (p == null) {
+
+        if (p == null || p.getInstitucion() == null) {
             return List.of();
         }
-        return participanteRepository.findByCreadorIdOrId(p.getId());
+
+        return participanteRepository.findByInstitucionDirectaOEquipo(
+                p.getInstitucion().getId());
     }
 
     @NonNull
     public Participante guardar(@NonNull Participante participante) {
+        if (participanteRepository.existsByDni(participante.getDni())) {
+            throw new RuntimeException("Ya existe un participante con ese DNI");
+        }
+
         return participanteRepository.save(participante);
     }
 
     @NonNull
     public Participante guardarPorParticipante(@NonNull Participante nuevo, @NonNull String usernameCreador) {
         Participante creador = buscarPorUsername(usernameCreador);
+
         if (creador == null) {
             throw new RuntimeException("Participante logueado no encontrado");
         }
+
+        if (participanteRepository.existsByDni(nuevo.getDni())) {
+            throw new RuntimeException("Ya existe un participante con ese DNI");
+        }
+
         nuevo.setCreador(creador);
         nuevo.setInstitucion(creador.getInstitucion());
+
         return participanteRepository.save(nuevo);
     }
 
@@ -68,6 +83,10 @@ public class ParticipanteService {
             throw new RuntimeException("Participante no encontrado");
         }
 
+        if (participanteRepository.existsByDniAndIdNot(datos.getDni(), id)) {
+            throw new RuntimeException("Ya existe un participante con ese DNI");
+        }
+
         participante.setNombres(datos.getNombres());
         participante.setApellidos(datos.getApellidos());
         participante.setDni(datos.getDni());
@@ -75,7 +94,10 @@ public class ParticipanteService {
         participante.setCorreo(datos.getCorreo());
         participante.setTelefono(datos.getTelefono());
         participante.setEquipo(datos.getEquipo());
-        participante.setInstitucion(datos.getInstitucion());
+
+        if (datos.getInstitucion() != null) {
+            participante.setInstitucion(datos.getInstitucion());
+        }
 
         return participanteRepository.save(participante);
     }
@@ -92,7 +114,7 @@ public class ParticipanteService {
             participante.setInstitucion(null);
         } else {
             Institucion institucion = institucionRepository.findById(institucionId)
-                .orElseThrow(() -> new RuntimeException("Institución no encontrada"));
+                    .orElseThrow(() -> new RuntimeException("Institución no encontrada"));
             participante.setInstitucion(institucion);
         }
 

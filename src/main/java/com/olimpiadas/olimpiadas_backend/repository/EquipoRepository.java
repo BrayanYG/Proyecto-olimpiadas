@@ -5,5 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EquipoRepository extends JpaRepository<Equipo, Long> {
     long countByCreadorInstitucionId(Long institucionId);
+
     java.util.List<Equipo> findByCreadorId(Long creadorId);
+
+    java.util.List<Equipo> findByInstitucionId(Long institucionId);
 }

@@ -47,7 +47,8 @@ public class ResultadoController {
     @PostMapping
     public ResponseEntity<?> guardar(@RequestBody ResultadoRequest req) {
         if (req.getIdPartido() == null || req.getScoreLocal() == null || req.getScoreVisitante() == null) {
-            return ResponseEntity.badRequest().body(Map.of("message", "Faltan campos obligatorios (idPartido, scoreLocal, scoreVisitante)"));
+            return ResponseEntity.badRequest()
+                    .body(Map.of("message", "Faltan campos obligatorios (idPartido, scoreLocal, scoreVisitante)"));
         }
 
         Optional<Encuentro> encuentroOpt = encuentroRepository.findById(req.getIdPartido());
@@ -87,13 +88,36 @@ public class ResultadoController {
         private Integer scoreVisitante;
         private String observaciones;
 
-        public Long getIdPartido() { return idPartido; }
-        public void setIdPartido(Long idPartido) { this.idPartido = idPartido; }
-        public Integer getScoreLocal() { return scoreLocal; }
-        public void setScoreLocal(Integer scoreLocal) { this.scoreLocal = scoreLocal; }
-        public Integer getScoreVisitante() { return scoreVisitante; }
-        public void setScoreVisitante(Integer scoreVisitante) { this.scoreVisitante = scoreVisitante; }
-        public String getObservaciones() { return observaciones; }
-        public void setObservaciones(String observaciones) { this.observaciones = observaciones; }
+        public Long getIdPartido() {
+            return idPartido;
+        }
+
+        public void setIdPartido(Long idPartido) {
+            this.idPartido = idPartido;
+        }
+
+        public Integer getScoreLocal() {
+            return scoreLocal;
+        }
+
+        public void setScoreLocal(Integer scoreLocal) {
+            this.scoreLocal = scoreLocal;
+        }
+
+        public Integer getScoreVisitante() {
+            return scoreVisitante;
+        }
+
+        public void setScoreVisitante(Integer scoreVisitante) {
+            this.scoreVisitante = scoreVisitante;
+        }
+
+        public String getObservaciones() {
+            return observaciones;
+        }
+
+        public void setObservaciones(String observaciones) {
+            this.observaciones = observaciones;
+        }
     }
 }

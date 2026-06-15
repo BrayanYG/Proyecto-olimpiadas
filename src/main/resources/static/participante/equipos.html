@@ -524,12 +524,26 @@
       function verMiembrosEquipo(equipo) {
         equipoSeleccionadoId = equipo.id;
         
-        fetch(`/api/participantes/mis-participantes?username=${getUsername()}`)
+        fetch(`/api/participantes`)
           .then(response => response.json())
           .then(data => {
-            participantesOriginales = data;
-            participantesEquipo = data.filter(p => p.equipo?.id === equipo.id);
-            const participantesDisponibles = data.filter(p => !p.equipo || p.equipo.id === null);
+            
+          const participantesInstitucion = data.filter(p => {
+            const institucionId =
+              p.institucion?.id || p.equipo?.institucion?.id;
+
+            return Number(institucionId) === Number(equipo.institucion?.id);
+          });
+          
+          participantesOriginales = participantesInstitucion;
+          
+          participantesEquipo = participantesInstitucion.filter(p =>
+            Number(p.equipo?.id) === Number(equipo.id)
+          );
+          
+          const participantesDisponibles = participantesInstitucion.filter(p =>
+            !p.equipo || p.equipo.id == null
+          );
 
             renderizarMiembrosEquipo(participantesEquipo);
             renderizarParticipantesDisponibles(participantesDisponibles);
@@ -670,6 +684,14 @@
           if (!participante) {
             showCustomAlert("Error", "Participante no encontrado", true);
             return;
+          }
+
+          const equipoActual = equiposOriginales[0];
+
+          if (equipoActual && equipoActual.institucion) {
+            participante.institucion = {
+            id: equipoActual.institucion.id
+           };
           }
 
           participante.equipo = null;

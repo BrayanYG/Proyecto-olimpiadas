@@ -23,11 +23,15 @@ public class EquipoService {
     }
 
     public List<Equipo> listarPorCreador(String username) {
-        com.olimpiadas.olimpiadas_backend.model.Participante creador = participanteService.buscarPorUsername(username);
-        if (creador == null) {
+        com.olimpiadas.olimpiadas_backend.model.Participante participante = participanteService
+                .buscarPorUsername(username);
+
+        if (participante == null || participante.getInstitucion() == null) {
             return List.of();
         }
-        return equipoRepository.findByCreadorId(creador.getId());
+
+        return equipoRepository.findByInstitucionId(
+                participante.getInstitucion().getId());
     }
 
     @NonNull
@@ -37,11 +41,20 @@ public class EquipoService {
 
     @NonNull
     public Equipo guardarPorParticipante(@NonNull Equipo nuevo, @NonNull String usernameCreador) {
-        com.olimpiadas.olimpiadas_backend.model.Participante creador = participanteService.buscarPorUsername(usernameCreador);
+        com.olimpiadas.olimpiadas_backend.model.Participante creador = participanteService
+                .buscarPorUsername(usernameCreador);
+
         if (creador == null) {
             throw new RuntimeException("Participante logueado no encontrado");
         }
+
+        if (creador.getInstitucion() == null) {
+            throw new RuntimeException("El participante no tiene institución asignada");
+        }
+
         nuevo.setCreador(creador);
+        nuevo.setInstitucion(creador.getInstitucion());
+
         return equipoRepository.save(nuevo);
     }
 

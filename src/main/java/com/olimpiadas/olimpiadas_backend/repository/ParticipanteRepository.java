@@ -10,10 +10,20 @@ import java.util.List;
 
 public interface ParticipanteRepository extends JpaRepository<Participante, Long> {
     Optional<Participante> findByUsuarioUsername(String username);
+
     long countByInstitucionId(Long institucionId);
 
     @Query("SELECT p FROM Participante p WHERE p.id = :creadorId OR p.creador.id = :creadorId")
     List<Participante> findByCreadorIdOrId(@Param("creadorId") Long creadorId);
 
     List<Participante> findByEquipoId(Long equipoId);
+
+    List<Participante> findByInstitucionId(Long institucionId);
+
+    @Query("SELECT p FROM Participante p WHERE p.institucion.id = :institucionId OR p.equipo.institucion.id = :institucionId")
+    List<Participante> findByInstitucionDirectaOEquipo(@Param("institucionId") Long institucionId);
+
+    boolean existsByDni(String dni);
+
+    boolean existsByDniAndIdNot(String dni, Long id);
 }
